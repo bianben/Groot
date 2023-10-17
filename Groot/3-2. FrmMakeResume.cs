@@ -29,7 +29,24 @@ namespace Groot
             LoadED();
             LoadArticle();
             LoadMyResume();
+            LoadMySendResumes();
         }
+
+        private void LoadMySendResumes()
+        {
+            var q = from p in this.db.JobResumes.AsEnumerable()
+                    where p.Resume.MemberID == int.Parse(currentID)
+                    select new
+                    {
+                        履歷編號 = p.ResumeID,
+                        會員編號 = p.Resume.MemberID,
+                        工作編號 = p.JobID,
+                        公司名稱 = p.Job_Opportunities.Firm.FirmName,
+                        狀態 = p.Status,
+                    };
+            this.dataGridView1.DataSource=q.ToList();
+        }
+
         private void LoadEmail()
         {
             var q = from p in this.db.Members.AsEnumerable()
@@ -61,18 +78,24 @@ namespace Groot
 
         private void LoadMyResume()
         {
+
             var q = from p in this.db.Resumes.AsEnumerable()
                     where p.MemberID == int.Parse(currentID)
                     select new
                     {
+
                         履歷編號 = p.ResumeID,
                         會員編號 = p.MemberID,
+                        廠商名稱 = p.JobResumes.Select(jr => jr.Job_Opportunities.Firm.FirmName).FirstOrDefault(),
+                        狀態=p.Status.Name,
                         姓名 = p.FullName,
                         身份證字號 = p.IdentityID,
                         手機號碼 = p.PhoneNumber,
-                        工作經驗 = p.WorkExp
+                        工作經驗 = p.WorkExp + "年",
+                        技能 = p.ResumeSkills.Select(sk => sk.Skill.Name).FirstOrDefault() + "等" + p.ResumeSkills.Count + "項",
+
                     };
-            this.dataGridView1.DataSource = q.ToList();
+            this.dataGridView2.DataSource = q.ToList();
         }
 
         private void LoadArticle()
@@ -118,10 +141,7 @@ namespace Groot
             this.tabControl1.SelectedIndex += 1;
         }
 
-        private void button6_Click_1(object sender, EventArgs e)
-        {
-            this.tabControl1.SelectedIndex += 1;
-        }
+
 
         private void button7_Click_1(object sender, EventArgs e)
         {
@@ -133,10 +153,6 @@ namespace Groot
             this.tabControl1.SelectedIndex -= 1;
         }
 
-        private void button10_Click_1(object sender, EventArgs e)
-        {
-            this.tabControl1.SelectedIndex -= 1;
-        }
 
         private void button11_Click_1(object sender, EventArgs e)
         {
@@ -169,6 +185,8 @@ namespace Groot
                 var q = from p in db.Skills.AsEnumerable()
                         where p.SkillClassID == id.ToList()[this.listBox1.SelectedIndex].SkillClassID
                         select p;
+
+                
 
                 foreach (var item in q)
                 {
@@ -325,9 +343,48 @@ namespace Groot
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+       
+
+        private void checkBox1_Click(object sender, EventArgs e)
+        {
+            if (this.checkBox1.Checked)
+            {
+                this.button8.Enabled = true;
+            }
+            FrmLaw l=new FrmLaw();
+            l.ShowDialog();
+        }
+
+        private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void listBox3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            var q = (from p in this.db.Resumes.AsEnumerable()
+                     where p.ResumeID == int.Parse(this.dataGridView2.CurrentRow.Cells[0].Value.ToString())
+                     select p).FirstOrDefault();
+
+            if (q == null) { return; }
+
+            this.db.Resumes.Remove(q);
+            this.db.SaveChanges();
+            LoadMyResume();
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
             var q = (from p in this.db.Resumes.AsEnumerable()
                      where p.ResumeID == int.Parse(this.dataGridView1.CurrentRow.Cells[0].Value.ToString())
                      select p).FirstOrDefault();
@@ -339,28 +396,31 @@ namespace Groot
             LoadMyResume();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void button6_Click(object sender, EventArgs e)
+        {
+            var q = (from p in this.db.Resumes.AsEnumerable()
+                     where p.ResumeID == int.Parse(this.dataGridView1.CurrentRow.Cells[0].Value.ToString())
+                     select p).FirstOrDefault();
+            if (q == null) { return; }
+
+            //q.s
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
         {
 
         }
 
-
-        private void checkBox1_Click(object sender, EventArgs e)
+        private void button13_Click(object sender, EventArgs e)
         {
-            if (this.checkBox1.Checked)
-            {
-                this.button8.Enabled = true;
-            }
-        }
+            var q = (from p in this.db.Resumes.AsEnumerable()
+                     where p.ResumeID == int.Parse(this.dataGridView2.CurrentRow.Cells[0].Value.ToString())
+                     select p).FirstOrDefault();
+            if (q == null) { return; }
 
-        private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void listBox3_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            
+            q.StatusID =2;
+            this.db.SaveChanges();
+            LoadMyResume();
         }
     }
 }
