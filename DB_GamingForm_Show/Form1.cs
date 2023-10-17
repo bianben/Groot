@@ -21,15 +21,16 @@ namespace DB_GamingForm_Show
             ComboLoad();
             LoadData();
             HotSearch();
+            ListLoad();
 
 
-            
+
 
 
         }
         #region OfficalCode
         DB_GamingFormEntities entities = new DB_GamingFormEntities();
-        public int count =0;
+        public int count =1;
 
         
         private void HotSearch()
@@ -90,7 +91,7 @@ namespace DB_GamingForm_Show
 
         private void LoadData()
         {   
-            var data = from n in this.entities.Job_Opportunities.AsEnumerable()
+            var data = (from n in this.entities.Job_Opportunities.AsEnumerable()
                        select new
                        {
                            n.Firm.FirmName,
@@ -102,10 +103,9 @@ namespace DB_GamingForm_Show
                            n.JobContent,
                            Status = n.Status.Name,
                            EducationRequirements = n.Education.Name
-                       };
-            this.dataGridView1.DataSource = data.ToList();
-            count += 1;
-            ListLoad();
+                       }).ToList();
+            this.dataGridView1.DataSource = data;
+            
             
             
         }
@@ -396,37 +396,42 @@ namespace DB_GamingForm_Show
         }
         private void ListLoad()
         {   
-            while (list ==null && count !=0)
+            if (list.Count ==0 && count !=1)
             {
                 MessageBox.Show("No Match");
                 LoadData();
-                break;
+                
             }
-            while (count >=1)
+            else if (count >2)
             {
                 LoadData();
                 count = 1;
-                break;
+                
             }
-            list.Clear();
-            for (int i = 0; i < this.dataGridView1.RowCount; i++)
+            else 
             {
-                list.Add(new Result
+                list.Clear();
+                for (int i = 0; i < this.dataGridView1.RowCount; i++)
                 {
-                    Firm = (string)this.dataGridView1.Rows[i].Cells[0].Value,
-                    Region = (string)this.dataGridView1.Rows[i].Cells[1].Value,
-                    RequireNum = (int)this.dataGridView1.Rows[i].Cells[2].Value,
-                    ModerfiedDate = (string)this.dataGridView1.Rows[i].Cells[3].Value,
-                    Salary = (string)this.dataGridView1.Rows[i].Cells[4].Value,
-                    JobExp = (string)this.dataGridView1.Rows[i].Cells[5].Value,
-                    JobContent = (string)this.dataGridView1.Rows[i].Cells[6].Value,
-                    Status = (string)this.dataGridView1.Rows[i].Cells[7].Value,
-                    EducationRequirements = (string)this.dataGridView1.Rows[i].Cells[8].Value,
+                    list.Add(new Result
+                    {
+                        Firm = (string)this.dataGridView1.Rows[i].Cells[0].Value,
+                        Region = (string)this.dataGridView1.Rows[i].Cells[1].Value,
+                        RequireNum = (int)this.dataGridView1.Rows[i].Cells[2].Value,
+                        ModerfiedDate = (string)this.dataGridView1.Rows[i].Cells[3].Value,
+                        Salary = (string)this.dataGridView1.Rows[i].Cells[4].Value,
+                        JobExp = (string)this.dataGridView1.Rows[i].Cells[5].Value,
+                        JobContent = (string)this.dataGridView1.Rows[i].Cells[6].Value,
+                        Status = (string)this.dataGridView1.Rows[i].Cells[7].Value,
+                        EducationRequirements = (string)this.dataGridView1.Rows[i].Cells[8].Value,
 
-                });
+                    });
+                }
+                count += 1;
+                this.dataGridView1.DataSource = list;
+                this.label12.Text = $"10/{this.dataGridView1.RowCount}筆";
             }
-            this.dataGridView1.DataSource = list;
-            this.label12.Text = $"10/{this.dataGridView1.RowCount}筆";
+            
             
         }
         List<Result> list = new List<Result>();
