@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b4410b5d51344e70966838a6eb1df18a" Name="Diagram1">
+        <EntityTypeShape EntityType="DB_GamingFormModel1.Action" Width="1.5" PointX="8.25" PointY="37.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_GamingFormModel1.Admin" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_GamingFormModel1.AdminRank" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_GamingFormModel1.Advertise" Width="1.5" PointX="14.25" PointY="12.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_GamingFormModel1.Article" Width="1.5" PointX="5.25" PointY="28.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_GamingFormModel1.ArticleAction" Width="1.5" PointX="10.5" PointY="34.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_GamingFormModel1.Blog" Width="1.5" PointX="3.75" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_GamingFormModel1.Certificate" Width="1.5" PointX="14.25" PointY="15.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_GamingFormModel1.Education" Width="1.5" PointX="9" PointY="16.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_GamingFormModel1.Firm" Width="1.5" PointX="3" PointY="22.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_GamingFormModel1.Image" Width="1.5" PointX="0.75" PointY="24.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_GamingFormModel1.Job_Opportunity" Width="1.5" PointX="11.25" PointY="22.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_GamingFormModel1.JobAdvertise" Width="1.5" PointX="16.5" PointY="23.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_GamingFormModel1.JobCertificate" Width="1.5" PointX="16.5" PointY="20.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_GamingFormModel1.JobResume" Width="1.5" PointX="13.5" PointY="18.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_GamingFormModel1.JobSkill" Width="1.5" PointX="16.5" PointY="26.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_GamingFormModel1.Member" Width="1.5" PointX="3" PointY="27.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_GamingFormModel1.MemberStatu" Width="1.5" PointX="8.25" PointY="29.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_GamingFormModel1.MemberTag" Width="1.5" PointX="8.25" PointY="25.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_GamingFormModel1.Order" Width="1.5" PointX="8.25" PointY="31.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_GamingFormModel1.OrderProduct" Width="1.5" PointX="13.5" PointY="30.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_GamingFormModel1.Payment" Width="1.5" PointX="6" PointY="32.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_GamingFormModel1.Product" Width="1.5" PointX="5.25" PointY="23.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_GamingFormModel1.ProductAdvertise" Width="1.5" PointX="10.5" PointY="28.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_GamingFormModel1.ProductEvaluate" Width="1.5" PointX="10.5" PointY="31.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_GamingFormModel1.ProductTag" Width="1.5" PointX="13.5" PointY="24.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_GamingFormModel1.Region" Width="1.5" PointX="9" PointY="14.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_GamingFormModel1.RegionDistrict" Width="1.5" PointX="6" PointY="35.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_GamingFormModel1.Reply" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_GamingFormModel1.ReplyAction" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_GamingFormModel1.ReplyImage" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_GamingFormModel1.Resume" Width="1.5" PointX="8.25" PointY="20.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_GamingFormModel1.ResumeCertificate" Width="1.5" PointX="10.5" PointY="19.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_GamingFormModel1.ResumeSkill" Width="1.5" PointX="13.5" PointY="21.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_GamingFormModel1.ResumeStyle" Width="1.5" PointX="6" PointY="16.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_GamingFormModel1.SerachRecord" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_GamingFormModel1.ShipMethod" Width="1.5" PointX="6" PointY="37.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_GamingFormModel1.Skill" Width="1.5" PointX="14.25" PointY="38.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_GamingFormModel1.SkillClass" Width="1.5" PointX="12" PointY="38.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_GamingFormModel1.Status" Width="1.5" PointX="0.75" PointY="28.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_GamingFormModel1.SubBlog" Width="1.5" PointX="6" PointY="19.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_GamingFormModel1.SubBolgCategory" Width="1.5" PointX="6.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_GamingFormModel1.SubTag" Width="1.5" PointX="1.5" PointY="19.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_GamingFormModel1.sysdiagram" Width="1.5" PointX="6.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_GamingFormModel1.Tag" Width="1.5" PointX="1.5" PointY="16.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_GamingFormModel1.WishList" Width="1.5" PointX="13.5" PointY="27.75" IsExpanded="true" />
+        <AssociationConnector Association="DB_GamingFormModel1.FK_ArticleAction_Action" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_GamingFormModel1.FK_Admin_AdminRank" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_GamingFormModel1.FK_AD_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_GamingFormModel1.FK_JobAdvertise_AD" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_GamingFormModel1.FK_ProductAdvertise_AD" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_GamingFormModel1.FK_Article_Article" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_GamingFormModel1.FK_Article_Member" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_GamingFormModel1.FK_Article_SubBlog" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_GamingFormModel1.FK_ArticleAction_Article" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_GamingFormModel1.FK_ArticleAction_Member" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_GamingFormModel1.FK_Blog_SubTag" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_GamingFormModel1.FK_SubBlog_Blog" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_GamingFormModel1.FK_JobCertificate_Certificate" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_GamingFormModel1.FK_ResumeCertificate_Certificate" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_GamingFormModel1.FK_Job_Opportunities_Education" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_GamingFormModel1.FK_Resume_Education" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_GamingFormModel1.FK_Firm_Image" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_GamingFormModel1.FK_Firm_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_GamingFormModel1.FK_Job_Opportunities_Firm" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_GamingFormModel1.FK_Member_Image" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_GamingFormModel1.FK_Product_Image" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_GamingFormModel1.FK_Resume_Image" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_GamingFormModel1.FK_SubBlog_Image" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_GamingFormModel1.FK_Job_Opportunities_Region1" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_GamingFormModel1.FK_Job_Opportunities_Status1" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_GamingFormModel1.FK_JobAdvertise_Job_Opportunities" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_GamingFormModel1.FK_JobCertificate_Job_Opportunities" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_GamingFormModel1.FK_JobResume_Job_Opportunities" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_GamingFormModel1.FK_JobSkill_Job_Opportunities" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_GamingFormModel1.FK_JobResume_Resume" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_GamingFormModel1.FK_JobSkill_Skill" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_GamingFormModel1.FK_MemberStatus_Member" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_GamingFormModel1.FK_MemberTag_Member" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_GamingFormModel1.FK_Order_Member" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_GamingFormModel1.FK_Product_Member" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_GamingFormModel1.FK_ProductEvaluate_Member" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_GamingFormModel1.FK_Resume_Member" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_GamingFormModel1.FK_WishList_Member" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_GamingFormModel1.FK_MemberStatus_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_GamingFormModel1.FK_MemberTag_SubTag" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_GamingFormModel1.FK_MemberTag_Tag" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_GamingFormModel1.FK_Order_Payment" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_GamingFormModel1.FK_Order_RegionDistrict" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_GamingFormModel1.FK_Order_ShipMethod" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_GamingFormModel1.FK_Order_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_GamingFormModel1.FK_OrderProduct_Order" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_GamingFormModel1.FK_OrderProduct_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_GamingFormModel1.FK_Product_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_GamingFormModel1.FK_ProductAction_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_GamingFormModel1.FK_ProductAdvertise_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_GamingFormModel1.FK_ProductEvaluate_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_GamingFormModel1.FK_WishList_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_GamingFormModel1.FK_ProductAction_SubTag" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_GamingFormModel1.FK_RegionDistrict_Region" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_GamingFormModel1.FK_Resume_ResumeStyle" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_GamingFormModel1.FK_Resume_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_GamingFormModel1.FK_ResumeCertificate_Resume" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_GamingFormModel1.FK_ResumeSkill_Resume" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_GamingFormModel1.FK_ResumeSkill_Skill" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_GamingFormModel1.FK_Skill_SkillClass" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_GamingFormModel1.FK_SubBlog_SubBlog" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_GamingFormModel1.FK_SubTag_Tag" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

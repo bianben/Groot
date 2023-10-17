@@ -1,0 +1,364 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{AA485AD7-16DB-4188-86E3-892310F28E8B}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Groot</RootNamespace>
+    <AssemblyName>Groot</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="3-1. FrmFindJob.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="3-1. FrmFindJob.Designer.cs">
+      <DependentUpon>3-1. FrmFindJob.cs</DependentUpon>
+    </Compile>
+    <Compile Include="1. Index.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="1. Index.Designer.cs">
+      <DependentUpon>1. Index.cs</DependentUpon>
+    </Compile>
+    <Compile Include="2. FrmSelectRegion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="2. FrmSelectRegion.Designer.cs">
+      <DependentUpon>2. FrmSelectRegion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="4-2. FrmMakeJobRequire.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="4-2. FrmMakeJobRequire.Designer.cs">
+      <DependentUpon>4-2. FrmMakeJobRequire.cs</DependentUpon>
+    </Compile>
+    <Compile Include="3-2. FrmMakeResume.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="3-2. FrmMakeResume.Designer.cs">
+      <DependentUpon>3-2. FrmMakeResume.cs</DependentUpon>
+    </Compile>
+    <Compile Include="4-1. FrmFindTalent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="4-1. FrmFindTalent.Designer.cs">
+      <DependentUpon>4-1. FrmFindTalent.cs</DependentUpon>
+    </Compile>
+    <Compile Include="4-3. FrmCreateFirmAccount.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="4-3. FrmCreateFirmAccount.Designer.cs">
+      <DependentUpon>4-3. FrmCreateFirmAccount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Action.cs">
+      <DependentUpon>GGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Admin.cs">
+      <DependentUpon>GGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AdminRank.cs">
+      <DependentUpon>GGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Advertise.cs">
+      <DependentUpon>GGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Article.cs">
+      <DependentUpon>GGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ArticleAction.cs">
+      <DependentUpon>GGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Blog.cs">
+      <DependentUpon>GGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Certificate.cs">
+      <DependentUpon>GGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Education.cs">
+      <DependentUpon>GGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Firm.cs">
+      <DependentUpon>GGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GGModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GGModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GGModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GGModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GGModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="GMModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GMModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GMModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GMModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GMModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Image.cs">
+      <DependentUpon>GGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="JobAdvertise.cs">
+      <DependentUpon>GGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="JobCertificate.cs">
+      <DependentUpon>GGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="JobResume.cs">
+      <DependentUpon>GGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="JobSkill.cs">
+      <DependentUpon>GGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Job_Opportunity.cs">
+      <DependentUpon>GGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Member.cs">
+      <DependentUpon>GGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MemberStatu.cs">
+      <DependentUpon>GGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MemberTag.cs">
+      <DependentUpon>GGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Order.cs">
+      <DependentUpon>GGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OrderProduct.cs">
+      <DependentUpon>GGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PAR\Shop.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PAR\Shop.designer.cs">
+      <DependentUpon>Shop.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Payment.cs">
+      <DependentUpon>GGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Product.cs">
+      <DependentUpon>GGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProductAdvertise.cs">
+      <DependentUpon>GGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProductEvaluate.cs">
+      <DependentUpon>GGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProductTag.cs">
+      <DependentUpon>GGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Region.cs">
+      <DependentUpon>GGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RegionDistrict.cs">
+      <DependentUpon>GGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Reply.cs">
+      <DependentUpon>GGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ReplyAction.cs">
+      <DependentUpon>GGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ReplyImage.cs">
+      <DependentUpon>GGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Resume.cs">
+      <DependentUpon>GGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ResumeCertificate.cs">
+      <DependentUpon>GGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ResumeSkill.cs">
+      <DependentUpon>GGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ResumeStyle.cs">
+      <DependentUpon>GGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SerachRecord.cs">
+      <DependentUpon>GGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ShipMethod.cs">
+      <DependentUpon>GGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Skill.cs">
+      <DependentUpon>GGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SkillClass.cs">
+      <DependentUpon>GGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Status.cs">
+      <DependentUpon>GGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SubBlog.cs">
+      <DependentUpon>GGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SubBolgCategory.cs">
+      <DependentUpon>GGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SubTag.cs">
+      <DependentUpon>GGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sysdiagram.cs">
+      <DependentUpon>GGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Tag.cs">
+      <DependentUpon>GGModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WishList.cs">
+      <DependentUpon>GGModel.tt</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="1. Index.resx">
+      <DependentUpon>1. Index.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="2. FrmSelectRegion.resx">
+      <DependentUpon>2. FrmSelectRegion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="3-1. FrmFindJob.resx">
+      <DependentUpon>3-1. FrmFindJob.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="4-2. FrmMakeJobRequire.resx">
+      <DependentUpon>4-2. FrmMakeJobRequire.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="3-2. FrmMakeResume.resx">
+      <DependentUpon>3-2. FrmMakeResume.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="4-1. FrmFindTalent.resx">
+      <DependentUpon>4-1. FrmFindTalent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="4-3. FrmCreateFirmAccount.resx">
+      <DependentUpon>4-3. FrmCreateFirmAccount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PAR\Shop.resx">
+      <DependentUpon>Shop.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EntityDeploy Include="GMModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>GMModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <EntityDeploy Include="GGModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>GGModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="GGModel.edmx.diagram">
+      <DependentUpon>GGModel.edmx</DependentUpon>
+    </None>
+    <None Include="GMModel.edmx.diagram">
+      <DependentUpon>GMModel.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="GGModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>GGModel.edmx</DependentUpon>
+      <LastGenOutput>GGModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="GGModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>GGModel.edmx</DependentUpon>
+      <LastGenOutput>GGModel.cs</LastGenOutput>
+    </Content>
+    <Content Include="GMModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>GMModel.edmx</DependentUpon>
+      <LastGenOutput>GMModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="GMModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>GMModel.edmx</DependentUpon>
+      <LastGenOutput>GMModel.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
