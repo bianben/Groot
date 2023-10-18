@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="bd2d93b194dd46f7a8a53ddd66f0ca52" Name="Diagram1">
+      <Diagram DiagramId="543454704a3d44c193913ece97512e9f" Name="Diagram1">
         <EntityTypeShape EntityType="DB_GamingFormModel.Action" Width="1.5" PointX="13.5" PointY="36.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DB_GamingFormModel.Admin" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="DB_GamingFormModel.AdminRank" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />

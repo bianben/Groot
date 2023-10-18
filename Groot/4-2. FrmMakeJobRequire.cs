@@ -25,10 +25,11 @@ namespace Groot
             
             LoadID();
             LoadInfo();
-            LoadSkillClasses();
+            
             LoadED();
             LoadRegion();
-            
+            LoadSkillClasses();
+
             LoadReceiveResume();
             LoadReleaseJob();
         }
@@ -42,6 +43,7 @@ namespace Groot
                         公司編號=p.FirmID,
                         公司名稱=p.Firm.FirmName,
                         工作編號=p.JobID,
+                        應徵內容=p.JobContent,
                         需求人數= p.RequiredNum+"人",
                         薪水=p.Salary,
                         狀態=p.Status.Name,
@@ -130,6 +132,20 @@ namespace Groot
             }
         }
 
+        private void ChangeApplyStatusID(int s)
+        {
+            //狀態
+            var q = (from p in this.db.JobResumes.AsEnumerable()
+                     where p.ResumeID == int.Parse(this.dataGridView1.CurrentRow.Cells[0].Value.ToString())
+                     && p.Resume.MemberID == int.Parse(this.dataGridView1.CurrentRow.Cells[1].Value.ToString())
+                     select p).FirstOrDefault();
+
+            q.ApplyStatusID = s;
+
+            this.db.SaveChanges();
+            LoadReceiveResume();
+        }
+
         //============================================================================
 
 
@@ -138,13 +154,7 @@ namespace Groot
             this.tabControl1.SelectedIndex += 1;
         }
 
-        private void button5_Click_1(object sender, EventArgs e)
-        {
-            this.tabControl1.SelectedIndex += 1;
-        }
-
-   
-
+        
         private void button7_Click_1(object sender, EventArgs e)
         {
             this.tabControl1.SelectedIndex += 1;
@@ -158,11 +168,6 @@ namespace Groot
        
 
         private void button11_Click_1(object sender, EventArgs e)
-        {
-            this.tabControl1.SelectedIndex -= 1;
-        }
-
-        private void button12_Click_1(object sender, EventArgs e)
         {
             this.tabControl1.SelectedIndex -= 1;
         }
@@ -192,7 +197,6 @@ namespace Groot
                 {
                     this.listBox2.Items.Add(item);
                 }
-
             }
             else { }
         }
@@ -200,7 +204,6 @@ namespace Groot
         private void button8_Click_1(object sender, EventArgs e)
         {
             //=========================
-
             var q = from p in this.db.Educations
                     select p;
 
@@ -235,6 +238,8 @@ namespace Groot
 
         TreeNode saving;
         ListBox lb = new ListBox();
+
+
 
         private void listBox2_DoubleClick(object sender, EventArgs e)
         {
@@ -271,13 +276,26 @@ namespace Groot
             foreach (var g in x)
             {
                 this.lb.Items.Add($"{g.SkillClass.Name}-{g.Name}");
-
             }
 
             foreach (var j in lb.Items)
             {
                 this.listBox3.Items.Add(j);
             }
+
+
+
+            List<string> skics = new List<string>();
+            var a = from p in this.db.SkillClasses
+                    select p;
+            foreach(var g in a)
+            {
+                skics.Add(g.Name);
+            }
+            var b = from p in this.db.Skills
+                    select p;
+
+            //=================================
 
             this.listBox2.Items.Remove(this.listBox2.SelectedItem);
 
@@ -398,28 +416,11 @@ namespace Groot
             l.ShowDialog();
         }
 
-        private void button1_Click_1(object sender, EventArgs e)
-        {
-
-        }
 
         
 
-        private void ChangeApplyStatusID(int s)
-        {
-            //狀態
-            var q = (from p in this.db.JobResumes.AsEnumerable()
-                     where p.ResumeID == int.Parse(this.dataGridView1.CurrentRow.Cells[0].Value.ToString())
-                     && p.Resume.MemberID == int.Parse(this.dataGridView1.CurrentRow.Cells[1].Value.ToString())
-                     select p).FirstOrDefault();
+        
 
-
-            q.ApplyStatusID = s;
-
-
-            this.db.SaveChanges();
-            LoadReceiveResume();
-        }
         private void button3_Click(object sender, EventArgs e)
         {
             //待定

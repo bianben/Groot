@@ -213,8 +213,6 @@ namespace Groot
                         where p.SkillClassID == id.ToList()[this.listBox1.SelectedIndex].SkillClassID
                         select p;
 
-
-
                 foreach (var item in q)
                 {
                     this.llb.Items.Add(item.Name);
@@ -223,14 +221,13 @@ namespace Groot
                 {
                     this.listBox2.Items.Add(item);
                 }
-
             }
             else { }
         }
 
         private void button8_Click_1(object sender, EventArgs e)
         {
-            //todo 新增第一筆資料時會錯誤，但仍可新增
+            //todo 新增第一筆資料時會錯誤，但仍會新增
             //=========================
             //基本資料
 

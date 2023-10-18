@@ -129,7 +129,6 @@
     <Compile Include="Certificate.cs">
       <DependentUpon>GGModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\CInfo.cs" />
     <Compile Include="Education.cs">
       <DependentUpon>GGModel.tt</DependentUpon>
     </Compile>
@@ -178,6 +177,7 @@
     <Compile Include="MemberTag.cs">
       <DependentUpon>GGModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\CInfo.cs" />
     <Compile Include="Order.cs">
       <DependentUpon>GGModel.tt</DependentUpon>
     </Compile>
