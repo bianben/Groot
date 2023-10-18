@@ -23,9 +23,11 @@ namespace DB_GamingForm_Show
         public int BlogID { get; set; }
         public string Title { get; set; }
         public int SubTagID { get; set; }
+        public Nullable<int> ImageID { get; set; }
     
+        public virtual Image Image { get; set; }
+        public virtual SubTag SubTag { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SubBlog> SubBlogs { get; set; }
-        public virtual SubTag SubTag { get; set; }
     }
 }

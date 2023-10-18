@@ -31,7 +31,7 @@ namespace DB_GamingForm_Show
         public string Salary { get; set; }
         public string JobExp { get; set; }
         public string JobContent { get; set; }
-        public int StatusID { get; set; }
+        public int JobStatusID { get; set; }
         public int EDID { get; set; }
     
         public virtual Education Education { get; set; }

@@ -21,7 +21,7 @@ namespace DB_GamingForm_Show
             ComboLoad();
             LoadData();
             HotSearch();
-            ListLoad();
+            
 
 
 
@@ -31,8 +31,8 @@ namespace DB_GamingForm_Show
         #region OfficalCode
         DB_GamingFormEntities entities = new DB_GamingFormEntities();
         public int count =1;
+        List<Result> list = new List<Result>();
 
-        
         private void HotSearch()
         {   
             var value =  from n in this.entities.SerachRecords.AsEnumerable()
@@ -90,8 +90,8 @@ namespace DB_GamingForm_Show
         }
 
         private void LoadData()
-        {   
-            var data = (from n in this.entities.Job_Opportunities.AsEnumerable()
+        {
+            var data = from n in this.entities.Job_Opportunities.AsEnumerable()
                        select new
                        {
                            n.Firm.FirmName,
@@ -103,11 +103,10 @@ namespace DB_GamingForm_Show
                            n.JobContent,
                            Status = n.Status.Name,
                            EducationRequirements = n.Education.Name
-                       }).ToList();
-            this.dataGridView1.DataSource = data;
-            
-            
-            
+                       };
+            this.dataGridView1.DataSource = data.ToList();
+            ListLoad();
+
         }
 
         
@@ -246,7 +245,6 @@ namespace DB_GamingForm_Show
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
             if (this.comboBox1.Text =="")
             {
                 LoadData();
@@ -287,11 +285,14 @@ namespace DB_GamingForm_Show
             {
                 LoadData();
             }
-            var value = from n in list.AsEnumerable()
+            else 
+            { 
+            var value = from n in list
                         where n.JobContent.Contains(this.comboBox3.Text)
                         select n;
             this.dataGridView1.DataSource = value.ToList();
             ListLoad();
+            }
             //this.label12.Text = $"10/{this.dataGridView1.RowCount}筆";
         }
 
@@ -402,12 +403,6 @@ namespace DB_GamingForm_Show
                 LoadData();
                 
             }
-            else if (count >2)
-            {
-                LoadData();
-                count = 1;
-                
-            }
             else 
             {
                 list.Clear();
@@ -427,14 +422,13 @@ namespace DB_GamingForm_Show
 
                     });
                 }
-                count += 1;
-                this.dataGridView1.DataSource = list;
+                this.dataGridView1.DataSource = list.ToList();
                 this.label12.Text = $"10/{this.dataGridView1.RowCount}筆";
             }
             
             
         }
-        List<Result> list = new List<Result>();
+        
         private void Filter()
         {
             string f1 = this.comboBox1.Text;

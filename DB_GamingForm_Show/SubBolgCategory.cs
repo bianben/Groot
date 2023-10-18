@@ -12,14 +12,10 @@ namespace DB_GamingForm_Show
     using System;
     using System.Collections.Generic;
     
-    public partial class JobResume
+    public partial class SubBolgCategory
     {
-        public int ID { get; set; }
-        public int JobID { get; set; }
-        public int ResumeID { get; set; }
-        public int ApplyStatusID { get; set; }
-    
-        public virtual Job_Opportunity Job_Opportunities { get; set; }
-        public virtual Status Status { get; set; }
+        public int CategoryID { get; set; }
+        public string Title { get; set; }
+        public int SubBlogID { get; set; }
     }
 }

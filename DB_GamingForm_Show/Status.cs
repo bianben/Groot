@@ -20,6 +20,7 @@ namespace DB_GamingForm_Show
             this.Advertises = new HashSet<Advertise>();
             this.Firms = new HashSet<Firm>();
             this.Job_Opportunities = new HashSet<Job_Opportunity>();
+            this.JobResumes = new HashSet<JobResume>();
             this.MemberStatus = new HashSet<MemberStatu>();
             this.Orders = new HashSet<Order>();
             this.Products = new HashSet<Product>();
@@ -35,6 +36,8 @@ namespace DB_GamingForm_Show
         public virtual ICollection<Firm> Firms { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Job_Opportunity> Job_Opportunities { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<JobResume> JobResumes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MemberStatu> MemberStatus { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

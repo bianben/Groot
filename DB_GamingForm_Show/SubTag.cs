@@ -17,9 +17,9 @@ namespace DB_GamingForm_Show
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public SubTag()
         {
+            this.Blogs = new HashSet<Blog>();
             this.MemberTags = new HashSet<MemberTag>();
             this.ProductTags = new HashSet<ProductTag>();
-            this.Blogs = new HashSet<Blog>();
         }
     
         public int SubTagID { get; set; }
@@ -27,11 +27,11 @@ namespace DB_GamingForm_Show
         public int TagID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Blog> Blogs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MemberTag> MemberTags { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductTag> ProductTags { get; set; }
         public virtual Tag Tag { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Blog> Blogs { get; set; }
     }
 }

@@ -66,6 +66,7 @@ namespace DB_GamingForm_Show
         public virtual DbSet<SkillClass> SkillClasses { get; set; }
         public virtual DbSet<Status> Status { get; set; }
         public virtual DbSet<SubBlog> SubBlogs { get; set; }
+        public virtual DbSet<SubBolgCategory> SubBolgCategories { get; set; }
         public virtual DbSet<SubTag> SubTags { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Tag> Tags { get; set; }

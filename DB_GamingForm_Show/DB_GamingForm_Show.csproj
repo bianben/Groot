@@ -203,6 +203,9 @@
     <Compile Include="SubBlog.cs">
       <DependentUpon>GMModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="SubBolgCategory.cs">
+      <DependentUpon>GMModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="SubTag.cs">
       <DependentUpon>GMModel.tt</DependentUpon>
     </Compile>
