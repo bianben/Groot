@@ -13,7 +13,7 @@ namespace Groot
 {
     public partial class FrmCreateFirmAccount : Form
     {
-        DB_GamingFormEntities1 db = new DB_GamingFormEntities1();
+        DB_GamingFormEntities db = new DB_GamingFormEntities();
         public FrmCreateFirmAccount()
         {
             InitializeComponent();

@@ -13,7 +13,7 @@ namespace Groot
 {
     public partial class FrmMakeResume : Form
     {
-        DB_GamingFormEntities1 db = new DB_GamingFormEntities1();
+        DB_GamingFormEntities db = new DB_GamingFormEntities();
         string currentID;
         public FrmMakeResume()
         {
@@ -42,7 +42,7 @@ namespace Groot
                         會員編號 = p.Resume.MemberID,
                         工作編號 = p.JobID,
                         公司名稱 = p.Job_Opportunities.Firm.FirmName,
-                        狀態 = p.Status,
+                        狀態 = p.Status.Name,
                     };
             this.dataGridView1.DataSource=q.ToList();
         }
@@ -233,7 +233,7 @@ namespace Groot
                 ResumeContent = this.richTextBox1.Text,
                 WorkExp = this.textBox5.Text,
                 FormID = 1,
-                StatusID = 1,
+                ResumeStatusID = 1,
                 EDID = q.ToList()[this.comboBox1.SelectedIndex].EDID,
                 ImageID = i.ImageID,
             };
@@ -418,7 +418,7 @@ namespace Groot
                      select p).FirstOrDefault();
             if (q == null) { return; }
 
-            q.StatusID =2;
+            q.ResumeStatusID =2;
             this.db.SaveChanges();
             LoadMyResume();
         }

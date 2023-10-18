@@ -13,7 +13,7 @@ namespace Groot
 {
     public partial class FrmMakeJobRequire : Form
     {
-        DB_GamingFormEntities1 db = new DB_GamingFormEntities1();
+        DB_GamingFormEntities db = new DB_GamingFormEntities();
         string currentID;
         public FrmMakeJobRequire()
         {
@@ -190,7 +190,7 @@ namespace Groot
                 ResumeContent = this.richTextBox1.Text,
                 WorkExp = this.textBox5.Text,
                 FormID = 1,
-                StatusID = 1,
+                ResumeStatusID = 1,
                 EDID = q.ToList()[this.comboBox1.SelectedIndex].EDID,
                 ImageID = i.ImageID
             };

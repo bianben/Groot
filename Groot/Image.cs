@@ -17,17 +17,19 @@ namespace Groot
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Image()
         {
+            this.Blogs = new HashSet<Blog>();
             this.Firms = new HashSet<Firm>();
             this.Members = new HashSet<Member>();
             this.Products = new HashSet<Product>();
             this.Resumes = new HashSet<Resume>();
-            this.SubBlogs = new HashSet<SubBlog>();
         }
     
         public int ImageID { get; set; }
         public string Name { get; set; }
         public byte[] Image1 { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Blog> Blogs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Firm> Firms { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -36,7 +38,5 @@ namespace Groot
         public virtual ICollection<Product> Products { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Resume> Resumes { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SubBlog> SubBlogs { get; set; }
     }
 }

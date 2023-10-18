@@ -25,13 +25,11 @@ namespace Groot
         public string Title { get; set; }
         public int BlogID { get; set; }
         public Nullable<int> ParentBlogID { get; set; }
-        public Nullable<int> ImageID { get; set; }
         public bool IsMemberBlog { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Article> Articles { get; set; }
         public virtual Blog Blog { get; set; }
-        public virtual Image Image { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SubBlog> SubBlog1 { get; set; }
         public virtual SubBlog SubBlog2 { get; set; }

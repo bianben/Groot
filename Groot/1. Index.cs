@@ -14,7 +14,7 @@ namespace Groot
 {
     public partial class Index : Form
     {
-        DB_GamingFormEntities1 db = new DB_GamingFormEntities1();
+        DB_GamingFormEntities db = new DB_GamingFormEntities();
         public Index()
         {
             InitializeComponent();

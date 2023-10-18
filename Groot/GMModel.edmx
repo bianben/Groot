@@ -70,6 +70,8 @@
           </Key>
           <Property Name="BlogID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Title" Type="ntext" Nullable="false" />
+          <Property Name="SubTagID" Type="int" Nullable="false" />
+          <Property Name="ImageID" Type="int" />
         </EntityType>
         <EntityType Name="Certificate">
           <Key>
@@ -121,7 +123,7 @@
           <Property Name="Salary" Type="nvarchar" MaxLength="50" />
           <Property Name="JobExp" Type="nvarchar" MaxLength="50" />
           <Property Name="JobContent" Type="nvarchar(max)" />
-          <Property Name="StatusID" Type="int" Nullable="false" />
+          <Property Name="JobStatusID" Type="int" Nullable="false" />
           <Property Name="EDID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="JobAdvertise">
@@ -147,7 +149,7 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="JobID" Type="int" Nullable="false" />
           <Property Name="ResumeID" Type="int" Nullable="false" />
-          <Property Name="Status" Type="bit" Nullable="false" />
+          <Property Name="ApplyStatusID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="JobSkill">
           <Key>
@@ -196,13 +198,13 @@
           <Property Name="MemberID" Type="int" Nullable="false" />
           <Property Name="ShipName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="OrderDate" Type="date" Nullable="false" />
-          <Property Name="PaymentDate" Type="date" Nullable="false" />
-          <Property Name="ShippingDate" Type="date" Nullable="false" />
-          <Property Name="CompletedDate" Type="date" Nullable="false" />
+          <Property Name="PaymentDate" Type="date" />
+          <Property Name="ShippingDate" Type="date" />
+          <Property Name="CompletedDate" Type="date" />
           <Property Name="PaymentID" Type="int" Nullable="false" />
           <Property Name="ShipID" Type="int" Nullable="false" />
-          <Property Name="Zipcode" Type="int" Nullable="false" />
-          <Property Name="ShipAddress" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Zipcode" Type="int" />
+          <Property Name="ShipAddress" Type="nvarchar(max)" />
           <Property Name="Note" Type="nvarchar" MaxLength="50" />
           <Property Name="StatusID" Type="int" Nullable="false" />
         </EntityType>
@@ -319,7 +321,7 @@
           <Property Name="ResumeContent" Type="nvarchar(max)" />
           <Property Name="WorkExp" Type="nvarchar(max)" />
           <Property Name="FormID" Type="int" Nullable="false" />
-          <Property Name="StatusID" Type="int" />
+          <Property Name="ResumeStatusID" Type="int" />
           <Property Name="ImageID" Type="int" />
           <Property Name="EDID" Type="int" />
         </EntityType>
@@ -352,6 +354,7 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="CreateDays" Type="date" Nullable="false" />
         </EntityType>
         <EntityType Name="ShipMethod">
           <Key>
@@ -390,8 +393,15 @@
           <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="BlogID" Type="int" Nullable="false" />
           <Property Name="ParentBlogID" Type="int" />
-          <Property Name="ImageID" Type="int" />
           <Property Name="IsMemberBlog" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SubBolgCategories">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="CategoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SubBlogID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="SubTag">
           <Key>
@@ -522,6 +532,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Blog_Image">
+          <End Role="Image" Type="Self.Image" Multiplicity="0..1" />
+          <End Role="Blog" Type="Self.Blog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Image">
+              <PropertyRef Name="ImageID" />
+            </Principal>
+            <Dependent Role="Blog">
+              <PropertyRef Name="ImageID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Blog_SubTag">
+          <End Role="SubTag" Type="Self.SubTag" Multiplicity="1" />
+          <End Role="Blog" Type="Self.Blog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubTag">
+              <PropertyRef Name="SubTagID" />
+            </Principal>
+            <Dependent Role="Blog">
+              <PropertyRef Name="SubTagID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Firm_Image">
           <End Role="Image" Type="Self.Image" Multiplicity="0..1" />
           <End Role="Firm" Type="Self.Firm" Multiplicity="*" />
@@ -590,7 +624,7 @@
               <PropertyRef Name="StatusID" />
             </Principal>
             <Dependent Role="Job Opportunities">
-              <PropertyRef Name="StatusID" />
+              <PropertyRef Name="JobStatusID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -663,6 +697,18 @@
             </Principal>
             <Dependent Role="JobResume">
               <PropertyRef Name="ResumeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JobResume_Status">
+          <End Role="Status" Type="Self.Status" Multiplicity="1" />
+          <End Role="JobResume" Type="Self.JobResume" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusID" />
+            </Principal>
+            <Dependent Role="JobResume">
+              <PropertyRef Name="ApplyStatusID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -787,7 +833,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Order_RegionDistrict">
-          <End Role="RegionDistrict" Type="Self.RegionDistrict" Multiplicity="1" />
+          <End Role="RegionDistrict" Type="Self.RegionDistrict" Multiplicity="0..1" />
           <End Role="Order" Type="Self.Order" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="RegionDistrict">
@@ -1022,7 +1068,7 @@
               <PropertyRef Name="StatusID" />
             </Principal>
             <Dependent Role="Resume">
-              <PropertyRef Name="StatusID" />
+              <PropertyRef Name="ResumeStatusID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1095,18 +1141,6 @@
             </Principal>
             <Dependent Role="SubBlog">
               <PropertyRef Name="BlogID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SubBlog_Image">
-          <End Role="Image" Type="Self.Image" Multiplicity="0..1" />
-          <End Role="SubBlog" Type="Self.SubBlog" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Image">
-              <PropertyRef Name="ImageID" />
-            </Principal>
-            <Dependent Role="SubBlog">
-              <PropertyRef Name="ImageID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1200,6 +1234,7 @@
           <EntitySet Name="SkillClass" EntityType="Self.SkillClass" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SubBlog" EntityType="Self.SubBlog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SubBolgCategories" EntityType="Self.SubBolgCategories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SubTag" EntityType="Self.SubTag" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tag" EntityType="Self.Tag" Schema="dbo" store:Type="Tables" />
@@ -1235,6 +1270,14 @@
           <AssociationSet Name="FK_ArticleAction_Member" Association="Self.FK_ArticleAction_Member">
             <End Role="Member" EntitySet="Member" />
             <End Role="ArticleAction" EntitySet="ArticleAction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Blog_Image" Association="Self.FK_Blog_Image">
+            <End Role="Image" EntitySet="Image" />
+            <End Role="Blog" EntitySet="Blog" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Blog_SubTag" Association="Self.FK_Blog_SubTag">
+            <End Role="SubTag" EntitySet="SubTag" />
+            <End Role="Blog" EntitySet="Blog" />
           </AssociationSet>
           <AssociationSet Name="FK_Firm_Image" Association="Self.FK_Firm_Image">
             <End Role="Image" EntitySet="Image" />
@@ -1282,6 +1325,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_JobResume_Resume" Association="Self.FK_JobResume_Resume">
             <End Role="Resume" EntitySet="Resume" />
+            <End Role="JobResume" EntitySet="JobResume" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JobResume_Status" Association="Self.FK_JobResume_Status">
+            <End Role="Status" EntitySet="Status" />
             <End Role="JobResume" EntitySet="JobResume" />
           </AssociationSet>
           <AssociationSet Name="FK_JobSkill_Job Opportunities" Association="Self.FK_JobSkill_Job Opportunities">
@@ -1428,10 +1475,6 @@
             <End Role="Blog" EntitySet="Blog" />
             <End Role="SubBlog" EntitySet="SubBlog" />
           </AssociationSet>
-          <AssociationSet Name="FK_SubBlog_Image" Association="Self.FK_SubBlog_Image">
-            <End Role="Image" EntitySet="Image" />
-            <End Role="SubBlog" EntitySet="SubBlog" />
-          </AssociationSet>
           <AssociationSet Name="FK_SubBlog_SubBlog" Association="Self.FK_SubBlog_SubBlog">
             <End Role="SubBlog" EntitySet="SubBlog" />
             <End Role="SubBlog1" EntitySet="SubBlog" />
@@ -1532,6 +1575,10 @@
           </Key>
           <Property Name="BlogID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SubTagID" Type="Int32" Nullable="false" />
+          <Property Name="ImageID" Type="Int32" />
+          <NavigationProperty Name="Image" Relationship="Self.FK_Blog_Image" FromRole="Blog" ToRole="Image" />
+          <NavigationProperty Name="SubTag" Relationship="Self.FK_Blog_SubTag" FromRole="Blog" ToRole="SubTag" />
           <NavigationProperty Name="SubBlogs" Relationship="Self.FK_SubBlog_Blog" FromRole="Blog" ToRole="SubBlog" />
         </EntityType>
         <EntityType Name="Certificate">
@@ -1550,7 +1597,7 @@
           <Property Name="EDID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Job_Opportunities" Relationship="Self.FK_Job_Opportunities_Education" FromRole="Education" ToRole="Job_Opportunities" />
-          <NavigationProperty Name="Resumes" Relationship="Self.FK_Resume_Education" FromRole="Education" ToRole="Resume" />
+          <NavigationProperty Name="Resumes" Relationship="DB_GamingFormModel.FK_Resume_Education" FromRole="Education" ToRole="Resume" />
         </EntityType>
         <EntityType Name="Firm">
           <Key>
@@ -1578,11 +1625,11 @@
           <Property Name="ImageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Image1" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <NavigationProperty Name="Blogs" Relationship="Self.FK_Blog_Image" FromRole="Image" ToRole="Blog" />
           <NavigationProperty Name="Firms" Relationship="Self.FK_Firm_Image" FromRole="Image" ToRole="Firm" />
           <NavigationProperty Name="Members" Relationship="Self.FK_Member_Image" FromRole="Image" ToRole="Member" />
           <NavigationProperty Name="Products" Relationship="Self.FK_Product_Image" FromRole="Image" ToRole="Product" />
-          <NavigationProperty Name="Resumes" Relationship="Self.FK_Resume_Image" FromRole="Image" ToRole="Resume" />
-          <NavigationProperty Name="SubBlogs" Relationship="Self.FK_SubBlog_Image" FromRole="Image" ToRole="SubBlog" />
+          <NavigationProperty Name="Resumes" Relationship="DB_GamingFormModel.FK_Resume_Image" FromRole="Image" ToRole="Resume" />
         </EntityType>
         <EntityType Name="Job_Opportunity">
           <Key>
@@ -1596,7 +1643,7 @@
           <Property Name="Salary" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="JobExp" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="JobContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="StatusID" Type="Int32" Nullable="false" />
+          <Property Name="JobStatusID" Type="Int32" Nullable="false" />
           <Property Name="EDID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Education" Relationship="Self.FK_Job_Opportunities_Education" FromRole="Job_Opportunities" ToRole="Education" />
           <NavigationProperty Name="Firm" Relationship="Self.FK_Job_Opportunities_Firm" FromRole="Job_Opportunities" ToRole="Firm" />
@@ -1604,8 +1651,8 @@
           <NavigationProperty Name="Status" Relationship="Self.FK_Job_Opportunities_Status1" FromRole="Job_Opportunities" ToRole="Status" />
           <NavigationProperty Name="JobAdvertises" Relationship="Self.FK_JobAdvertise_Job_Opportunities" FromRole="Job_Opportunities" ToRole="JobAdvertise" />
           <NavigationProperty Name="JobCertificates" Relationship="Self.FK_JobCertificate_Job_Opportunities" FromRole="Job_Opportunities" ToRole="JobCertificate" />
-          <NavigationProperty Name="JobResumes" Relationship="Self.FK_JobResume_Job_Opportunities" FromRole="Job_Opportunities" ToRole="JobResume" />
           <NavigationProperty Name="JobSkills" Relationship="Self.FK_JobSkill_Job_Opportunities" FromRole="Job_Opportunities" ToRole="JobSkill" />
+          <NavigationProperty Name="JobResumes" Relationship="DB_GamingFormModel.FK_JobResume_Job_Opportunities" FromRole="Job_Opportunity" ToRole="JobResume" />
         </EntityType>
         <EntityType Name="JobAdvertise">
           <Key>
@@ -1626,17 +1673,6 @@
           <Property Name="JobID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Certificate" Relationship="Self.FK_JobCertificate_Certificate" FromRole="JobCertificate" ToRole="Certificate" />
           <NavigationProperty Name="Job_Opportunities" Relationship="Self.FK_JobCertificate_Job_Opportunities" FromRole="JobCertificate" ToRole="Job_Opportunities" />
-        </EntityType>
-        <EntityType Name="JobResume">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="JobID" Type="Int32" Nullable="false" />
-          <Property Name="ResumeID" Type="Int32" Nullable="false" />
-          <Property Name="Status" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Job_Opportunities" Relationship="Self.FK_JobResume_Job_Opportunities" FromRole="JobResume" ToRole="Job_Opportunities" />
-          <NavigationProperty Name="Resume" Relationship="Self.FK_JobResume_Resume" FromRole="JobResume" ToRole="Resume" />
         </EntityType>
         <EntityType Name="JobSkill">
           <Key>
@@ -1669,8 +1705,8 @@
           <NavigationProperty Name="Orders" Relationship="Self.FK_Order_Member" FromRole="Member" ToRole="Order" />
           <NavigationProperty Name="Products" Relationship="Self.FK_Product_Member" FromRole="Member" ToRole="Product" />
           <NavigationProperty Name="ProductEvaluates" Relationship="Self.FK_ProductEvaluate_Member" FromRole="Member" ToRole="ProductEvaluate" />
-          <NavigationProperty Name="Resumes" Relationship="Self.FK_Resume_Member" FromRole="Member" ToRole="Resume" />
           <NavigationProperty Name="WishLists" Relationship="Self.FK_WishList_Member" FromRole="Member" ToRole="WishList" />
+          <NavigationProperty Name="Resumes" Relationship="DB_GamingFormModel.FK_Resume_Member" FromRole="Member" ToRole="Resume" />
         </EntityType>
         <EntityType Name="MemberStatu">
           <Key>
@@ -1702,13 +1738,13 @@
           <Property Name="MemberID" Type="Int32" Nullable="false" />
           <Property Name="ShipName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="PaymentDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="ShippingDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="CompletedDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="PaymentDate" Type="DateTime" Precision="0" />
+          <Property Name="ShippingDate" Type="DateTime" Precision="0" />
+          <Property Name="CompletedDate" Type="DateTime" Precision="0" />
           <Property Name="PaymentID" Type="Int32" Nullable="false" />
           <Property Name="ShipID" Type="Int32" Nullable="false" />
-          <Property Name="Zipcode" Type="Int32" Nullable="false" />
-          <Property Name="ShipAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Zipcode" Type="Int32" />
+          <Property Name="ShipAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Note" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="StatusID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Member" Relationship="Self.FK_Order_Member" FromRole="Order" ToRole="Member" />
@@ -1840,30 +1876,6 @@
           <Property Name="ReplyID" Type="Int32" Nullable="false" />
           <Property Name="ImageID" Type="Int32" Nullable="false" />
         </EntityType>
-        <EntityType Name="Resume">
-          <Key>
-            <PropertyRef Name="ResumeID" />
-          </Key>
-          <Property Name="ResumeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MemberID" Type="Int32" Nullable="false" />
-          <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="IdentityID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ResumeContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="WorkExp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="FormID" Type="Int32" Nullable="false" />
-          <Property Name="StatusID" Type="Int32" />
-          <Property Name="ImageID" Type="Int32" />
-          <Property Name="EDID" Type="Int32" />
-          <NavigationProperty Name="Education" Relationship="Self.FK_Resume_Education" FromRole="Resume" ToRole="Education" />
-          <NavigationProperty Name="Image" Relationship="Self.FK_Resume_Image" FromRole="Resume" ToRole="Image" />
-          <NavigationProperty Name="JobResumes" Relationship="Self.FK_JobResume_Resume" FromRole="Resume" ToRole="JobResume" />
-          <NavigationProperty Name="Member" Relationship="Self.FK_Resume_Member" FromRole="Resume" ToRole="Member" />
-          <NavigationProperty Name="ResumeStyle" Relationship="Self.FK_Resume_ResumeStyle" FromRole="Resume" ToRole="ResumeStyle" />
-          <NavigationProperty Name="Status" Relationship="Self.FK_Resume_Status" FromRole="Resume" ToRole="Status" />
-          <NavigationProperty Name="ResumeCertificates" Relationship="Self.FK_ResumeCertificate_Resume" FromRole="Resume" ToRole="ResumeCertificate" />
-          <NavigationProperty Name="ResumeSkills" Relationship="Self.FK_ResumeSkill_Resume" FromRole="Resume" ToRole="ResumeSkill" />
-        </EntityType>
         <EntityType Name="ResumeCertificate">
           <Key>
             <PropertyRef Name="ID" />
@@ -1872,7 +1884,7 @@
           <Property Name="ResumeID" Type="Int32" Nullable="false" />
           <Property Name="CertificateID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Certificate" Relationship="Self.FK_ResumeCertificate_Certificate" FromRole="ResumeCertificate" ToRole="Certificate" />
-          <NavigationProperty Name="Resume" Relationship="Self.FK_ResumeCertificate_Resume" FromRole="ResumeCertificate" ToRole="Resume" />
+          <NavigationProperty Name="Resume" Relationship="DB_GamingFormModel.FK_ResumeCertificate_Resume" FromRole="ResumeCertificate" ToRole="Resume" />
         </EntityType>
         <EntityType Name="ResumeSkill">
           <Key>
@@ -1881,8 +1893,8 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ResumeID" Type="Int32" Nullable="false" />
           <Property Name="SkillID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Resume" Relationship="Self.FK_ResumeSkill_Resume" FromRole="ResumeSkill" ToRole="Resume" />
           <NavigationProperty Name="Skill" Relationship="Self.FK_ResumeSkill_Skill" FromRole="ResumeSkill" ToRole="Skill" />
+          <NavigationProperty Name="Resume" Relationship="DB_GamingFormModel.FK_ResumeSkill_Resume" FromRole="ResumeSkill" ToRole="Resume" />
         </EntityType>
         <EntityType Name="ResumeStyle">
           <Key>
@@ -1890,7 +1902,15 @@
           </Key>
           <Property Name="FormID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Resumes" Relationship="Self.FK_Resume_ResumeStyle" FromRole="ResumeStyle" ToRole="Resume" />
+          <NavigationProperty Name="Resumes" Relationship="DB_GamingFormModel.FK_Resume_ResumeStyle" FromRole="ResumeStyle" ToRole="Resume" />
+        </EntityType>
+        <EntityType Name="SerachRecord">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreateDays" Type="DateTime" Nullable="false" Precision="0" />
         </EntityType>
         <EntityType Name="ShipMethod">
           <Key>
@@ -1931,7 +1951,8 @@
           <NavigationProperty Name="MemberStatus" Relationship="Self.FK_MemberStatus_Status" FromRole="Status" ToRole="MemberStatus" />
           <NavigationProperty Name="Orders" Relationship="Self.FK_Order_Status" FromRole="Status" ToRole="Order" />
           <NavigationProperty Name="Products" Relationship="Self.FK_Product_Status" FromRole="Status" ToRole="Product" />
-          <NavigationProperty Name="Resumes" Relationship="Self.FK_Resume_Status" FromRole="Status" ToRole="Resume" />
+          <NavigationProperty Name="JobResumes" Relationship="DB_GamingFormModel.FK_JobResume_Status" FromRole="Status" ToRole="JobResume" />
+          <NavigationProperty Name="Resumes" Relationship="DB_GamingFormModel.FK_Resume_Status" FromRole="Status" ToRole="Resume" />
         </EntityType>
         <EntityType Name="SubBlog">
           <Key>
@@ -1941,13 +1962,19 @@
           <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="BlogID" Type="Int32" Nullable="false" />
           <Property Name="ParentBlogID" Type="Int32" />
-          <Property Name="ImageID" Type="Int32" />
           <Property Name="IsMemberBlog" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Articles" Relationship="Self.FK_Article_SubBlog" FromRole="SubBlog" ToRole="Article" />
           <NavigationProperty Name="Blog" Relationship="Self.FK_SubBlog_Blog" FromRole="SubBlog" ToRole="Blog" />
-          <NavigationProperty Name="Image" Relationship="Self.FK_SubBlog_Image" FromRole="SubBlog" ToRole="Image" />
           <NavigationProperty Name="SubBlog1" Relationship="Self.FK_SubBlog_SubBlog" FromRole="SubBlog" ToRole="SubBlog1" />
           <NavigationProperty Name="SubBlog2" Relationship="Self.FK_SubBlog_SubBlog" FromRole="SubBlog1" ToRole="SubBlog" />
+        </EntityType>
+        <EntityType Name="SubBolgCategory">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="CategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SubBlogID" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="SubTag">
           <Key>
@@ -1956,6 +1983,7 @@
           <Property Name="SubTagID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="TagID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Blogs" Relationship="Self.FK_Blog_SubTag" FromRole="SubTag" ToRole="Blog" />
           <NavigationProperty Name="MemberTags" Relationship="Self.FK_MemberTag_SubTag" FromRole="SubTag" ToRole="MemberTag" />
           <NavigationProperty Name="ProductTags" Relationship="Self.FK_ProductAction_SubTag" FromRole="SubTag" ToRole="ProductTag" />
           <NavigationProperty Name="Tag" Relationship="Self.FK_SubTag_Tag" FromRole="SubTag" ToRole="Tag" />
@@ -2109,6 +2137,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Blog_Image">
+          <End Role="Image" Type="Self.Image" Multiplicity="0..1" />
+          <End Role="Blog" Type="Self.Blog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Image">
+              <PropertyRef Name="ImageID" />
+            </Principal>
+            <Dependent Role="Blog">
+              <PropertyRef Name="ImageID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Blog_SubTag">
+          <End Role="SubTag" Type="Self.SubTag" Multiplicity="1" />
+          <End Role="Blog" Type="Self.Blog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubTag">
+              <PropertyRef Name="SubTagID" />
+            </Principal>
+            <Dependent Role="Blog">
+              <PropertyRef Name="SubTagID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_SubBlog_Blog">
           <End Role="Blog" Type="Self.Blog" Multiplicity="1" />
           <End Role="SubBlog" Type="Self.SubBlog" Multiplicity="*" />
@@ -2153,18 +2205,6 @@
               <PropertyRef Name="EDID" />
             </Principal>
             <Dependent Role="Job_Opportunities">
-              <PropertyRef Name="EDID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Resume_Education">
-          <End Role="Education" Type="Self.Education" Multiplicity="0..1" />
-          <End Role="Resume" Type="Self.Resume" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Education">
-              <PropertyRef Name="EDID" />
-            </Principal>
-            <Dependent Role="Resume">
               <PropertyRef Name="EDID" />
             </Dependent>
           </ReferentialConstraint>
@@ -2229,30 +2269,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Resume_Image">
-          <End Role="Image" Type="Self.Image" Multiplicity="0..1" />
-          <End Role="Resume" Type="Self.Resume" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Image">
-              <PropertyRef Name="ImageID" />
-            </Principal>
-            <Dependent Role="Resume">
-              <PropertyRef Name="ImageID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SubBlog_Image">
-          <End Role="Image" Type="Self.Image" Multiplicity="0..1" />
-          <End Role="SubBlog" Type="Self.SubBlog" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Image">
-              <PropertyRef Name="ImageID" />
-            </Principal>
-            <Dependent Role="SubBlog">
-              <PropertyRef Name="ImageID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Job_Opportunities_Region1">
           <End Role="Region" Type="Self.Region" Multiplicity="1" />
           <End Role="Job_Opportunities" Type="Self.Job_Opportunity" Multiplicity="*" />
@@ -2273,7 +2289,7 @@
               <PropertyRef Name="StatusID" />
             </Principal>
             <Dependent Role="Job_Opportunities">
-              <PropertyRef Name="StatusID" />
+              <PropertyRef Name="JobStatusID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2301,18 +2317,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_JobResume_Job_Opportunities">
-          <End Role="Job_Opportunities" Type="Self.Job_Opportunity" Multiplicity="1" />
-          <End Role="JobResume" Type="Self.JobResume" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Job_Opportunities">
-              <PropertyRef Name="JobID" />
-            </Principal>
-            <Dependent Role="JobResume">
-              <PropertyRef Name="JobID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_JobSkill_Job_Opportunities">
           <End Role="Job_Opportunities" Type="Self.Job_Opportunity" Multiplicity="1" />
           <End Role="JobSkill" Type="Self.JobSkill" Multiplicity="*" />
@@ -2322,18 +2326,6 @@
             </Principal>
             <Dependent Role="JobSkill">
               <PropertyRef Name="JobID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_JobResume_Resume">
-          <End Role="Resume" Type="Self.Resume" Multiplicity="1" />
-          <End Role="JobResume" Type="Self.JobResume" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Resume">
-              <PropertyRef Name="ResumeID" />
-            </Principal>
-            <Dependent Role="JobResume">
-              <PropertyRef Name="ResumeID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2409,18 +2401,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Resume_Member">
-          <End Role="Member" Type="Self.Member" Multiplicity="1" />
-          <End Role="Resume" Type="Self.Resume" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Member">
-              <PropertyRef Name="MemberID" />
-            </Principal>
-            <Dependent Role="Resume">
-              <PropertyRef Name="MemberID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_WishList_Member">
           <End Role="Member" Type="Self.Member" Multiplicity="1" />
           <End Role="WishList" Type="Self.WishList" Multiplicity="*" />
@@ -2482,7 +2462,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Order_RegionDistrict">
-          <End Role="RegionDistrict" Type="Self.RegionDistrict" Multiplicity="1" />
+          <End Role="RegionDistrict" Type="Self.RegionDistrict" Multiplicity="0..1" />
           <End Role="Order" Type="Self.Order" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="RegionDistrict">
@@ -2625,54 +2605,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Resume_ResumeStyle">
-          <End Role="ResumeStyle" Type="Self.ResumeStyle" Multiplicity="1" />
-          <End Role="Resume" Type="Self.Resume" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ResumeStyle">
-              <PropertyRef Name="FormID" />
-            </Principal>
-            <Dependent Role="Resume">
-              <PropertyRef Name="FormID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Resume_Status">
-          <End Role="Status" Type="Self.Status" Multiplicity="0..1" />
-          <End Role="Resume" Type="Self.Resume" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Status">
-              <PropertyRef Name="StatusID" />
-            </Principal>
-            <Dependent Role="Resume">
-              <PropertyRef Name="StatusID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ResumeCertificate_Resume">
-          <End Role="Resume" Type="Self.Resume" Multiplicity="1" />
-          <End Role="ResumeCertificate" Type="Self.ResumeCertificate" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Resume">
-              <PropertyRef Name="ResumeID" />
-            </Principal>
-            <Dependent Role="ResumeCertificate">
-              <PropertyRef Name="ResumeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ResumeSkill_Resume">
-          <End Role="Resume" Type="Self.Resume" Multiplicity="1" />
-          <End Role="ResumeSkill" Type="Self.ResumeSkill" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Resume">
-              <PropertyRef Name="ResumeID" />
-            </Principal>
-            <Dependent Role="ResumeSkill">
-              <PropertyRef Name="ResumeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ResumeSkill_Skill">
           <End Role="Skill" Type="Self.Skill" Multiplicity="1" />
           <End Role="ResumeSkill" Type="Self.ResumeSkill" Multiplicity="*" />
@@ -2736,7 +2668,6 @@
           <EntitySet Name="Job_Opportunities" EntityType="Self.Job_Opportunity" />
           <EntitySet Name="JobAdvertises" EntityType="Self.JobAdvertise" />
           <EntitySet Name="JobCertificates" EntityType="Self.JobCertificate" />
-          <EntitySet Name="JobResumes" EntityType="Self.JobResume" />
           <EntitySet Name="JobSkills" EntityType="Self.JobSkill" />
           <EntitySet Name="Members" EntityType="Self.Member" />
           <EntitySet Name="MemberStatus" EntityType="Self.MemberStatu" />
@@ -2753,15 +2684,16 @@
           <EntitySet Name="Replies" EntityType="Self.Reply" />
           <EntitySet Name="ReplyActions" EntityType="Self.ReplyAction" />
           <EntitySet Name="ReplyImages" EntityType="Self.ReplyImage" />
-          <EntitySet Name="Resumes" EntityType="Self.Resume" />
           <EntitySet Name="ResumeCertificates" EntityType="Self.ResumeCertificate" />
           <EntitySet Name="ResumeSkills" EntityType="Self.ResumeSkill" />
           <EntitySet Name="ResumeStyles" EntityType="Self.ResumeStyle" />
+          <EntitySet Name="SerachRecords" EntityType="Self.SerachRecord" />
           <EntitySet Name="ShipMethods" EntityType="Self.ShipMethod" />
           <EntitySet Name="Skills" EntityType="Self.Skill" />
           <EntitySet Name="SkillClasses" EntityType="Self.SkillClass" />
           <EntitySet Name="Status" EntityType="Self.Status" />
           <EntitySet Name="SubBlogs" EntityType="Self.SubBlog" />
+          <EntitySet Name="SubBolgCategories" EntityType="Self.SubBolgCategory" />
           <EntitySet Name="SubTags" EntityType="Self.SubTag" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="Tags" EntityType="Self.Tag" />
@@ -2806,6 +2738,14 @@
             <End Role="Member" EntitySet="Members" />
             <End Role="ArticleAction" EntitySet="ArticleActions" />
           </AssociationSet>
+          <AssociationSet Name="FK_Blog_Image" Association="Self.FK_Blog_Image">
+            <End Role="Image" EntitySet="Images" />
+            <End Role="Blog" EntitySet="Blogs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Blog_SubTag" Association="Self.FK_Blog_SubTag">
+            <End Role="SubTag" EntitySet="SubTags" />
+            <End Role="Blog" EntitySet="Blogs" />
+          </AssociationSet>
           <AssociationSet Name="FK_SubBlog_Blog" Association="Self.FK_SubBlog_Blog">
             <End Role="Blog" EntitySet="Blogs" />
             <End Role="SubBlog" EntitySet="SubBlogs" />
@@ -2821,10 +2761,6 @@
           <AssociationSet Name="FK_Job_Opportunities_Education" Association="Self.FK_Job_Opportunities_Education">
             <End Role="Education" EntitySet="Educations" />
             <End Role="Job_Opportunities" EntitySet="Job_Opportunities" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Resume_Education" Association="Self.FK_Resume_Education">
-            <End Role="Education" EntitySet="Educations" />
-            <End Role="Resume" EntitySet="Resumes" />
           </AssociationSet>
           <AssociationSet Name="FK_Firm_Image" Association="Self.FK_Firm_Image">
             <End Role="Image" EntitySet="Images" />
@@ -2846,14 +2782,6 @@
             <End Role="Image" EntitySet="Images" />
             <End Role="Product" EntitySet="Products" />
           </AssociationSet>
-          <AssociationSet Name="FK_Resume_Image" Association="Self.FK_Resume_Image">
-            <End Role="Image" EntitySet="Images" />
-            <End Role="Resume" EntitySet="Resumes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SubBlog_Image" Association="Self.FK_SubBlog_Image">
-            <End Role="Image" EntitySet="Images" />
-            <End Role="SubBlog" EntitySet="SubBlogs" />
-          </AssociationSet>
           <AssociationSet Name="FK_Job_Opportunities_Region1" Association="Self.FK_Job_Opportunities_Region1">
             <End Role="Region" EntitySet="Regions" />
             <End Role="Job_Opportunities" EntitySet="Job_Opportunities" />
@@ -2870,17 +2798,9 @@
             <End Role="Job_Opportunities" EntitySet="Job_Opportunities" />
             <End Role="JobCertificate" EntitySet="JobCertificates" />
           </AssociationSet>
-          <AssociationSet Name="FK_JobResume_Job_Opportunities" Association="Self.FK_JobResume_Job_Opportunities">
-            <End Role="Job_Opportunities" EntitySet="Job_Opportunities" />
-            <End Role="JobResume" EntitySet="JobResumes" />
-          </AssociationSet>
           <AssociationSet Name="FK_JobSkill_Job_Opportunities" Association="Self.FK_JobSkill_Job_Opportunities">
             <End Role="Job_Opportunities" EntitySet="Job_Opportunities" />
             <End Role="JobSkill" EntitySet="JobSkills" />
-          </AssociationSet>
-          <AssociationSet Name="FK_JobResume_Resume" Association="Self.FK_JobResume_Resume">
-            <End Role="Resume" EntitySet="Resumes" />
-            <End Role="JobResume" EntitySet="JobResumes" />
           </AssociationSet>
           <AssociationSet Name="FK_JobSkill_Skill" Association="Self.FK_JobSkill_Skill">
             <End Role="Skill" EntitySet="Skills" />
@@ -2905,10 +2825,6 @@
           <AssociationSet Name="FK_ProductEvaluate_Member" Association="Self.FK_ProductEvaluate_Member">
             <End Role="Member" EntitySet="Members" />
             <End Role="ProductEvaluate" EntitySet="ProductEvaluates" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Resume_Member" Association="Self.FK_Resume_Member">
-            <End Role="Member" EntitySet="Members" />
-            <End Role="Resume" EntitySet="Resumes" />
           </AssociationSet>
           <AssociationSet Name="FK_WishList_Member" Association="Self.FK_WishList_Member">
             <End Role="Member" EntitySet="Members" />
@@ -2978,22 +2894,6 @@
             <End Role="Region" EntitySet="Regions" />
             <End Role="RegionDistrict" EntitySet="RegionDistricts" />
           </AssociationSet>
-          <AssociationSet Name="FK_Resume_ResumeStyle" Association="Self.FK_Resume_ResumeStyle">
-            <End Role="ResumeStyle" EntitySet="ResumeStyles" />
-            <End Role="Resume" EntitySet="Resumes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Resume_Status" Association="Self.FK_Resume_Status">
-            <End Role="Status" EntitySet="Status" />
-            <End Role="Resume" EntitySet="Resumes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ResumeCertificate_Resume" Association="Self.FK_ResumeCertificate_Resume">
-            <End Role="Resume" EntitySet="Resumes" />
-            <End Role="ResumeCertificate" EntitySet="ResumeCertificates" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ResumeSkill_Resume" Association="Self.FK_ResumeSkill_Resume">
-            <End Role="Resume" EntitySet="Resumes" />
-            <End Role="ResumeSkill" EntitySet="ResumeSkills" />
-          </AssociationSet>
           <AssociationSet Name="FK_ResumeSkill_Skill" Association="Self.FK_ResumeSkill_Skill">
             <End Role="Skill" EntitySet="Skills" />
             <End Role="ResumeSkill" EntitySet="ResumeSkills" />
@@ -3010,15 +2910,205 @@
             <End Role="Tag" EntitySet="Tags" />
             <End Role="SubTag" EntitySet="SubTags" />
           </AssociationSet>
-          <EntitySet Name="SerachRecords" EntityType="DB_GamingFormModel.SerachRecord" />
+          <EntitySet Name="JobResumes" EntityType="DB_GamingFormModel.JobResume" />
+          <EntitySet Name="Resumes" EntityType="DB_GamingFormModel.Resume" />
+          <AssociationSet Name="FK_Resume_Education" Association="DB_GamingFormModel.FK_Resume_Education">
+            <End Role="Education" EntitySet="Educations" />
+            <End Role="Resume" EntitySet="Resumes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Resume_Image" Association="DB_GamingFormModel.FK_Resume_Image">
+            <End Role="Image" EntitySet="Images" />
+            <End Role="Resume" EntitySet="Resumes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JobResume_Job_Opportunities" Association="DB_GamingFormModel.FK_JobResume_Job_Opportunities">
+            <End Role="Job_Opportunity" EntitySet="Job_Opportunities" />
+            <End Role="JobResume" EntitySet="JobResumes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JobResume_Status" Association="DB_GamingFormModel.FK_JobResume_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="JobResume" EntitySet="JobResumes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Resume_Member" Association="DB_GamingFormModel.FK_Resume_Member">
+            <End Role="Member" EntitySet="Members" />
+            <End Role="Resume" EntitySet="Resumes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Resume_ResumeStyle" Association="DB_GamingFormModel.FK_Resume_ResumeStyle">
+            <End Role="ResumeStyle" EntitySet="ResumeStyles" />
+            <End Role="Resume" EntitySet="Resumes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Resume_Status" Association="DB_GamingFormModel.FK_Resume_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Resume" EntitySet="Resumes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ResumeCertificate_Resume" Association="DB_GamingFormModel.FK_ResumeCertificate_Resume">
+            <End Role="Resume" EntitySet="Resumes" />
+            <End Role="ResumeCertificate" EntitySet="ResumeCertificates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ResumeSkill_Resume" Association="DB_GamingFormModel.FK_ResumeSkill_Resume">
+            <End Role="Resume" EntitySet="Resumes" />
+            <End Role="ResumeSkill" EntitySet="ResumeSkills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JobResume_Resume" Association="DB_GamingFormModel.FK_JobResume_Resume">
+            <End Role="Resume" EntitySet="Resumes" />
+            <End Role="JobResume" EntitySet="JobResumes" />
+          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="SerachRecord">
+        <EntityType Name="JobResume">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="JobID" Type="Int32" Nullable="false" />
+          <Property Name="ResumeID" Type="Int32" Nullable="false" />
+          <Property Name="ApplyStatusID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Job_Opportunities" Relationship="DB_GamingFormModel.FK_JobResume_Job_Opportunities" FromRole="JobResume" ToRole="Job_Opportunity" />
+          <NavigationProperty Name="Status" Relationship="DB_GamingFormModel.FK_JobResume_Status" FromRole="JobResume" ToRole="Status" />
+          <NavigationProperty Name="Resume" Relationship="DB_GamingFormModel.FK_JobResume_Resume" FromRole="JobResume" ToRole="Resume" />
         </EntityType>
+        <EntityType Name="Resume">
+          <Key>
+            <PropertyRef Name="ResumeID" />
+          </Key>
+          <Property Name="ResumeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MemberID" Type="Int32" Nullable="false" />
+          <Property Name="FullName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IdentityID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ResumeContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="WorkExp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FormID" Type="Int32" Nullable="false" />
+          <Property Name="ResumeStatusID" Type="Int32" />
+          <Property Name="ImageID" Type="Int32" />
+          <Property Name="EDID" Type="Int32" />
+          <NavigationProperty Name="Education" Relationship="DB_GamingFormModel.FK_Resume_Education" FromRole="Resume" ToRole="Education" />
+          <NavigationProperty Name="Image" Relationship="DB_GamingFormModel.FK_Resume_Image" FromRole="Resume" ToRole="Image" />
+          <NavigationProperty Name="Member" Relationship="DB_GamingFormModel.FK_Resume_Member" FromRole="Resume" ToRole="Member" />
+          <NavigationProperty Name="ResumeStyle" Relationship="DB_GamingFormModel.FK_Resume_ResumeStyle" FromRole="Resume" ToRole="ResumeStyle" />
+          <NavigationProperty Name="Status" Relationship="DB_GamingFormModel.FK_Resume_Status" FromRole="Resume" ToRole="Status" />
+          <NavigationProperty Name="ResumeCertificates" Relationship="DB_GamingFormModel.FK_ResumeCertificate_Resume" FromRole="Resume" ToRole="ResumeCertificate" />
+          <NavigationProperty Name="ResumeSkills" Relationship="DB_GamingFormModel.FK_ResumeSkill_Resume" FromRole="Resume" ToRole="ResumeSkill" />
+          <NavigationProperty Name="JobResumes" Relationship="DB_GamingFormModel.FK_JobResume_Resume" FromRole="Resume" ToRole="JobResume" />
+        </EntityType>
+        <Association Name="FK_Resume_Education">
+          <End Type="DB_GamingFormModel.Education" Role="Education" Multiplicity="0..1" />
+          <End Type="DB_GamingFormModel.Resume" Role="Resume" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Education">
+              <PropertyRef Name="EDID" />
+            </Principal>
+            <Dependent Role="Resume">
+              <PropertyRef Name="EDID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Resume_Image">
+          <End Type="DB_GamingFormModel.Image" Role="Image" Multiplicity="0..1" />
+          <End Type="DB_GamingFormModel.Resume" Role="Resume" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Image">
+              <PropertyRef Name="ImageID" />
+            </Principal>
+            <Dependent Role="Resume">
+              <PropertyRef Name="ImageID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JobResume_Job_Opportunities">
+          <End Type="DB_GamingFormModel.Job_Opportunity" Role="Job_Opportunity" Multiplicity="1" />
+          <End Type="DB_GamingFormModel.JobResume" Role="JobResume" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Job_Opportunity">
+              <PropertyRef Name="JobID" />
+            </Principal>
+            <Dependent Role="JobResume">
+              <PropertyRef Name="JobID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JobResume_Status">
+          <End Type="DB_GamingFormModel.Status" Role="Status" Multiplicity="1" />
+          <End Type="DB_GamingFormModel.JobResume" Role="JobResume" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusID" />
+            </Principal>
+            <Dependent Role="JobResume">
+              <PropertyRef Name="ApplyStatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Resume_Member">
+          <End Type="DB_GamingFormModel.Member" Role="Member" Multiplicity="1" />
+          <End Type="DB_GamingFormModel.Resume" Role="Resume" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="MemberID" />
+            </Principal>
+            <Dependent Role="Resume">
+              <PropertyRef Name="MemberID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Resume_ResumeStyle">
+          <End Type="DB_GamingFormModel.ResumeStyle" Role="ResumeStyle" Multiplicity="1" />
+          <End Type="DB_GamingFormModel.Resume" Role="Resume" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ResumeStyle">
+              <PropertyRef Name="FormID" />
+            </Principal>
+            <Dependent Role="Resume">
+              <PropertyRef Name="FormID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Resume_Status">
+          <End Type="DB_GamingFormModel.Status" Role="Status" Multiplicity="0..1" />
+          <End Type="DB_GamingFormModel.Resume" Role="Resume" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusID" />
+            </Principal>
+            <Dependent Role="Resume">
+              <PropertyRef Name="ResumeStatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ResumeCertificate_Resume">
+          <End Type="DB_GamingFormModel.Resume" Role="Resume" Multiplicity="1" />
+          <End Type="DB_GamingFormModel.ResumeCertificate" Role="ResumeCertificate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Resume">
+              <PropertyRef Name="ResumeID" />
+            </Principal>
+            <Dependent Role="ResumeCertificate">
+              <PropertyRef Name="ResumeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ResumeSkill_Resume">
+          <End Type="DB_GamingFormModel.Resume" Role="Resume" Multiplicity="1" />
+          <End Type="DB_GamingFormModel.ResumeSkill" Role="ResumeSkill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Resume">
+              <PropertyRef Name="ResumeID" />
+            </Principal>
+            <Dependent Role="ResumeSkill">
+              <PropertyRef Name="ResumeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JobResume_Resume">
+          <End Type="DB_GamingFormModel.Resume" Role="Resume" Multiplicity="1" />
+          <End Type="DB_GamingFormModel.JobResume" Role="JobResume" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Resume">
+              <PropertyRef Name="ResumeID" />
+            </Principal>
+            <Dependent Role="JobResume">
+              <PropertyRef Name="ResumeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3095,6 +3185,8 @@
               <MappingFragment StoreEntitySet="Blog">
                 <ScalarProperty Name="BlogID" ColumnName="BlogID" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="SubTagID" ColumnName="SubTagID" />
+                <ScalarProperty Name="ImageID" ColumnName="ImageID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -3151,7 +3243,7 @@
                 <ScalarProperty Name="Salary" ColumnName="Salary" />
                 <ScalarProperty Name="JobExp" ColumnName="JobExp" />
                 <ScalarProperty Name="JobContent" ColumnName="JobContent" />
-                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="JobStatusID" ColumnName="JobStatusID" />
                 <ScalarProperty Name="EDID" ColumnName="EDID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -3171,16 +3263,6 @@
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="CertificateID" ColumnName="CertificateID" />
                 <ScalarProperty Name="JobID" ColumnName="JobID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="JobResumes">
-            <EntityTypeMapping TypeName="DB_GamingFormModel.JobResume">
-              <MappingFragment StoreEntitySet="JobResume">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="JobID" ColumnName="JobID" />
-                <ScalarProperty Name="ResumeID" ColumnName="ResumeID" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -3358,23 +3440,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Resumes">
-            <EntityTypeMapping TypeName="DB_GamingFormModel.Resume">
-              <MappingFragment StoreEntitySet="Resume">
-                <ScalarProperty Name="ResumeID" ColumnName="ResumeID" />
-                <ScalarProperty Name="MemberID" ColumnName="MemberID" />
-                <ScalarProperty Name="FullName" ColumnName="FullName" />
-                <ScalarProperty Name="IdentityID" ColumnName="IdentityID" />
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="ResumeContent" ColumnName="ResumeContent" />
-                <ScalarProperty Name="WorkExp" ColumnName="WorkExp" />
-                <ScalarProperty Name="FormID" ColumnName="FormID" />
-                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
-                <ScalarProperty Name="ImageID" ColumnName="ImageID" />
-                <ScalarProperty Name="EDID" ColumnName="EDID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="ResumeCertificates">
             <EntityTypeMapping TypeName="DB_GamingFormModel.ResumeCertificate">
               <MappingFragment StoreEntitySet="ResumeCertificate">
@@ -3398,6 +3463,15 @@
               <MappingFragment StoreEntitySet="ResumeStyle">
                 <ScalarProperty Name="FormID" ColumnName="FormID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SerachRecords">
+            <EntityTypeMapping TypeName="DB_GamingFormModel.SerachRecord">
+              <MappingFragment StoreEntitySet="SerachRecord">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CreateDays" ColumnName="CreateDays" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -3441,8 +3515,16 @@
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="BlogID" ColumnName="BlogID" />
                 <ScalarProperty Name="ParentBlogID" ColumnName="ParentBlogID" />
-                <ScalarProperty Name="ImageID" ColumnName="ImageID" />
                 <ScalarProperty Name="IsMemberBlog" ColumnName="IsMemberBlog" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SubBolgCategories">
+            <EntityTypeMapping TypeName="DB_GamingFormModel.SubBolgCategory">
+              <MappingFragment StoreEntitySet="SubBolgCategories">
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="SubBlogID" ColumnName="SubBlogID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -3483,11 +3565,30 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="SerachRecords">
-            <EntityTypeMapping TypeName="DB_GamingFormModel.SerachRecord">
-              <MappingFragment StoreEntitySet="SerachRecord">
-                <ScalarProperty Name="Name" ColumnName="Name" />
+          <EntitySetMapping Name="JobResumes">
+            <EntityTypeMapping TypeName="DB_GamingFormModel.JobResume">
+              <MappingFragment StoreEntitySet="JobResume">
+                <ScalarProperty Name="ApplyStatusID" ColumnName="ApplyStatusID" />
+                <ScalarProperty Name="ResumeID" ColumnName="ResumeID" />
+                <ScalarProperty Name="JobID" ColumnName="JobID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Resumes">
+            <EntityTypeMapping TypeName="DB_GamingFormModel.Resume">
+              <MappingFragment StoreEntitySet="Resume">
+                <ScalarProperty Name="EDID" ColumnName="EDID" />
+                <ScalarProperty Name="ImageID" ColumnName="ImageID" />
+                <ScalarProperty Name="ResumeStatusID" ColumnName="ResumeStatusID" />
+                <ScalarProperty Name="FormID" ColumnName="FormID" />
+                <ScalarProperty Name="WorkExp" ColumnName="WorkExp" />
+                <ScalarProperty Name="ResumeContent" ColumnName="ResumeContent" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="IdentityID" ColumnName="IdentityID" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+                <ScalarProperty Name="ResumeID" ColumnName="ResumeID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

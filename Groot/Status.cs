@@ -23,6 +23,7 @@ namespace Groot
             this.MemberStatus = new HashSet<MemberStatu>();
             this.Orders = new HashSet<Order>();
             this.Products = new HashSet<Product>();
+            this.JobResumes = new HashSet<JobResume>();
             this.Resumes = new HashSet<Resume>();
         }
     
@@ -41,6 +42,8 @@ namespace Groot
         public virtual ICollection<Order> Orders { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Product> Products { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<JobResume> JobResumes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Resume> Resumes { get; set; }
     }
