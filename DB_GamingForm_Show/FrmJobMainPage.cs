@@ -11,13 +11,13 @@ using System.Windows.Forms;
 
 namespace DB_GamingForm_Show
 {
-    public partial class Form1 : Form
+    public partial class FrmJobMainPage : Form
     {
-        public Form1()
+        public FrmJobMainPage()
         {   
             
             InitializeComponent();
-            Clear();
+            //Clear();
             ComboLoad();
             LoadData();
             HotSearch();
@@ -34,8 +34,9 @@ namespace DB_GamingForm_Show
         List<Result> list = new List<Result>();
 
         private void HotSearch()
-        {   
-            var value =  from n in this.entities.SerachRecords.AsEnumerable()
+        {
+            var value = from n in this.entities.SerachRecords.AsEnumerable()
+                         where n.IsMember == true 
                          group n by n.Name into q
                          orderby q.Key.Count() descending
                          select q.Key;
@@ -48,6 +49,11 @@ namespace DB_GamingForm_Show
 
         private void ComboLoad()
         {
+            this.comboBox1.Items.Add("請選擇...");
+            this.comboBox2.Items.Add("請選擇...");
+            this.comboBox3.Items.Add("請選擇...");
+            this.comboBox5.Items.Add("請選擇...");
+            this.comboBox7.Items.Add("請選擇...");
             this.comboBox1.SelectedIndex = 0;
             this.comboBox2.SelectedIndex = 0;
             this.comboBox3.SelectedIndex = 0;
@@ -113,16 +119,15 @@ namespace DB_GamingForm_Show
 
         private void Clear()
         {
-            this.comboBox1.Items.Clear();
-            this.comboBox2.Items.Clear();
-            this.comboBox3.Items.Clear();
-            this.comboBox5.Items.Clear();
-            this.comboBox7.Items.Clear();
-            this.comboBox1.Items.Add("");
-            this.comboBox2.Items.Add("");
-            this.comboBox3.Items.Add("");
-            this.comboBox5.Items.Add("");
-            this.comboBox7.Items.Add("");
+            this.comboBox1.SelectedIndex = 0;
+            this.comboBox2.SelectedIndex = 0;
+            this.comboBox3.SelectedIndex = 0;
+            this.comboBox5.SelectedIndex = 0;
+            this.comboBox6.SelectedIndex = 0;
+            this.comboBox7.SelectedIndex = 0;
+
+
+
 
 
         }
@@ -133,7 +138,6 @@ namespace DB_GamingForm_Show
         public bool flag = true;
         private void checkedListBox1_ItemCheck(object sender, ItemCheckEventArgs e)
         {
-            
             var data = from n in this.entities.Job_Opportunities.AsEnumerable()
                        where n.JobContent.Contains(this.checkedListBox1.Text)
                        select new
@@ -174,11 +178,11 @@ namespace DB_GamingForm_Show
 
         private void Remove()
         {
-            var value = (from p in this.entities.SerachRecords
-                           where p.CreateDays.Day <=DateTime.Now.Day-7
-                           select p).FirstOrDefault();
+            //var value = (from p in this.entities.SerachRecords
+            //               where p.CreateDays.Day <=DateTime.Now.Day-7
+            //               select p).FirstOrDefault();
 
-            if (value == null) return;
+            //if (value == null) return;
 
             this.entities.SerachRecords.Remove
                                 (new SerachRecord { ID = 2 });
@@ -188,12 +192,13 @@ namespace DB_GamingForm_Show
         private void Search(string source)
         {   
             if(source == "")
-            {
+            {   
+                Clear();
                 LoadData();
-                return;
             }
+            else { 
                 this.entities.SerachRecords.Add
-                                (new SerachRecord { Name = source });
+                                (new SerachRecord { Name = source,IsMember = true });
                 this.entities.SaveChanges();
             
             var data = from  n in this.entities.Job_Opportunities.AsEnumerable()
@@ -211,7 +216,9 @@ namespace DB_GamingForm_Show
                            EducationRequirements = n.Education.Name
                        };
             this.dataGridView1.DataSource = data.ToList();
+            ListLoad();
             this.label12.Text = $"10/{this.dataGridView1.RowCount}筆";
+            }
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -226,7 +233,7 @@ namespace DB_GamingForm_Show
 
         private void linkLabel3_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Search(this.linkLabel2.Text);
+            Search(this.linkLabel3.Text);
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -245,8 +252,9 @@ namespace DB_GamingForm_Show
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (this.comboBox1.Text =="")
+            if (this.comboBox1.SelectedIndex ==0)
             {
+                Clear();
                 LoadData();
                 
             }
@@ -263,15 +271,19 @@ namespace DB_GamingForm_Show
         
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (this.comboBox2.Text == "")
+            if (this.comboBox2.SelectedIndex == 0)
             {
+                Clear();
                 LoadData();
             }
+            else
+            { 
             var value = from n in list.AsEnumerable()
                         where n.JobContent.Contains(this.comboBox2.Text)
                         select n;
             this.dataGridView1.DataSource = value.ToList();
             ListLoad();
+            }
             //this.label12.Text = $"10/{this.dataGridView1.RowCount}筆";
 
         } 
@@ -281,18 +293,13 @@ namespace DB_GamingForm_Show
                      where n.SkillClass.Name == this.comboBox3.Text
                      select n.Name;
             this.comboBox4.DataSource = q4.ToList();
-            if (this.comboBox3.Text == "")
+            if (this.comboBox3.SelectedIndex == 0)
             {
+                this.comboBox4.Text = "";
+                Clear();
                 LoadData();
             }
-            else 
-            { 
-            var value = from n in list
-                        where n.JobContent.Contains(this.comboBox3.Text)
-                        select n;
-            this.dataGridView1.DataSource = value.ToList();
-            ListLoad();
-            }
+            
             //this.label12.Text = $"10/{this.dataGridView1.RowCount}筆";
         }
 
@@ -300,23 +307,19 @@ namespace DB_GamingForm_Show
 
         private void comboBox4_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (this.comboBox4.Text == "")
-            {
-                LoadData();
-            }
             var value = from n in list.AsEnumerable()
                         where n.JobContent.Contains(this.comboBox4.Text)
                         select n;
             this.dataGridView1.DataSource = value.ToList();
             ListLoad();
-            //this.label12.Text = $"10/{this.dataGridView1.RowCount}筆";
         }
 
         private void comboBox5_SelectedIndexChanged(object sender, EventArgs e)
         {
             
-            if (this.comboBox5.Text == "")
+            if (this.comboBox5.SelectedIndex == 0)
             {
+                Clear();
                 LoadData();
             }
             else
@@ -333,8 +336,9 @@ namespace DB_GamingForm_Show
 
         private void comboBox6_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (this.comboBox6.Text == "")
+            if (this.comboBox6.SelectedIndex == 0)
             {
+                Clear();
                 LoadData();
             }
             else
@@ -352,22 +356,24 @@ namespace DB_GamingForm_Show
 
         private void comboBox7_SelectedIndexChanged(object sender, EventArgs e)
         {   
-            if(this.comboBox7.Text == "")
-            {
+            if(this.comboBox7.SelectedIndex == 0)
+            {   
+                Clear();
                 LoadData();
             }
+            else
+            { 
             var value = from n in list.AsEnumerable()
                         where n.Status == this.comboBox7.Text
                         select n;
             this.dataGridView1.DataSource = value.ToList();
             ListLoad();
-            //this.label12.Text = $"10/{this.dataGridView1.RowCount}筆";
+            }
         }
 
         private void button4_Click_2(object sender, EventArgs e)
         {
             Clear();
-            ComboLoad();
             LoadData();
         }
 

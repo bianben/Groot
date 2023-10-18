@@ -16,7 +16,8 @@ namespace DB_GamingForm_Show
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            //Application.Run(new FrmResumeMainPage());
+            Application.Run(new FrmJobMainPage());
         }
     }
 }

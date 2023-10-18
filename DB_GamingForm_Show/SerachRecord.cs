@@ -16,6 +16,7 @@ namespace DB_GamingForm_Show
     {
         public int ID { get; set; }
         public string Name { get; set; }
-        public System.DateTime CreateDays { get; set; }
+        public Nullable<System.DateTime> CreateDays { get; set; }
+        public bool IsMember { get; set; }
     }
 }

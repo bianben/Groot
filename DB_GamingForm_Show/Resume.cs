@@ -19,6 +19,7 @@ namespace DB_GamingForm_Show
         {
             this.ResumeCertificates = new HashSet<ResumeCertificate>();
             this.ResumeSkills = new HashSet<ResumeSkill>();
+            this.JobResumes = new HashSet<JobResume>();
         }
     
         public int ResumeID { get; set; }
@@ -42,5 +43,7 @@ namespace DB_GamingForm_Show
         public virtual ICollection<ResumeCertificate> ResumeCertificates { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ResumeSkill> ResumeSkills { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<JobResume> JobResumes { get; set; }
     }
 }

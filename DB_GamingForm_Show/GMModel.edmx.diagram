@@ -113,6 +113,7 @@
         <AssociationConnector Association="DB_GamingFormModel.FK_Skill_SkillClass" />
         <AssociationConnector Association="DB_GamingFormModel.FK_SubBlog_SubBlog" />
         <AssociationConnector Association="DB_GamingFormModel.FK_SubTag_Tag" />
+        <AssociationConnector Association="DB_GamingFormModel.FK_JobResume_Resume" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
