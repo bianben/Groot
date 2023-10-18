@@ -52,7 +52,7 @@ namespace Groot
 
         private void pictureBox5_Click(object sender, EventArgs e)
         {
-            FrmCreateFirmAccount f = new FrmCreateFirmAccount();
+            FrmMakeJobRequire f = new FrmMakeJobRequire();
             f.Show();
         }
     }

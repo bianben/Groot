@@ -19,5 +19,7 @@ namespace Groot
         public string ReplyContents { get; set; }
         public System.DateTime ModifiedDate { get; set; }
         public int MemberID { get; set; }
+    
+        public virtual Article Article { get; set; }
     }
 }

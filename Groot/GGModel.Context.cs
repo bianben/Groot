@@ -39,6 +39,7 @@ namespace Groot
         public virtual DbSet<Job_Opportunity> Job_Opportunities { get; set; }
         public virtual DbSet<JobAdvertise> JobAdvertises { get; set; }
         public virtual DbSet<JobCertificate> JobCertificates { get; set; }
+        public virtual DbSet<JobResume> JobResumes { get; set; }
         public virtual DbSet<JobSkill> JobSkills { get; set; }
         public virtual DbSet<Member> Members { get; set; }
         public virtual DbSet<MemberStatu> MemberStatus { get; set; }
@@ -55,6 +56,7 @@ namespace Groot
         public virtual DbSet<Reply> Replies { get; set; }
         public virtual DbSet<ReplyAction> ReplyActions { get; set; }
         public virtual DbSet<ReplyImage> ReplyImages { get; set; }
+        public virtual DbSet<Resume> Resumes { get; set; }
         public virtual DbSet<ResumeCertificate> ResumeCertificates { get; set; }
         public virtual DbSet<ResumeSkill> ResumeSkills { get; set; }
         public virtual DbSet<ResumeStyle> ResumeStyles { get; set; }
@@ -69,7 +71,5 @@ namespace Groot
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Tag> Tags { get; set; }
         public virtual DbSet<WishList> WishLists { get; set; }
-        public virtual DbSet<JobResume> JobResumes { get; set; }
-        public virtual DbSet<Resume> Resumes { get; set; }
     }
 }

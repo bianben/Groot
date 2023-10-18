@@ -32,6 +32,40 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.button17 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.richTextBox2 = new System.Windows.Forms.RichTextBox();
+            this.listBox4 = new System.Windows.Forms.ListBox();
+            this.label27 = new System.Windows.Forms.Label();
+            this.button15 = new System.Windows.Forms.Button();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.textBox19 = new System.Windows.Forms.TextBox();
+            this.textBox17 = new System.Windows.Forms.TextBox();
+            this.textBox16 = new System.Windows.Forms.TextBox();
+            this.textBox14 = new System.Windows.Forms.TextBox();
+            this.textBox13 = new System.Windows.Forms.TextBox();
+            this.textBox12 = new System.Windows.Forms.TextBox();
+            this.textBox11 = new System.Windows.Forms.TextBox();
+            this.textBox10 = new System.Windows.Forms.TextBox();
+            this.textBox9 = new System.Windows.Forms.TextBox();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.label28 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
             this.tabPage7 = new System.Windows.Forms.TabPage();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -77,6 +111,12 @@
             this.button8 = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
             this.tabPage11 = new System.Windows.Forms.TabPage();
+            this.splitContainer3 = new System.Windows.Forms.SplitContainer();
+            this.button16 = new System.Windows.Forms.Button();
+            this.button10 = new System.Windows.Forms.Button();
+            this.button13 = new System.Windows.Forms.Button();
+            this.button14 = new System.Windows.Forms.Button();
+            this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.tabPage10 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.checkBox3 = new System.Windows.Forms.CheckBox();
@@ -84,18 +124,22 @@
             this.tabPage8 = new System.Windows.Forms.TabPage();
             this.tabPage9 = new System.Windows.Forms.TabPage();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.splitContainer3 = new System.Windows.Forms.SplitContainer();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.button10 = new System.Windows.Forms.Button();
-            this.button13 = new System.Windows.Forms.Button();
-            this.button14 = new System.Windows.Forms.Button();
+            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.listBox5 = new System.Windows.Forms.ListBox();
+            this.button18 = new System.Windows.Forms.Button();
+            this.dataGridView3 = new System.Windows.Forms.DataGridView();
             this.tabControl2.SuspendLayout();
             this.tabPage6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
+            this.splitContainer2.Panel1.SuspendLayout();
+            this.splitContainer2.Panel2.SuspendLayout();
+            this.splitContainer2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.tabPage7.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -104,17 +148,15 @@
             this.tabPage4.SuspendLayout();
             this.tabPage5.SuspendLayout();
             this.tabPage11.SuspendLayout();
-            this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
             this.splitContainer3.Panel1.SuspendLayout();
             this.splitContainer3.Panel2.SuspendLayout();
             this.splitContainer3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-            this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.Panel2.SuspendLayout();
-            this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
+            this.tabPage10.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
             this.SuspendLayout();
             // 
             // openFileDialog1
@@ -147,6 +189,349 @@
             this.tabPage6.TabIndex = 0;
             this.tabPage6.Text = "管理應徵記錄";
             this.tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(3, 3);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.button17);
+            this.splitContainer1.Panel1.Controls.Add(this.button1);
+            this.splitContainer1.Panel1.Controls.Add(this.button6);
+            this.splitContainer1.Panel1.Controls.Add(this.button2);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
+            this.splitContainer1.Size = new System.Drawing.Size(837, 753);
+            this.splitContainer1.SplitterDistance = 137;
+            this.splitContainer1.TabIndex = 0;
+            // 
+            // button17
+            // 
+            this.button17.Dock = System.Windows.Forms.DockStyle.Top;
+            this.button17.Location = new System.Drawing.Point(0, 159);
+            this.button17.Name = "button17";
+            this.button17.Size = new System.Drawing.Size(137, 53);
+            this.button17.TabIndex = 12;
+            this.button17.Text = "重新整理";
+            this.button17.UseVisualStyleBackColor = true;
+            this.button17.Click += new System.EventHandler(this.button17_Click);
+            // 
+            // button1
+            // 
+            this.button1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.button1.Location = new System.Drawing.Point(0, 106);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(137, 53);
+            this.button1.TabIndex = 5;
+            this.button1.Text = "刪除履歷";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            // 
+            // button6
+            // 
+            this.button6.Dock = System.Windows.Forms.DockStyle.Top;
+            this.button6.Location = new System.Drawing.Point(0, 53);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(137, 53);
+            this.button6.TabIndex = 6;
+            this.button6.Text = "撤回履歷";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
+            // button2
+            // 
+            this.button2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.button2.Location = new System.Drawing.Point(0, 0);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(137, 53);
+            this.button2.TabIndex = 7;
+            this.button2.Text = "修改";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click_1);
+            // 
+            // splitContainer2
+            // 
+            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer2.Name = "splitContainer2";
+            this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer2.Panel1
+            // 
+            this.splitContainer2.Panel1.Controls.Add(this.dataGridView1);
+            // 
+            // splitContainer2.Panel2
+            // 
+            this.splitContainer2.Panel2.Controls.Add(this.richTextBox2);
+            this.splitContainer2.Panel2.Controls.Add(this.listBox4);
+            this.splitContainer2.Panel2.Controls.Add(this.label27);
+            this.splitContainer2.Panel2.Controls.Add(this.button15);
+            this.splitContainer2.Panel2.Controls.Add(this.pictureBox2);
+            this.splitContainer2.Panel2.Controls.Add(this.textBox19);
+            this.splitContainer2.Panel2.Controls.Add(this.textBox17);
+            this.splitContainer2.Panel2.Controls.Add(this.textBox16);
+            this.splitContainer2.Panel2.Controls.Add(this.textBox14);
+            this.splitContainer2.Panel2.Controls.Add(this.textBox13);
+            this.splitContainer2.Panel2.Controls.Add(this.textBox12);
+            this.splitContainer2.Panel2.Controls.Add(this.textBox11);
+            this.splitContainer2.Panel2.Controls.Add(this.textBox10);
+            this.splitContainer2.Panel2.Controls.Add(this.textBox9);
+            this.splitContainer2.Panel2.Controls.Add(this.textBox4);
+            this.splitContainer2.Panel2.Controls.Add(this.label28);
+            this.splitContainer2.Panel2.Controls.Add(this.label26);
+            this.splitContainer2.Panel2.Controls.Add(this.label25);
+            this.splitContainer2.Panel2.Controls.Add(this.label24);
+            this.splitContainer2.Panel2.Controls.Add(this.label23);
+            this.splitContainer2.Panel2.Controls.Add(this.label21);
+            this.splitContainer2.Panel2.Controls.Add(this.label20);
+            this.splitContainer2.Panel2.Controls.Add(this.label19);
+            this.splitContainer2.Panel2.Controls.Add(this.label18);
+            this.splitContainer2.Panel2.Controls.Add(this.label17);
+            this.splitContainer2.Panel2.Controls.Add(this.label16);
+            this.splitContainer2.Panel2.Controls.Add(this.label15);
+            this.splitContainer2.Size = new System.Drawing.Size(696, 753);
+            this.splitContainer2.SplitterDistance = 159;
+            this.splitContainer2.TabIndex = 9;
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView1.Location = new System.Drawing.Point(0, 0);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowTemplate.Height = 24;
+            this.dataGridView1.Size = new System.Drawing.Size(696, 159);
+            this.dataGridView1.TabIndex = 8;
+            this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            // 
+            // richTextBox2
+            // 
+            this.richTextBox2.Location = new System.Drawing.Point(104, 449);
+            this.richTextBox2.Name = "richTextBox2";
+            this.richTextBox2.Size = new System.Drawing.Size(587, 130);
+            this.richTextBox2.TabIndex = 18;
+            this.richTextBox2.Text = "";
+            // 
+            // listBox4
+            // 
+            this.listBox4.FormattingEnabled = true;
+            this.listBox4.ItemHeight = 20;
+            this.listBox4.Location = new System.Drawing.Point(258, 32);
+            this.listBox4.Name = "listBox4";
+            this.listBox4.Size = new System.Drawing.Size(196, 264);
+            this.listBox4.TabIndex = 17;
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(456, 9);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(57, 20);
+            this.label27.TabIndex = 16;
+            this.label27.Text = "大頭照";
+            // 
+            // button15
+            // 
+            this.button15.Location = new System.Drawing.Point(460, 301);
+            this.button15.Name = "button15";
+            this.button15.Size = new System.Drawing.Size(75, 30);
+            this.button15.TabIndex = 15;
+            this.button15.Text = "瀏覽";
+            this.button15.UseVisualStyleBackColor = true;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBox2.Location = new System.Drawing.Point(460, 32);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(231, 263);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox2.TabIndex = 14;
+            this.pictureBox2.TabStop = false;
+            // 
+            // textBox19
+            // 
+            this.textBox19.Location = new System.Drawing.Point(104, 409);
+            this.textBox19.Name = "textBox19";
+            this.textBox19.Size = new System.Drawing.Size(144, 26);
+            this.textBox19.TabIndex = 1;
+            // 
+            // textBox17
+            // 
+            this.textBox17.Location = new System.Drawing.Point(104, 329);
+            this.textBox17.Name = "textBox17";
+            this.textBox17.Size = new System.Drawing.Size(144, 26);
+            this.textBox17.TabIndex = 1;
+            // 
+            // textBox16
+            // 
+            this.textBox16.Location = new System.Drawing.Point(104, 289);
+            this.textBox16.Name = "textBox16";
+            this.textBox16.Size = new System.Drawing.Size(144, 26);
+            this.textBox16.TabIndex = 1;
+            // 
+            // textBox14
+            // 
+            this.textBox14.Location = new System.Drawing.Point(104, 249);
+            this.textBox14.Name = "textBox14";
+            this.textBox14.Size = new System.Drawing.Size(144, 26);
+            this.textBox14.TabIndex = 1;
+            // 
+            // textBox13
+            // 
+            this.textBox13.Location = new System.Drawing.Point(104, 209);
+            this.textBox13.Name = "textBox13";
+            this.textBox13.Size = new System.Drawing.Size(144, 26);
+            this.textBox13.TabIndex = 1;
+            // 
+            // textBox12
+            // 
+            this.textBox12.Location = new System.Drawing.Point(104, 169);
+            this.textBox12.Name = "textBox12";
+            this.textBox12.Size = new System.Drawing.Size(144, 26);
+            this.textBox12.TabIndex = 1;
+            // 
+            // textBox11
+            // 
+            this.textBox11.Location = new System.Drawing.Point(104, 129);
+            this.textBox11.Name = "textBox11";
+            this.textBox11.Size = new System.Drawing.Size(144, 26);
+            this.textBox11.TabIndex = 1;
+            // 
+            // textBox10
+            // 
+            this.textBox10.Location = new System.Drawing.Point(104, 89);
+            this.textBox10.Name = "textBox10";
+            this.textBox10.Size = new System.Drawing.Size(144, 26);
+            this.textBox10.TabIndex = 1;
+            // 
+            // textBox9
+            // 
+            this.textBox9.Location = new System.Drawing.Point(104, 49);
+            this.textBox9.Name = "textBox9";
+            this.textBox9.Size = new System.Drawing.Size(144, 26);
+            this.textBox9.TabIndex = 1;
+            // 
+            // textBox4
+            // 
+            this.textBox4.Location = new System.Drawing.Point(104, 9);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(144, 26);
+            this.textBox4.TabIndex = 1;
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(14, 452);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(73, 20);
+            this.label28.TabIndex = 0;
+            this.label28.Text = "自我介紹";
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(14, 412);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(73, 20);
+            this.label26.TabIndex = 0;
+            this.label26.Text = "通訊地址";
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(14, 372);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(73, 20);
+            this.label25.TabIndex = 0;
+            this.label25.Text = "技能專長";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(14, 332);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(73, 20);
+            this.label24.TabIndex = 0;
+            this.label24.Text = "工作經驗";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(14, 292);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(73, 20);
+            this.label23.TabIndex = 0;
+            this.label23.Text = "教育程度";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(14, 252);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(73, 20);
+            this.label21.TabIndex = 0;
+            this.label21.Text = "手機號碼";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(14, 212);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(89, 20);
+            this.label20.TabIndex = 0;
+            this.label20.Text = "身份證字號";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(14, 172);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(41, 20);
+            this.label19.TabIndex = 0;
+            this.label19.Text = "狀態";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(14, 132);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(73, 20);
+            this.label18.TabIndex = 0;
+            this.label18.Text = "公司名稱";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(14, 92);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(73, 20);
+            this.label17.TabIndex = 0;
+            this.label17.Text = "工作編號";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(14, 52);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(73, 20);
+            this.label16.TabIndex = 0;
+            this.label16.Text = "會員編號";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(14, 12);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(73, 20);
+            this.label15.TabIndex = 0;
+            this.label15.Text = "履歷編號";
             // 
             // tabPage7
             // 
@@ -245,7 +630,7 @@
             this.linkLabel1.Size = new System.Drawing.Size(63, 20);
             this.linkLabel1.TabIndex = 9;
             this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "15 您好";
+            this.linkLabel1.Text = "30 您好";
             // 
             // textBox8
             // 
@@ -536,7 +921,6 @@
             this.checkBox1.TabIndex = 14;
             this.checkBox1.Text = "我已詳讀求職服務約定之相關條款，並同意遵守";
             this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             this.checkBox1.Click += new System.EventHandler(this.checkBox1_Click);
             // 
             // checkedListBox1
@@ -604,8 +988,84 @@
             this.tabPage11.Text = "管理個人履歷";
             this.tabPage11.UseVisualStyleBackColor = true;
             // 
+            // splitContainer3
+            // 
+            this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer3.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer3.Name = "splitContainer3";
+            // 
+            // splitContainer3.Panel1
+            // 
+            this.splitContainer3.Panel1.Controls.Add(this.button16);
+            this.splitContainer3.Panel1.Controls.Add(this.button10);
+            this.splitContainer3.Panel1.Controls.Add(this.button13);
+            this.splitContainer3.Panel1.Controls.Add(this.button14);
+            // 
+            // splitContainer3.Panel2
+            // 
+            this.splitContainer3.Panel2.Controls.Add(this.dataGridView2);
+            this.splitContainer3.Size = new System.Drawing.Size(843, 759);
+            this.splitContainer3.SplitterDistance = 126;
+            this.splitContainer3.TabIndex = 2;
+            // 
+            // button16
+            // 
+            this.button16.Dock = System.Windows.Forms.DockStyle.Top;
+            this.button16.Location = new System.Drawing.Point(0, 159);
+            this.button16.Name = "button16";
+            this.button16.Size = new System.Drawing.Size(126, 53);
+            this.button16.TabIndex = 11;
+            this.button16.Text = "重新整理";
+            this.button16.UseVisualStyleBackColor = true;
+            this.button16.Click += new System.EventHandler(this.button16_Click);
+            // 
+            // button10
+            // 
+            this.button10.Dock = System.Windows.Forms.DockStyle.Top;
+            this.button10.Location = new System.Drawing.Point(0, 106);
+            this.button10.Name = "button10";
+            this.button10.Size = new System.Drawing.Size(126, 53);
+            this.button10.TabIndex = 8;
+            this.button10.Text = "刪除履歷";
+            this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.button10_Click);
+            // 
+            // button13
+            // 
+            this.button13.Dock = System.Windows.Forms.DockStyle.Top;
+            this.button13.Location = new System.Drawing.Point(0, 53);
+            this.button13.Name = "button13";
+            this.button13.Size = new System.Drawing.Size(126, 53);
+            this.button13.TabIndex = 9;
+            this.button13.Text = "顯示/隱藏";
+            this.button13.UseVisualStyleBackColor = true;
+            this.button13.Click += new System.EventHandler(this.button13_Click);
+            // 
+            // button14
+            // 
+            this.button14.Dock = System.Windows.Forms.DockStyle.Top;
+            this.button14.Location = new System.Drawing.Point(0, 0);
+            this.button14.Name = "button14";
+            this.button14.Size = new System.Drawing.Size(126, 53);
+            this.button14.TabIndex = 10;
+            this.button14.Text = "修改";
+            this.button14.UseVisualStyleBackColor = true;
+            // 
+            // dataGridView2
+            // 
+            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView2.Location = new System.Drawing.Point(0, 0);
+            this.dataGridView2.Name = "dataGridView2";
+            this.dataGridView2.RowTemplate.Height = 24;
+            this.dataGridView2.Size = new System.Drawing.Size(713, 759);
+            this.dataGridView2.TabIndex = 2;
+            // 
             // tabPage10
             // 
+            this.tabPage10.Controls.Add(this.dataGridView3);
+            this.tabPage10.Controls.Add(this.button18);
+            this.tabPage10.Controls.Add(this.listBox5);
             this.tabPage10.Location = new System.Drawing.Point(4, 29);
             this.tabPage10.Name = "tabPage10";
             this.tabPage10.Size = new System.Drawing.Size(843, 759);
@@ -668,128 +1128,34 @@
             this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             // 
-            // splitContainer3
+            // listBox5
             // 
-            this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer3.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer3.Name = "splitContainer3";
+            this.listBox5.FormattingEnabled = true;
+            this.listBox5.ItemHeight = 20;
+            this.listBox5.Location = new System.Drawing.Point(8, 3);
+            this.listBox5.Name = "listBox5";
+            this.listBox5.Size = new System.Drawing.Size(162, 384);
+            this.listBox5.TabIndex = 0;
+            this.listBox5.SelectedIndexChanged += new System.EventHandler(this.listBox5_SelectedIndexChanged);
             // 
-            // splitContainer3.Panel1
+            // button18
             // 
-            this.splitContainer3.Panel1.Controls.Add(this.button10);
-            this.splitContainer3.Panel1.Controls.Add(this.button13);
-            this.splitContainer3.Panel1.Controls.Add(this.button14);
+            this.button18.Location = new System.Drawing.Point(368, 477);
+            this.button18.Name = "button18";
+            this.button18.Size = new System.Drawing.Size(96, 29);
+            this.button18.TabIndex = 1;
+            this.button18.Text = "我要應徵";
+            this.button18.UseVisualStyleBackColor = true;
+            this.button18.Click += new System.EventHandler(this.button18_Click);
             // 
-            // splitContainer3.Panel2
+            // dataGridView3
             // 
-            this.splitContainer3.Panel2.Controls.Add(this.dataGridView2);
-            this.splitContainer3.Size = new System.Drawing.Size(843, 759);
-            this.splitContainer3.SplitterDistance = 126;
-            this.splitContainer3.TabIndex = 2;
-            // 
-            // splitContainer1
-            // 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(3, 3);
-            this.splitContainer1.Name = "splitContainer1";
-            // 
-            // splitContainer1.Panel1
-            // 
-            this.splitContainer1.Panel1.Controls.Add(this.button1);
-            this.splitContainer1.Panel1.Controls.Add(this.button6);
-            this.splitContainer1.Panel1.Controls.Add(this.button2);
-            // 
-            // splitContainer1.Panel2
-            // 
-            this.splitContainer1.Panel2.Controls.Add(this.dataGridView1);
-            this.splitContainer1.Size = new System.Drawing.Size(837, 753);
-            this.splitContainer1.SplitterDistance = 137;
-            this.splitContainer1.TabIndex = 0;
-            // 
-            // button1
-            // 
-            this.button1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button1.Location = new System.Drawing.Point(0, 106);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(137, 53);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "刪除履歷";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
-            // 
-            // button6
-            // 
-            this.button6.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button6.Location = new System.Drawing.Point(0, 53);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(137, 53);
-            this.button6.TabIndex = 6;
-            this.button6.Text = "撤回履歷";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
-            // 
-            // button2
-            // 
-            this.button2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button2.Location = new System.Drawing.Point(0, 0);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(137, 53);
-            this.button2.TabIndex = 7;
-            this.button2.Text = "修改";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click_1);
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(0, 0);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(696, 753);
-            this.dataGridView1.TabIndex = 8;
-            // 
-            // dataGridView2
-            // 
-            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView2.Location = new System.Drawing.Point(0, 0);
-            this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.RowTemplate.Height = 24;
-            this.dataGridView2.Size = new System.Drawing.Size(713, 759);
-            this.dataGridView2.TabIndex = 2;
-            // 
-            // button10
-            // 
-            this.button10.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button10.Location = new System.Drawing.Point(0, 106);
-            this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(126, 53);
-            this.button10.TabIndex = 8;
-            this.button10.Text = "刪除履歷";
-            this.button10.UseVisualStyleBackColor = true;
-            this.button10.Click += new System.EventHandler(this.button10_Click);
-            // 
-            // button13
-            // 
-            this.button13.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button13.Location = new System.Drawing.Point(0, 53);
-            this.button13.Name = "button13";
-            this.button13.Size = new System.Drawing.Size(126, 53);
-            this.button13.TabIndex = 9;
-            this.button13.Text = "撤回";
-            this.button13.UseVisualStyleBackColor = true;
-            this.button13.Click += new System.EventHandler(this.button13_Click);
-            // 
-            // button14
-            // 
-            this.button14.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button14.Location = new System.Drawing.Point(0, 0);
-            this.button14.Name = "button14";
-            this.button14.Size = new System.Drawing.Size(126, 53);
-            this.button14.TabIndex = 10;
-            this.button14.Text = "修改";
-            this.button14.UseVisualStyleBackColor = true;
+            this.dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView3.Location = new System.Drawing.Point(286, 3);
+            this.dataGridView3.Name = "dataGridView3";
+            this.dataGridView3.RowTemplate.Height = 24;
+            this.dataGridView3.Size = new System.Drawing.Size(554, 384);
+            this.dataGridView3.TabIndex = 2;
             // 
             // FrmMakeResume
             // 
@@ -803,6 +1169,17 @@
             this.Text = "FrmMakeResume";
             this.tabControl2.ResumeLayout(false);
             this.tabPage6.ResumeLayout(false);
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
+            this.splitContainer2.Panel1.ResumeLayout(false);
+            this.splitContainer2.Panel2.ResumeLayout(false);
+            this.splitContainer2.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
+            this.splitContainer2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.tabPage7.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
@@ -815,18 +1192,16 @@
             this.tabPage5.ResumeLayout(false);
             this.tabPage5.PerformLayout();
             this.tabPage11.ResumeLayout(false);
-            this.tabPage3.ResumeLayout(false);
-            this.tabPage3.PerformLayout();
             this.splitContainer3.Panel1.ResumeLayout(false);
             this.splitContainer3.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
             this.splitContainer3.ResumeLayout(false);
-            this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
-            this.splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
+            this.tabPage10.ResumeLayout(false);
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -897,5 +1272,39 @@
         private System.Windows.Forms.Button button10;
         private System.Windows.Forms.Button button13;
         private System.Windows.Forms.Button button14;
+        private System.Windows.Forms.SplitContainer splitContainer2;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.TextBox textBox14;
+        private System.Windows.Forms.TextBox textBox13;
+        private System.Windows.Forms.TextBox textBox12;
+        private System.Windows.Forms.TextBox textBox11;
+        private System.Windows.Forms.TextBox textBox10;
+        private System.Windows.Forms.TextBox textBox9;
+        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.Button button15;
+        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.ListBox listBox4;
+        private System.Windows.Forms.TextBox textBox19;
+        private System.Windows.Forms.TextBox textBox17;
+        private System.Windows.Forms.TextBox textBox16;
+        private System.Windows.Forms.RichTextBox richTextBox2;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.BindingSource bindingSource1;
+        private System.Windows.Forms.Button button16;
+        private System.Windows.Forms.Button button17;
+        private System.Windows.Forms.ListBox listBox5;
+        private System.Windows.Forms.Button button18;
+        private System.Windows.Forms.DataGridView dataGridView3;
     }
 }

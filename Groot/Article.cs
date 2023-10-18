@@ -17,8 +17,8 @@ namespace Groot
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Article()
         {
-            this.Article1 = new HashSet<Article>();
             this.ArticleActions = new HashSet<ArticleAction>();
+            this.Replies = new HashSet<Reply>();
         }
     
         public int ArticleID { get; set; }
@@ -27,14 +27,12 @@ namespace Groot
         public string ArticleContent { get; set; }
         public System.DateTime ModifiedDate { get; set; }
         public int MemberID { get; set; }
-        public Nullable<int> ReplyID { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Article> Article1 { get; set; }
-        public virtual Article Article2 { get; set; }
         public virtual Member Member { get; set; }
         public virtual SubBlog SubBlog { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ArticleAction> ArticleActions { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Reply> Replies { get; set; }
     }
 }

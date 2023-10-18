@@ -106,82 +106,83 @@
       <DependentUpon>3-2-2. FrmLaw.cs</DependentUpon>
     </Compile>
     <Compile Include="Action.cs">
-      <DependentUpon>GMModel.tt</DependentUpon>
+      <DependentUpon>GGModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Admin.cs">
-      <DependentUpon>GMModel.tt</DependentUpon>
+      <DependentUpon>GGModel.tt</DependentUpon>
     </Compile>
     <Compile Include="AdminRank.cs">
-      <DependentUpon>GMModel.tt</DependentUpon>
+      <DependentUpon>GGModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Advertise.cs">
-      <DependentUpon>GMModel.tt</DependentUpon>
+      <DependentUpon>GGModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Article.cs">
-      <DependentUpon>GMModel.tt</DependentUpon>
+      <DependentUpon>GGModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ArticleAction.cs">
-      <DependentUpon>GMModel.tt</DependentUpon>
+      <DependentUpon>GGModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Blog.cs">
-      <DependentUpon>GMModel.tt</DependentUpon>
+      <DependentUpon>GGModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Certificate.cs">
-      <DependentUpon>GMModel.tt</DependentUpon>
+      <DependentUpon>GGModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Class\Class.cs" />
     <Compile Include="Education.cs">
-      <DependentUpon>GMModel.tt</DependentUpon>
+      <DependentUpon>GGModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Firm.cs">
-      <DependentUpon>GMModel.tt</DependentUpon>
+      <DependentUpon>GGModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="GMModel.Context.cs">
+    <Compile Include="GGModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>GMModel.Context.tt</DependentUpon>
+      <DependentUpon>GGModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="GMModel.cs">
+    <Compile Include="GGModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>GMModel.tt</DependentUpon>
+      <DependentUpon>GGModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="GMModel.Designer.cs">
+    <Compile Include="GGModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>GMModel.edmx</DependentUpon>
+      <DependentUpon>GGModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Image.cs">
-      <DependentUpon>GMModel.tt</DependentUpon>
+      <DependentUpon>GGModel.tt</DependentUpon>
     </Compile>
     <Compile Include="JobAdvertise.cs">
-      <DependentUpon>GMModel.tt</DependentUpon>
+      <DependentUpon>GGModel.tt</DependentUpon>
     </Compile>
     <Compile Include="JobCertificate.cs">
-      <DependentUpon>GMModel.tt</DependentUpon>
+      <DependentUpon>GGModel.tt</DependentUpon>
     </Compile>
     <Compile Include="JobResume.cs">
-      <DependentUpon>GMModel.tt</DependentUpon>
+      <DependentUpon>GGModel.tt</DependentUpon>
     </Compile>
     <Compile Include="JobSkill.cs">
-      <DependentUpon>GMModel.tt</DependentUpon>
+      <DependentUpon>GGModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Job_Opportunity.cs">
-      <DependentUpon>GMModel.tt</DependentUpon>
+      <DependentUpon>GGModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Member.cs">
-      <DependentUpon>GMModel.tt</DependentUpon>
+      <DependentUpon>GGModel.tt</DependentUpon>
     </Compile>
     <Compile Include="MemberStatu.cs">
-      <DependentUpon>GMModel.tt</DependentUpon>
+      <DependentUpon>GGModel.tt</DependentUpon>
     </Compile>
     <Compile Include="MemberTag.cs">
-      <DependentUpon>GMModel.tt</DependentUpon>
+      <DependentUpon>GGModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Order.cs">
-      <DependentUpon>GMModel.tt</DependentUpon>
+      <DependentUpon>GGModel.tt</DependentUpon>
     </Compile>
     <Compile Include="OrderProduct.cs">
-      <DependentUpon>GMModel.tt</DependentUpon>
+      <DependentUpon>GGModel.tt</DependentUpon>
     </Compile>
     <Compile Include="PAR\Shop.cs">
       <SubType>Form</SubType>
@@ -190,81 +191,81 @@
       <DependentUpon>Shop.cs</DependentUpon>
     </Compile>
     <Compile Include="Payment.cs">
-      <DependentUpon>GMModel.tt</DependentUpon>
+      <DependentUpon>GGModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Product.cs">
-      <DependentUpon>GMModel.tt</DependentUpon>
+      <DependentUpon>GGModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ProductAdvertise.cs">
-      <DependentUpon>GMModel.tt</DependentUpon>
+      <DependentUpon>GGModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ProductEvaluate.cs">
-      <DependentUpon>GMModel.tt</DependentUpon>
+      <DependentUpon>GGModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ProductTag.cs">
-      <DependentUpon>GMModel.tt</DependentUpon>
+      <DependentUpon>GGModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Region.cs">
-      <DependentUpon>GMModel.tt</DependentUpon>
+      <DependentUpon>GGModel.tt</DependentUpon>
     </Compile>
     <Compile Include="RegionDistrict.cs">
-      <DependentUpon>GMModel.tt</DependentUpon>
+      <DependentUpon>GGModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Reply.cs">
-      <DependentUpon>GMModel.tt</DependentUpon>
+      <DependentUpon>GGModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ReplyAction.cs">
-      <DependentUpon>GMModel.tt</DependentUpon>
+      <DependentUpon>GGModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ReplyImage.cs">
-      <DependentUpon>GMModel.tt</DependentUpon>
+      <DependentUpon>GGModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Resume.cs">
-      <DependentUpon>GMModel.tt</DependentUpon>
+      <DependentUpon>GGModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ResumeCertificate.cs">
-      <DependentUpon>GMModel.tt</DependentUpon>
+      <DependentUpon>GGModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ResumeSkill.cs">
-      <DependentUpon>GMModel.tt</DependentUpon>
+      <DependentUpon>GGModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ResumeStyle.cs">
-      <DependentUpon>GMModel.tt</DependentUpon>
+      <DependentUpon>GGModel.tt</DependentUpon>
     </Compile>
     <Compile Include="SerachRecord.cs">
-      <DependentUpon>GMModel.tt</DependentUpon>
+      <DependentUpon>GGModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ShipMethod.cs">
-      <DependentUpon>GMModel.tt</DependentUpon>
+      <DependentUpon>GGModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Skill.cs">
-      <DependentUpon>GMModel.tt</DependentUpon>
+      <DependentUpon>GGModel.tt</DependentUpon>
     </Compile>
     <Compile Include="SkillClass.cs">
-      <DependentUpon>GMModel.tt</DependentUpon>
+      <DependentUpon>GGModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Status.cs">
-      <DependentUpon>GMModel.tt</DependentUpon>
+      <DependentUpon>GGModel.tt</DependentUpon>
     </Compile>
     <Compile Include="SubBlog.cs">
-      <DependentUpon>GMModel.tt</DependentUpon>
+      <DependentUpon>GGModel.tt</DependentUpon>
     </Compile>
     <Compile Include="SubBolgCategory.cs">
-      <DependentUpon>GMModel.tt</DependentUpon>
+      <DependentUpon>GGModel.tt</DependentUpon>
     </Compile>
     <Compile Include="SubTag.cs">
-      <DependentUpon>GMModel.tt</DependentUpon>
+      <DependentUpon>GGModel.tt</DependentUpon>
     </Compile>
     <Compile Include="sysdiagram.cs">
-      <DependentUpon>GMModel.tt</DependentUpon>
+      <DependentUpon>GGModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Tag.cs">
-      <DependentUpon>GMModel.tt</DependentUpon>
+      <DependentUpon>GGModel.tt</DependentUpon>
     </Compile>
     <Compile Include="WishList.cs">
-      <DependentUpon>GMModel.tt</DependentUpon>
+      <DependentUpon>GGModel.tt</DependentUpon>
     </Compile>
     <EmbeddedResource Include="1. Index.resx">
       <DependentUpon>1. Index.cs</DependentUpon>
@@ -302,12 +303,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EntityDeploy Include="GMModel.edmx">
+    <EntityDeploy Include="GGModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>GMModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>GGModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="GMModel.edmx.diagram">
-      <DependentUpon>GMModel.edmx</DependentUpon>
+    <None Include="GGModel.edmx.diagram">
+      <DependentUpon>GGModel.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -327,15 +328,15 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="GMModel.Context.tt">
+    <Content Include="GGModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>GMModel.edmx</DependentUpon>
-      <LastGenOutput>GMModel.Context.cs</LastGenOutput>
+      <DependentUpon>GGModel.edmx</DependentUpon>
+      <LastGenOutput>GGModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="GMModel.tt">
+    <Content Include="GGModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>GMModel.edmx</DependentUpon>
-      <LastGenOutput>GMModel.cs</LastGenOutput>
+      <DependentUpon>GGModel.edmx</DependentUpon>
+      <LastGenOutput>GGModel.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

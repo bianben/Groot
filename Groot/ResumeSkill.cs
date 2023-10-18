@@ -18,7 +18,7 @@ namespace Groot
         public int ResumeID { get; set; }
         public int SkillID { get; set; }
     
-        public virtual Skill Skill { get; set; }
         public virtual Resume Resume { get; set; }
+        public virtual Skill Skill { get; set; }
     }
 }

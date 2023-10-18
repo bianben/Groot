@@ -19,8 +19,8 @@ namespace Groot
         {
             this.JobAdvertises = new HashSet<JobAdvertise>();
             this.JobCertificates = new HashSet<JobCertificate>();
-            this.JobSkills = new HashSet<JobSkill>();
             this.JobResumes = new HashSet<JobResume>();
+            this.JobSkills = new HashSet<JobSkill>();
         }
     
         public int JobID { get; set; }
@@ -43,8 +43,8 @@ namespace Groot
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<JobCertificate> JobCertificates { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<JobSkill> JobSkills { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<JobResume> JobResumes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<JobSkill> JobSkills { get; set; }
     }
 }

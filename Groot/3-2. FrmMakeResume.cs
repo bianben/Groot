@@ -19,7 +19,7 @@ namespace Groot
         {
             InitializeComponent();
 
-            
+            Text = "會員";
 
             LoadID();
             LoadEmail();
@@ -30,7 +30,25 @@ namespace Groot
             LoadArticle();
             LoadMyResume();
             LoadMySendResumes();
+            LoadJobOffers();
+
         }
+
+        private void LoadJobOffers()
+        {
+            var q = from p in this.db.Job_Opportunities
+                    select new
+                    {
+                        p.JobID,
+                        p.JobContent,
+                    };
+
+            foreach (var p in q)
+            {
+                this.listBox5.Items.Add($"{p.JobID}-{p.JobContent}");
+            }
+        }
+
 
         private void LoadMySendResumes()
         {
@@ -43,8 +61,16 @@ namespace Groot
                         工作編號 = p.JobID,
                         公司名稱 = p.Job_Opportunities.Firm.FirmName,
                         狀態 = p.Status.Name,
+                        大頭照 = p.Resume.Image.Image1,
+                        //自我介紹=p.Resume.ResumeContent
                     };
-            this.dataGridView1.DataSource=q.ToList();
+
+            this.bindingSource1.Clear();
+            this.pictureBox2.DataBindings.Clear();
+            this.bindingSource1.DataSource = q.ToList();
+            this.dataGridView1.DataSource = this.bindingSource1;
+            this.pictureBox2.DataBindings.Add("Image", bindingSource1, "大頭照", true);
+
         }
 
         private void LoadEmail()
@@ -58,6 +84,7 @@ namespace Groot
         private void LoadName()
         {
             var q = from p in this.db.Resumes.AsEnumerable()
+                    where p.MemberID == int.Parse(currentID)
                     select p;
             if (q.Any(n => n.MemberID == int.Parse(this.linkLabel1.Text.Remove(this.linkLabel1.Text.Count() - 3, 3))))
             {
@@ -78,29 +105,32 @@ namespace Groot
 
         private void LoadMyResume()
         {
-
+            
             var q = from p in this.db.Resumes.AsEnumerable()
                     where p.MemberID == int.Parse(currentID)
                     select new
                     {
-
                         履歷編號 = p.ResumeID,
                         會員編號 = p.MemberID,
-                        廠商名稱 = p.JobResumes.Select(jr => jr.Job_Opportunities.Firm.FirmName).FirstOrDefault(),
-                        狀態=p.Status.Name,
+                        狀態 = p.Status.Name,
                         姓名 = p.FullName,
                         身份證字號 = p.IdentityID,
                         手機號碼 = p.PhoneNumber,
                         工作經驗 = p.WorkExp + "年",
                         技能 = p.ResumeSkills.Select(sk => sk.Skill.Name).FirstOrDefault() + "等" + p.ResumeSkills.Count + "項",
-
                     };
-            this.dataGridView2.DataSource = q.ToList();
+            if(q.ToList() != null)
+            {
+                this.dataGridView2.DataSource = q.ToList();
+                this.dataGridView3.DataSource = q.ToList();
+            }
+            
         }
 
         private void LoadArticle()
         {
-            var q = from p in db.Articles
+            var q = from p in db.Articles.AsEnumerable()
+                    where p.MemberID == int.Parse(currentID)
                     select p;
             foreach (var item in q)
             {
@@ -186,7 +216,7 @@ namespace Groot
                         where p.SkillClassID == id.ToList()[this.listBox1.SelectedIndex].SkillClassID
                         select p;
 
-                
+
 
                 foreach (var item in q)
                 {
@@ -207,92 +237,100 @@ namespace Groot
             //基本資料
 
             //大頭照
-
-            byte[] bytes;
-            System.IO.MemoryStream ms = new System.IO.MemoryStream();
-            this.pictureBox1.Image.Save(ms, ImageFormat.Jpeg);
-            bytes = ms.GetBuffer();
-
-            //linq-insertImage
-
-            Image i = new Image { Name = "resume", Image1 = bytes };
-
-            this.db.Images.Add(i);
-            this.db.SaveChanges();
-            //=========================
-
-            var q = from p in this.db.Educations
-                    select p;
-
-            Resume f = new Resume
+            if (pictureBox1.Image != null)
             {
-                MemberID = int.Parse(this.linkLabel1.Text.Remove(this.linkLabel1.Text.Count() - 3, 3)),
-                FullName = this.textBox3.Text,
-                IdentityID = this.textBox1.Text,
-                PhoneNumber = this.textBox2.Text,
-                ResumeContent = this.richTextBox1.Text,
-                WorkExp = this.textBox5.Text,
-                FormID = 1,
-                ResumeStatusID = 1,
-                EDID = q.ToList()[this.comboBox1.SelectedIndex].EDID,
-                ImageID = i.ImageID,
-            };
+                byte[] bytes;
+                System.IO.MemoryStream ms = new System.IO.MemoryStream();
+                this.pictureBox1.Image.Save(ms, ImageFormat.Jpeg);
+                bytes = ms.GetBuffer();
 
 
-            this.db.Resumes.Add(f);
-            this.db.SaveChanges();
-            //=========================
-            //個人經歷
+                //linq-insertImage
+
+                Image i = new Image { Name = "resume", Image1 = bytes };
 
 
-            //=========================
-            //求職條件
 
-            //=========================
-            //技能專長
-            //todo
-            int lb3Length = this.listBox3.Items.Count;
-            string[] lb3items = new string[lb3Length];
+                this.db.Images.Add(i);
+                this.db.SaveChanges();
 
-            for (var l = 0; l < lb3Length; l++)
-            {
-                lb3items[l] = this.listBox3.Items[l].ToString();
-            }
 
-            for (var o = 0; o < lb3items.Length; o++)
-            {
-                string[] skillskill = lb3items[o].Split('-');
-                var s = this.db.Skills.AsEnumerable().Where(p => p.Name == skillskill[1]).Select(p => p.SkillID);
 
-                int skillid = s.SingleOrDefault();
-                ResumeSkill resumeskill = new ResumeSkill
+                //=========================
+
+                var q = from p in this.db.Educations
+                        select p;
+
+                Resume f = new Resume
                 {
-                    ResumeID = f.ResumeID,
-                    SkillID = skillid
+                    MemberID = int.Parse(this.linkLabel1.Text.Remove(this.linkLabel1.Text.Count() - 3, 3)),
+                    FullName = this.textBox3.Text,
+                    IdentityID = this.textBox1.Text,
+                    PhoneNumber = this.textBox2.Text,
+                    ResumeContent = this.richTextBox1.Text,
+                    WorkExp = this.textBox5.Text,
+                    FormID = 1,
+                    ResumeStatusID = 1,
+                    EDID = q.ToList()[this.comboBox1.SelectedIndex].EDID,
+                    ImageID = i.ImageID,
                 };
-                this.db.ResumeSkills.Add(resumeskill);
+
+
+                this.db.Resumes.Add(f);
+                this.db.SaveChanges();
+                //=========================
+                //個人經歷
+
+
+                //=========================
+                //求職條件
+
+                //=========================
+                //技能專長
+                //todo
+                int lb3Length = this.listBox3.Items.Count;
+                string[] lb3items = new string[lb3Length];
+
+                for (var l = 0; l < lb3Length; l++)
+                {
+                    lb3items[l] = this.listBox3.Items[l].ToString();
+                }
+
+                for (var o = 0; o < lb3items.Length; o++)
+                {
+                    string[] skillskill = lb3items[o].Split('-');
+                    var s = this.db.Skills.AsEnumerable().Where(p => p.Name == skillskill[1]).Select(p => p.SkillID);
+
+                    int skillid = s.SingleOrDefault();
+                    ResumeSkill resumeskill = new ResumeSkill
+                    {
+                        ResumeID = f.ResumeID,
+                        SkillID = skillid
+                    };
+                    this.db.ResumeSkills.Add(resumeskill);
+                }
+                this.db.SaveChanges();
+                //=========================
+                //自傳附件
+                //=========================
+                MessageBox.Show("新增成功");
+                this.tabControl2.SelectedIndex = 2;
+                LoadMyResume();
             }
-            this.db.SaveChanges();
-            //=========================
-            //自傳附件
-
-            
-
+            else
+            {
+                MessageBox.Show("請選擇大頭照");
+            }
 
 
-            //=========================
-            MessageBox.Show("新增成功");
-            this.tabControl2.SelectedIndex = 0;
-            LoadMyResume();
 
 
         }
 
-        TreeNode saving;//沒用到
 
         ListBox lb = new ListBox();
 
-        int[] mySkills;
+
 
         private void listBox2_DoubleClick(object sender, EventArgs e)
         {
@@ -339,11 +377,9 @@ namespace Groot
 
             this.listBox2.Items.Remove(this.listBox2.SelectedItem);
 
-            //var q = this.db.Skills.Where(s => s.SkillClassID == this.listBox1.SelectedIndex).Select(s => s.SkillID);
-
         }
 
-       
+
 
         private void checkBox1_Click(object sender, EventArgs e)
         {
@@ -351,7 +387,11 @@ namespace Groot
             {
                 this.button8.Enabled = true;
             }
-            FrmLaw l=new FrmLaw();
+            else
+            {
+                this.button8.Enabled = false;
+            }
+            FrmLaw l = new FrmLaw();
             l.ShowDialog();
         }
 
@@ -362,48 +402,84 @@ namespace Groot
 
         private void listBox3_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
-        }
-
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
 
         }
 
         private void button10_Click(object sender, EventArgs e)
         {
+
+            //JobResumes
+            var jr = from p in this.db.JobResumes.AsEnumerable()
+                     where p.ResumeID == int.Parse(this.dataGridView2.CurrentRow.Cells[0].Value.ToString())
+                     select p;
+            if (jr == null) { return; }
+            foreach (var g in jr)
+            {
+                this.db.JobResumes.Remove(g);
+            }
+
+            //ResumeCertificates
+            var rc = from p in this.db.ResumeCertificates.AsEnumerable()
+                     where p.ResumeID == int.Parse(this.dataGridView2.CurrentRow.Cells[0].Value.ToString())
+                     select p;
+            if (rc == null) { return; }
+            foreach (var c in rc)
+            {
+                this.db.ResumeCertificates.Remove(c);
+            }
+
+            //ResumeSkills
+            var s = from p in this.db.ResumeSkills.AsEnumerable()
+                    where p.ResumeID == int.Parse(this.dataGridView2.CurrentRow.Cells[0].Value.ToString())
+                    select p;
+
+            if (s == null) { return; }
+            foreach (var x in s)
+            {
+                this.db.ResumeSkills.Remove(x);
+            }
+
+            this.db.SaveChanges();
+
+            //resumes
             var q = (from p in this.db.Resumes.AsEnumerable()
                      where p.ResumeID == int.Parse(this.dataGridView2.CurrentRow.Cells[0].Value.ToString())
                      select p).FirstOrDefault();
 
             if (q == null) { return; }
-
             this.db.Resumes.Remove(q);
             this.db.SaveChanges();
+
             LoadMyResume();
         }
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            var q = (from p in this.db.Resumes.AsEnumerable()
-                     where p.ResumeID == int.Parse(this.dataGridView1.CurrentRow.Cells[0].Value.ToString())
+            var q = (from p in this.db.JobResumes.AsEnumerable()
+                     where p.ResumeID == int.Parse(this.dataGridView1.CurrentRow.Cells[0].Value.ToString()) && p.JobID == int.Parse(this.dataGridView1.CurrentRow.Cells[2].Value.ToString())
                      select p).FirstOrDefault();
 
             if (q == null) { return; }
 
-            this.db.Resumes.Remove(q);
+
+            this.db.JobResumes.Remove(q);
             this.db.SaveChanges();
-            LoadMyResume();
+            LoadMySendResumes();
+
         }
 
         private void button6_Click(object sender, EventArgs e)
         {
-            var q = (from p in this.db.Resumes.AsEnumerable()
+
+            var q = (from p in this.db.JobResumes.AsEnumerable()
                      where p.ResumeID == int.Parse(this.dataGridView1.CurrentRow.Cells[0].Value.ToString())
                      select p).FirstOrDefault();
             if (q == null) { return; }
 
-            //q.s
+            this.db.JobResumes.Remove(q);
+            this.db.SaveChanges();
+            LoadMySendResumes();
+
         }
 
         private void button2_Click_1(object sender, EventArgs e)
@@ -416,11 +492,70 @@ namespace Groot
             var q = (from p in this.db.Resumes.AsEnumerable()
                      where p.ResumeID == int.Parse(this.dataGridView2.CurrentRow.Cells[0].Value.ToString())
                      select p).FirstOrDefault();
+
             if (q == null) { return; }
 
-            q.ResumeStatusID =2;
+            if (q.ResumeStatusID == 2)
+            {
+                q.ResumeStatusID = 1;
+            }
+            else if (q.ResumeStatusID == 1)
+            {
+                q.ResumeStatusID = 2;
+            }
+
+
+
             this.db.SaveChanges();
             LoadMyResume();
+
+
+        }
+
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void button16_Click(object sender, EventArgs e)
+        {
+            LoadMyResume();
+        }
+
+        private void button17_Click(object sender, EventArgs e)
+        {
+            LoadMySendResumes();
+        }
+
+        private void listBox5_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button18_Click(object sender, EventArgs e)
+        {
+            var j = from p in this.db.Job_Opportunities
+                    select p;
+            var q = (from p in this.db.JobResumes
+                     where p.JobID == j.ToList()[this.listBox5.SelectedIndex].JobID
+                     select p).FirstOrDefault();
+           
+
+            
+
+            JobResume jr = new JobResume
+            {
+                JobID = q.JobID,
+                ResumeID=q.ID,
+
+                
+            };
+            //this.db.Job_Opportunities.Add(q);
         }
     }
 }

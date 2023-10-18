@@ -17,8 +17,9 @@ namespace Groot
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //Application.Run(new Index());
-            Application.Run(new FrmMakeResume());
+            Application.Run(new Index());
+            //Application.Run(new FrmMakeResume());
+            //Application.Run(new FrmMakeJobRequire());
             //Application.Run(new Shop());
         }
     }

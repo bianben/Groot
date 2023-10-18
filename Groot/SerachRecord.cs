@@ -17,5 +17,6 @@ namespace Groot
         public int ID { get; set; }
         public string Name { get; set; }
         public System.DateTime CreateDays { get; set; }
+        public bool IsMember { get; set; }
     }
 }
