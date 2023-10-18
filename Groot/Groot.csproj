@@ -129,7 +129,7 @@
     <Compile Include="Certificate.cs">
       <DependentUpon>GGModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Class\Class.cs" />
+    <Compile Include="Model\CInfo.cs" />
     <Compile Include="Education.cs">
       <DependentUpon>GGModel.tt</DependentUpon>
     </Compile>
@@ -183,12 +183,6 @@
     </Compile>
     <Compile Include="OrderProduct.cs">
       <DependentUpon>GGModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="PAR\Shop.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="PAR\Shop.designer.cs">
-      <DependentUpon>Shop.cs</DependentUpon>
     </Compile>
     <Compile Include="Payment.cs">
       <DependentUpon>GGModel.tt</DependentUpon>
@@ -290,9 +284,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="4-3. FrmCreateFirmAccount.resx">
       <DependentUpon>4-3. FrmCreateFirmAccount.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PAR\Shop.resx">
-      <DependentUpon>Shop.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

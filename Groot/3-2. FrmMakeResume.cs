@@ -170,8 +170,6 @@ namespace Groot
             this.tabControl1.SelectedIndex += 1;
         }
 
-
-
         private void button7_Click_1(object sender, EventArgs e)
         {
             this.tabControl1.SelectedIndex += 1;

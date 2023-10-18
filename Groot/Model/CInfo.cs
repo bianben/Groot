@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Groot.Class
 {
-    internal class Class
+    public class CInfo
     {
     }
 }
