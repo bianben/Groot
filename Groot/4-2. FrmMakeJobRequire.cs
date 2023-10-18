@@ -30,10 +30,10 @@ namespace Groot
             LoadRegion();
             
             LoadReceiveResume();
-            LoadJobRelease();
+            LoadReleaseJob();
         }
 
-        private void LoadJobRelease()
+        private void LoadReleaseJob()
         {
             var q = from p in this.db.Job_Opportunities.AsEnumerable()
                     where p.FirmID== int.Parse(currentID)
@@ -331,7 +331,6 @@ namespace Groot
             Job_Opportunity f = new Job_Opportunity
             {
                 FirmID = int.Parse(this.linkLabel1.Text.Remove(this.linkLabel1.Text.Count() - 3, 3)),
-                //RegionID = int.Parse((this.db.Regions.Where(p => p.City == this.comboBox2.Text).Select(n => n.RegionID)).ToString()),
                 RegionID = r.ToList()[this.comboBox2.SelectedIndex].RegionID,
                 RequiredNum = int.Parse(this.textBox2.Text),
                 ModifiedDate = DateTime.Now,
@@ -382,6 +381,7 @@ namespace Groot
             MessageBox.Show("新增成功");
             this.tabControl2.SelectedIndex = 2;
             LoadReceiveResume();
+            LoadReleaseJob();
         }
 
         private void checkBox1_Click(object sender, EventArgs e)
@@ -457,7 +457,7 @@ namespace Groot
             q.ModifiedDate= DateTime.Now;
 
             this.db.SaveChanges();
-            LoadJobRelease();
+            LoadReleaseJob();
         }
 
         private void button2_Click_1(object sender, EventArgs e)
@@ -473,7 +473,7 @@ namespace Groot
             q.ModifiedDate = DateTime.Now;
 
             this.db.SaveChanges();
-            LoadJobRelease();
+            LoadReleaseJob();
 
 
             

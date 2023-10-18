@@ -62,7 +62,6 @@ namespace Groot
                         公司名稱 = p.Job_Opportunities.Firm.FirmName,
                         狀態 = p.Status.Name,
                         大頭照 = p.Resume.Image.Image1,
-                        //自我介紹=p.Resume.ResumeContent
                     };
 
             this.bindingSource1.Clear();
@@ -119,11 +118,11 @@ namespace Groot
                         工作經驗 = p.WorkExp + "年",
                         技能 = p.ResumeSkills.Select(sk => sk.Skill.Name).FirstOrDefault() + "等" + p.ResumeSkills.Count + "項",
                     };
-            if(q.ToList() != null)
-            {
-                this.dataGridView2.DataSource = q.ToList();
+            if (q.ToList() == null) { return; }
+
+            this.dataGridView2.DataSource = q.ToList();
                 this.dataGridView3.DataSource = q.ToList();
-            }
+            
             
         }
 
@@ -233,6 +232,7 @@ namespace Groot
 
         private void button8_Click_1(object sender, EventArgs e)
         {
+            //todo 新增第一筆資料時會錯誤，但仍可新增
             //=========================
             //基本資料
 
@@ -541,21 +541,24 @@ namespace Groot
         {
             var j = from p in this.db.Job_Opportunities
                     select p;
-            var q = (from p in this.db.JobResumes
+            var q = (from p in this.db.Job_Opportunities.AsEnumerable()
                      where p.JobID == j.ToList()[this.listBox5.SelectedIndex].JobID
                      select p).FirstOrDefault();
-           
-
-            
+            var r = (from p in this.db.Resumes.AsEnumerable()
+                     where p.ResumeID == int.Parse(this.dataGridView3.CurrentRow.Cells[0].Value.ToString())
+                     select p).FirstOrDefault();
 
             JobResume jr = new JobResume
             {
                 JobID = q.JobID,
-                ResumeID=q.ID,
-
-                
+                ResumeID=r.ResumeID,
+                ApplyStatusID=5
             };
-            //this.db.Job_Opportunities.Add(q);
+            this.db.JobResumes.Add(jr);
+            this.db.SaveChanges();
+            LoadMySendResumes();
         }
+
+        
     }
 }
