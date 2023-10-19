@@ -33,7 +33,12 @@ namespace DB_GamingForm_Show
         #region OfficalCode
         DB_GamingFormEntities entities = new DB_GamingFormEntities();
         public int count =1;
+        public int sourcecount = 0;
+        public int page = 1;
+        public int pagecount = 25;
+        public bool flag = true;
         List<Result> list = new List<Result>();
+        List<Result> list2 = new List<Result>();
 
         private void HotSearch()
         {
@@ -99,7 +104,9 @@ namespace DB_GamingForm_Show
 
         private void LoadData()
         {
+            this.bindingSource1.Clear();
             var data = from n in this.entities.Job_Opportunities.AsEnumerable()
+                       orderby n.ModifiedDate descending
                        select new
                        {
                            n.Firm.FirmName,
@@ -112,8 +119,10 @@ namespace DB_GamingForm_Show
                            Status = n.Status.Name,
                            EducationRequirements = n.Education.Name
                        };
-            this.dataGridView1.DataSource = data.ToList();
-            ListLoad();
+            this.bindingSource1.DataSource = data.ToList();
+            this.dataGridView1.DataSource = this.bindingSource1;
+            sourcecount = this.dataGridView1.RowCount;
+            ListLoad(sourcecount);
 
         }
 
@@ -134,14 +143,15 @@ namespace DB_GamingForm_Show
 
         }
 
-       
 
-       
-        public bool flag = true;
+
+        
         private void checkedListBox1_ItemCheck(object sender, ItemCheckEventArgs e)
-        {
+        {   
+            list.Clear();
             var data = from n in this.entities.Job_Opportunities.AsEnumerable()
                        where n.JobContent.Contains(this.checkedListBox1.Text)
+                       orderby n.ModifiedDate descending
                        select new
                        {
                            n.Firm.FirmName,
@@ -155,8 +165,10 @@ namespace DB_GamingForm_Show
                            EducationRequirements = n.Education.Name
                        };
             if (flag)
-            {
-                this.dataGridView1.DataSource = data.ToList();
+            {     
+                this.bindingSource1.Clear();
+                this.bindingSource1.DataSource = data.ToList();
+                this.dataGridView1.DataSource = this.bindingSource1;
                 this.label12.Text = $"10/{this.dataGridView1.RowCount}筆";
                 flag = !flag;
             }
@@ -198,27 +210,32 @@ namespace DB_GamingForm_Show
                 Clear();
                 LoadData();
             }
-            else { 
+            else {
                 this.entities.SerachRecords.Add
-                                (new SerachRecord { Name = source,CreateDays = (DateTime.Now.Date),IsMember = true });
+                                (new SerachRecord { Name = source, CreateDays = (DateTime.Now.Date), IsMember = true });
                 this.entities.SaveChanges();
-            var data = from  n in this.entities.Job_Opportunities.AsEnumerable()
-                       where n.JobContent.ToLower().Contains(source.ToLower())
-                       select new
-                       {
-                           n.Firm.FirmName,
-                           n.Region.City,
-                           n.RequiredNum,
-                           ModifiedDate = n.ModifiedDate.ToString("d"),
-                           n.Salary,
-                           n.JobExp,
-                           n.JobContent,
-                           Status = n.Status.Name,
-                           EducationRequirements = n.Education.Name
-                       };
-            this.dataGridView1.DataSource = data.ToList();
-            ListLoad();
-            this.label12.Text = $"10/{this.dataGridView1.RowCount}筆";
+                var data = from n in this.entities.Job_Opportunities.AsEnumerable()
+                           where n.JobContent.ToLower().Contains(source.ToLower())
+                           orderby n.ModifiedDate descending
+                           select new
+                           {
+                               n.Firm.FirmName,
+                               n.Region.City,
+                               n.RequiredNum,
+                               ModifiedDate = n.ModifiedDate.ToString("d"),
+                               n.Salary,
+                               n.JobExp,
+                               n.JobContent,
+                               Status = n.Status.Name,
+                               EducationRequirements = n.Education.Name
+                           };
+                this.bindingSource1.Clear();
+                this.bindingSource1.DataSource = data.ToList();
+                this.dataGridView1.DataSource = this.bindingSource1;
+                this.label12.Text = $"10/{this.dataGridView1.RowCount}筆";
+                sourcecount = data.Count();
+                ListLoad(sourcecount);
+                
             }
         }
 
@@ -248,7 +265,6 @@ namespace DB_GamingForm_Show
 
         private void button4_Click_1(object sender, EventArgs e)
         {
-            ListLoad();
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -263,10 +279,13 @@ namespace DB_GamingForm_Show
             {
                 var value = from n in list.AsEnumerable()
                             where n.EducationRequirements == this.comboBox1.Text
+                            orderby n.ModerfiedDate descending
                             select n;
-                this.dataGridView1.DataSource = value.ToList();
-                ListLoad();
-                //this.label12.Text = $"10/{this.dataGridView1.RowCount}筆";
+                this.bindingSource1.Clear();
+                this.bindingSource1.DataSource = value.ToList();
+                this.dataGridView1.DataSource = this.bindingSource1;
+                sourcecount = value.Count();
+                ListLoad(sourcecount);
             }
         }
         
@@ -281,9 +300,13 @@ namespace DB_GamingForm_Show
             { 
             var value = from n in list.AsEnumerable()
                         where n.JobContent.ToLower().Contains(this.comboBox2.Text.ToLower())
+                        orderby n.ModerfiedDate
                         select n;
-            this.dataGridView1.DataSource = value.ToList();
-            ListLoad();
+                this.bindingSource1.Clear();
+                this.bindingSource1.DataSource = value.ToList();
+                this.dataGridView1.DataSource = this.bindingSource1;
+                sourcecount = value.ToList().Count();
+                ListLoad(sourcecount);
             }
             //this.label12.Text = $"10/{this.dataGridView1.RowCount}筆";
 
@@ -310,9 +333,13 @@ namespace DB_GamingForm_Show
         {
             var value = from n in list.AsEnumerable()
                         where n.JobContent.ToLower().Contains(this.comboBox4.Text.ToLower())
+                        orderby n.ModerfiedDate descending
                         select n;
-            this.dataGridView1.DataSource = value.ToList();
-            ListLoad();
+            this.bindingSource1.Clear();
+            this.bindingSource1.DataSource = value.ToList();
+            this.dataGridView1.DataSource = this.bindingSource1;
+            sourcecount = value.Count();
+            ListLoad(sourcecount);
         }
 
         private void comboBox5_SelectedIndexChanged(object sender, EventArgs e)
@@ -327,10 +354,14 @@ namespace DB_GamingForm_Show
             {
                 var value = from n in list.AsEnumerable()
                             where n.Region == this.comboBox5.Text
+                            orderby n.ModerfiedDate descending
                             select n;
-                
-                this.dataGridView1.DataSource = value.ToList();
-                ListLoad();
+
+                this.bindingSource1.Clear();
+                this.bindingSource1.DataSource = value.ToList();
+                this.dataGridView1.DataSource = this.bindingSource1;
+                sourcecount = value.Count();
+                ListLoad(sourcecount);
             }
             //this.label12.Text = $"10/{this.dataGridView1.RowCount}筆";
         }
@@ -344,14 +375,15 @@ namespace DB_GamingForm_Show
             }
             else
             {
-                var value2 = this.list.AsEnumerable()
+                var value = this.list.AsEnumerable()
                             .Where(n => int.Parse(n.Salary) >= int.Parse(this.comboBox6.Text))
-                            .Select(n =>n
+                            .Select(n =>n).OrderByDescending(n=>n.ModerfiedDate);
 
-                            );
-
-            this.dataGridView1.DataSource = value2.ToList();
-            ListLoad();
+                this.bindingSource1.Clear();
+                this.bindingSource1.DataSource = value.ToList();
+                this.dataGridView1.DataSource = this.bindingSource1;
+                sourcecount = value.Count();
+                ListLoad(sourcecount);
             }
         }
 
@@ -366,9 +398,13 @@ namespace DB_GamingForm_Show
             { 
             var value = from n in list.AsEnumerable()
                         where n.Status == this.comboBox7.Text
+                        orderby n.ModerfiedDate descending
                         select n;
-            this.dataGridView1.DataSource = value.ToList();
-            ListLoad();
+                this.bindingSource1.Clear();
+                this.bindingSource1.DataSource = value.ToList();
+                this.dataGridView1.DataSource = this.bindingSource1;
+                sourcecount = value.Count();
+                ListLoad(sourcecount);
             }
         }
 
@@ -402,15 +438,52 @@ namespace DB_GamingForm_Show
             public string EducationRequirements { get;set; }
 
         }
-        private void ListLoad()
-        {   
-            if (list.Count ==0 && count !=1)
+        private void ListLoad(int sourcecount)
+        {
+
+            count += 1;
+            list.Clear();
+            for (int i = 0; i < sourcecount; i++)
+            {
+                list.Add(new Result
+                {
+                    Firm = (string)this.dataGridView1.Rows[i].Cells[0].Value,
+                    Region = (string)this.dataGridView1.Rows[i].Cells[1].Value,
+                    RequireNum = (int)this.dataGridView1.Rows[i].Cells[2].Value,
+                    ModerfiedDate = (string)this.dataGridView1.Rows[i].Cells[3].Value,
+                    Salary = (string)this.dataGridView1.Rows[i].Cells[4].Value,
+                    JobExp = (string)this.dataGridView1.Rows[i].Cells[5].Value,
+                    JobContent = (string)this.dataGridView1.Rows[i].Cells[6].Value,
+                    Status = (string)this.dataGridView1.Rows[i].Cells[7].Value,
+                    EducationRequirements = (string)this.dataGridView1.Rows[i].Cells[8].Value,
+
+                });
+            }
+            if (list.Count == 0 && count != 1)
+            {
+                MessageBox.Show("No Match");
+                Clear();
+                LoadData();
+
+            }
+            this.bindingSource1.Clear();
+            this.bindingSource1.DataSource = list.ToList();
+            this.dataGridView1.DataSource = this.bindingSource1;
+            this.label12.Text = $"10/{this.dataGridView1.RowCount}筆";
+
+
+
+        }
+
+        private void ListLoadBak()
+        {
+            if (list.Count == 0 && count != 1)
             {
                 MessageBox.Show("No Match");
                 LoadData();
-                
+
             }
-            else 
+            else
             {
                 list.Clear();
                 for (int i = 0; i < this.dataGridView1.RowCount; i++)
@@ -429,13 +502,17 @@ namespace DB_GamingForm_Show
 
                     });
                 }
-                this.dataGridView1.DataSource = list.ToList();
+                this.bindingSource1.Clear();
+                this.bindingSource1.DataSource = list.ToList();
+                this.dataGridView1.DataSource = this.bindingSource1;
                 this.label12.Text = $"10/{this.dataGridView1.RowCount}筆";
             }
-            
-            
+
+
         }
+
         
+
         private void Filter()
         {
             string f1 = this.comboBox1.Text;
@@ -497,6 +574,61 @@ namespace DB_GamingForm_Show
             }
 
             
+        }
+        
+        private void button6_Click(object sender, EventArgs e)
+        {   
+            this.bindingSource1.Position -= 1;
+            
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            this.bindingSource1.Position += 1;
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            page -= 1;
+            if (page <=1) 
+            {
+                page = 1;
+                this.bindingSource1.Clear();
+                this.bindingSource1.DataSource = list.ToList().Skip((page - 1) * pagecount).Take(pagecount);
+                this.dataGridView1.DataSource = this.bindingSource1;
+
+
+            }
+            else 
+            {
+                this.bindingSource1.Clear();
+                this.bindingSource1.DataSource = list.ToList().Skip(page * pagecount).Take(pagecount);
+                this.dataGridView1.DataSource = this.bindingSource1;
+
+
+            }
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            page += 1;
+            if (page * pagecount >= list.Count)
+            {   
+                
+                this.bindingSource1.Clear();
+                this.bindingSource1.DataSource = list.ToList().Skip((page - 1) * pagecount).Take((list.Count-(page - 1) * pagecount));
+                this.dataGridView1.DataSource = this.bindingSource1;
+
+            }
+            else
+            {
+                this.bindingSource1.Clear();
+                this.bindingSource1.DataSource = list.ToList().Skip(page * pagecount).Take(pagecount);
+                this.dataGridView1.DataSource = this.bindingSource1;
+
+
+            }
         }
     }
 }

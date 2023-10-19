@@ -19,9 +19,9 @@ namespace DB_GamingForm_Show
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //Application.Run(new FrmJobMainPage());
+            Application.Run(new FrmJobMainPage());
             //Application.Run(new AddProduct());
-            Application.Run(new HomePage());
+            //Application.Run(new HomePage());
             //Application.Run(new FrmPurchase());
             //Application.Run(new FrmMemberShop());
         }

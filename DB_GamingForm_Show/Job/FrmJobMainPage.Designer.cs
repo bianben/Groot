@@ -35,6 +35,7 @@
             this.tpHomePage = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.button2 = new System.Windows.Forms.Button();
+            this.linkLabel4 = new System.Windows.Forms.LinkLabel();
             this.linkLabel3 = new System.Windows.Forms.LinkLabel();
             this.linkLabel2 = new System.Windows.Forms.LinkLabel();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
@@ -59,16 +60,17 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.button3 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
-            this.button3 = new System.Windows.Forms.Button();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.bindingSource2 = new System.Windows.Forms.BindingSource(this.components);
-            this.linkLabel4 = new System.Windows.Forms.LinkLabel();
+            this.button6 = new System.Windows.Forms.Button();
+            this.button7 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tpHomePage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -157,6 +159,17 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
+            // linkLabel4
+            // 
+            this.linkLabel4.AutoSize = true;
+            this.linkLabel4.Location = new System.Drawing.Point(1444, 12);
+            this.linkLabel4.Name = "linkLabel4";
+            this.linkLabel4.Size = new System.Drawing.Size(85, 19);
+            this.linkLabel4.TabIndex = 2;
+            this.linkLabel4.TabStop = true;
+            this.linkLabel4.Text = "個人頁面";
+            this.linkLabel4.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel4_LinkClicked);
+            // 
             // linkLabel3
             // 
             this.linkLabel3.AutoSize = true;
@@ -237,7 +250,9 @@
             // 
             // splitContainer2.Panel2
             // 
+            this.splitContainer2.Panel2.Controls.Add(this.button6);
             this.splitContainer2.Panel2.Controls.Add(this.button3);
+            this.splitContainer2.Panel2.Controls.Add(this.button7);
             this.splitContainer2.Panel2.Controls.Add(this.button1);
             this.splitContainer2.Panel2.Controls.Add(this.pictureBox1);
             this.splitContainer2.Panel2.Controls.Add(this.lblSearch);
@@ -429,14 +444,25 @@
             this.comboBox1.TabIndex = 0;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(260, 21);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 32);
+            this.button3.TabIndex = 3;
+            this.button3.Text = "上一頁";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(572, 30);
+            this.button1.Location = new System.Drawing.Point(643, 20);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 32);
             this.button1.TabIndex = 3;
             this.button1.Text = "下一頁";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // pictureBox1
             // 
@@ -458,7 +484,7 @@
             // label12
             // 
             this.label12.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(423, 40);
+            this.label12.Location = new System.Drawing.Point(423, 27);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(152, 19);
             this.label12.TabIndex = 1;
@@ -482,25 +508,25 @@
             this.label15.TabIndex = 1;
             this.label15.Text = "及時回復(跳出視窗)";
             // 
-            // button3
+            // button6
             // 
-            this.button3.Location = new System.Drawing.Point(342, 30);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 32);
-            this.button3.TabIndex = 3;
-            this.button3.Text = "上一頁";
-            this.button3.UseVisualStyleBackColor = true;
+            this.button6.Location = new System.Drawing.Point(341, 21);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(75, 32);
+            this.button6.TabIndex = 3;
+            this.button6.Text = "上一筆";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
-            // linkLabel4
+            // button7
             // 
-            this.linkLabel4.AutoSize = true;
-            this.linkLabel4.Location = new System.Drawing.Point(1444, 12);
-            this.linkLabel4.Name = "linkLabel4";
-            this.linkLabel4.Size = new System.Drawing.Size(85, 19);
-            this.linkLabel4.TabIndex = 2;
-            this.linkLabel4.TabStop = true;
-            this.linkLabel4.Text = "個人頁面";
-            this.linkLabel4.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel4_LinkClicked);
+            this.button7.Location = new System.Drawing.Point(565, 20);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(75, 32);
+            this.button7.TabIndex = 3;
+            this.button7.Text = "下一筆";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // FrmJobMainPage
             // 
@@ -574,6 +600,8 @@
         private System.Windows.Forms.BindingSource bindingSource2;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.LinkLabel linkLabel4;
+        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button button7;
     }
 }
 

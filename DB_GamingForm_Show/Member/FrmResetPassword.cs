@@ -107,22 +107,39 @@ namespace Gaming_Forum
         private void button3_Click(object sender, EventArgs e)
         {
             DB_GamingFormEntities db = new DB_GamingFormEntities();
-            try
+            if (textBox4.Text == textBox5.Text)
             {
-                Firm firm = new Firm();
-                firm = (Firm)(from f in db.Firms
-                                  where f.FirmID == ClassUtility.FirmID
-                                  select f).FirstOrDefault();
-                firm.Password = ClassUtility.HashPassword(this.textBox3.Text);
-                db.Firms.AddOrUpdate(firm);
-                db.SaveChanges();
-                MessageBox.Show("密碼修改成功");
-                button2.Visible = true;
-                this.label8.Visible = true;
+                MessageBox.Show("新舊密碼不可相同");
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show(ex.ToString());
+                string result = "";
+                ClassUtility Cs = new ClassUtility();
+                Cs.CheckPassword(this.textBox5.Text, ref result);
+                if (ClassUtility.Password)
+                {
+                    try
+                    {
+                        Firm firm = new Firm();
+                        firm = (Firm)(from f in db.Firms
+                                      where f.FirmID == ClassUtility.FirmID
+                                      select f).FirstOrDefault();
+                        firm.Password = ClassUtility.HashPassword(this.textBox3.Text);
+                        db.Firms.AddOrUpdate(firm);
+                        db.SaveChanges();
+                        MessageBox.Show("密碼修改成功");
+                        button2.Visible = true;
+                        this.label8.Visible = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.ToString());
+                    }
+                }
+                else 
+                {
+                    MessageBox.Show(result);
+                }
             }
         }
 

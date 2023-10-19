@@ -21,6 +21,7 @@ namespace Gaming_Forum
             this.button2.Enabled = false;
         }
         DB_GamingFormEntities db = new DB_GamingFormEntities();
+        Member_Firm mb = new Member_Firm();
         
         bool Uname {  get; set; }
         bool Uemail { get; set; }
@@ -119,23 +120,38 @@ namespace Gaming_Forum
 
         private void button2_Click(object sender, EventArgs e)
         {
-            try
+            if (this.textBox3.Text == this.textBox5.Text)
             {
-                Member member = new Member();
-                member = (Member)(from m in this.db.Members
-                                  where m.MemberID == Member_Firm.ClassUtility.MemberID
-                                  select m).FirstOrDefault();
-                member.Password = Member_Firm.ClassUtility.HashPassword(this.textBox3.Text);
-                this.db.Members.AddOrUpdate(member);
-                this.db.SaveChanges();
-                MessageBox.Show("密碼修改成功");
+                MessageBox.Show("新舊密碼不可相同");
+            }
+            else
+            {
+                string result = "";
+                mb.CheckPassword(this.textBox3.Text, ref result);
+                if (mb.Password)
+                {
+                    try
+                    {
+                        Member member = new Member();
+                        member = (Member)(from m in this.db.Members
+                                          where m.MemberID == Member_Firm.ClassUtility.MemberID
+                                          select m).FirstOrDefault();
+                        member.Password = Member_Firm.ClassUtility.HashPassword(this.textBox3.Text);
+                        this.db.Members.AddOrUpdate(member);
+                        this.db.SaveChanges();
+                        MessageBox.Show("密碼修改成功");
 
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.ToString());
+                    }
+                }
+                else
+                {
+                    MessageBox.Show(result);
+                }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-            
         }
 
         private void button3_Click(object sender, EventArgs e)
