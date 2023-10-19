@@ -53,7 +53,6 @@
           <Property Name="ArticleContent" Type="nvarchar(max)" Nullable="false" />
           <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
           <Property Name="MemberID" Type="int" Nullable="false" />
-          <Property Name="ReplyID" Type="int" />
         </EntityType>
         <EntityType Name="ArticleAction">
           <Key>
@@ -195,7 +194,8 @@
             <PropertyRef Name="OrderID" />
           </Key>
           <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="MemberID" Type="int" Nullable="false" />
+          <Property Name="MemberID" Type="int" />
+          <Property Name="FirmID" Type="int" />
           <Property Name="ShipName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="OrderDate" Type="date" Nullable="false" />
           <Property Name="PaymentDate" Type="date" />
@@ -237,8 +237,8 @@
           <Property Name="ProductContent" Type="nvarchar(max)" />
           <Property Name="UnitStock" Type="int" Nullable="false" />
           <Property Name="StatusID" Type="int" Nullable="false" />
-          <Property Name="MemberID" Type="int" Nullable="false" />
-          <Property Name="FirmID" Type="int" Nullable="false" />
+          <Property Name="MemberID" Type="int" />
+          <Property Name="FirmID" Type="int" />
           <Property Name="ImageID" Type="int" />
         </EntityType>
         <EntityType Name="ProductAdvertise">
@@ -253,7 +253,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ProductID" Type="int" Nullable="false" />
           <Property Name="MemberID" Type="int" Nullable="false" />
           <Property Name="EvaLevel" Type="nvarchar" MaxLength="50" />
@@ -354,7 +354,7 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="CreateDays" Type="datetime" />
+          <Property Name="CreateDays" Type="date" Nullable="false" />
           <Property Name="IsMember" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="ShipMethod">
@@ -458,18 +458,6 @@
             </Principal>
             <Dependent Role="Admin">
               <PropertyRef Name="RankID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Article_Article">
-          <End Role="Article" Type="Self.Article" Multiplicity="0..1" />
-          <End Role="Article1" Type="Self.Article" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Article">
-              <PropertyRef Name="ArticleID" />
-            </Principal>
-            <Dependent Role="Article1">
-              <PropertyRef Name="ReplyID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -809,8 +797,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Order_Firm">
+          <End Role="Firm" Type="Self.Firm" Multiplicity="0..1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Firm">
+              <PropertyRef Name="FirmID" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="FirmID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Order_Member">
-          <End Role="Member" Type="Self.Member" Multiplicity="1" />
+          <End Role="Member" Type="Self.Member" Multiplicity="0..1" />
           <End Role="Order" Type="Self.Order" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Member">
@@ -906,7 +906,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Product_Member">
-          <End Role="Member" Type="Self.Member" Multiplicity="1" />
+          <End Role="Member" Type="Self.Member" Multiplicity="0..1" />
           <End Role="Product" Type="Self.Product" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Member">
@@ -1010,6 +1010,30 @@
             </Principal>
             <Dependent Role="RegionDistrict">
               <PropertyRef Name="RegionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reply_Article">
+          <End Role="Article" Type="Self.Article" Multiplicity="1" />
+          <End Role="Reply" Type="Self.Reply" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Article">
+              <PropertyRef Name="ArticleID" />
+            </Principal>
+            <Dependent Role="Reply">
+              <PropertyRef Name="ArticleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reply_Member">
+          <End Role="Member" Type="Self.Member" Multiplicity="1" />
+          <End Role="Reply" Type="Self.Reply" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="MemberID" />
+            </Principal>
+            <Dependent Role="Reply">
+              <PropertyRef Name="MemberID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1145,18 +1169,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_SubBlog_SubBlog">
-          <End Role="SubBlog" Type="Self.SubBlog" Multiplicity="0..1" />
-          <End Role="SubBlog1" Type="Self.SubBlog" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SubBlog">
-              <PropertyRef Name="SubBlogID" />
-            </Principal>
-            <Dependent Role="SubBlog1">
-              <PropertyRef Name="ParentBlogID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_SubTag_Tag">
           <End Role="Tag" Type="Self.Tag" Multiplicity="1" />
           <End Role="SubTag" Type="Self.SubTag" Multiplicity="*" />
@@ -1247,10 +1259,6 @@
           <AssociationSet Name="FK_Admin_AdminRank" Association="Self.FK_Admin_AdminRank">
             <End Role="AdminRank" EntitySet="AdminRank" />
             <End Role="Admin" EntitySet="Admin" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Article_Article" Association="Self.FK_Article_Article">
-            <End Role="Article" EntitySet="Article" />
-            <End Role="Article1" EntitySet="Article" />
           </AssociationSet>
           <AssociationSet Name="FK_Article_Member" Association="Self.FK_Article_Member">
             <End Role="Member" EntitySet="Member" />
@@ -1364,6 +1372,10 @@
             <End Role="Tag" EntitySet="Tag" />
             <End Role="MemberTag" EntitySet="MemberTag" />
           </AssociationSet>
+          <AssociationSet Name="FK_Order_Firm" Association="Self.FK_Order_Firm">
+            <End Role="Firm" EntitySet="Firm" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
           <AssociationSet Name="FK_Order_Member" Association="Self.FK_Order_Member">
             <End Role="Member" EntitySet="Member" />
             <End Role="Order" EntitySet="Order" />
@@ -1432,6 +1444,14 @@
             <End Role="Region" EntitySet="Region" />
             <End Role="RegionDistrict" EntitySet="RegionDistrict" />
           </AssociationSet>
+          <AssociationSet Name="FK_Reply_Article" Association="Self.FK_Reply_Article">
+            <End Role="Article" EntitySet="Article" />
+            <End Role="Reply" EntitySet="Reply" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reply_Member" Association="Self.FK_Reply_Member">
+            <End Role="Member" EntitySet="Member" />
+            <End Role="Reply" EntitySet="Reply" />
+          </AssociationSet>
           <AssociationSet Name="FK_Resume_Education" Association="Self.FK_Resume_Education">
             <End Role="Education" EntitySet="Education" />
             <End Role="Resume" EntitySet="Resume" />
@@ -1475,10 +1495,6 @@
           <AssociationSet Name="FK_SubBlog_Blog" Association="Self.FK_SubBlog_Blog">
             <End Role="Blog" EntitySet="Blog" />
             <End Role="SubBlog" EntitySet="SubBlog" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SubBlog_SubBlog" Association="Self.FK_SubBlog_SubBlog">
-            <End Role="SubBlog" EntitySet="SubBlog" />
-            <End Role="SubBlog1" EntitySet="SubBlog" />
           </AssociationSet>
           <AssociationSet Name="FK_SubTag_Tag" Association="Self.FK_SubTag_Tag">
             <End Role="Tag" EntitySet="Tag" />
@@ -1564,10 +1580,6 @@
             <End Role="Advertise" EntitySet="Advertises" />
             <End Role="ProductAdvertise" EntitySet="ProductAdvertises" />
           </AssociationSet>
-          <AssociationSet Name="FK_Article_Article" Association="DB_GamingFormModel.FK_Article_Article">
-            <End Role="Article" EntitySet="Articles" />
-            <End Role="Article1" EntitySet="Articles" />
-          </AssociationSet>
           <AssociationSet Name="FK_Article_Member" Association="DB_GamingFormModel.FK_Article_Member">
             <End Role="Member" EntitySet="Members" />
             <End Role="Article" EntitySet="Articles" />
@@ -1579,6 +1591,10 @@
           <AssociationSet Name="FK_ArticleAction_Article" Association="DB_GamingFormModel.FK_ArticleAction_Article">
             <End Role="Article" EntitySet="Articles" />
             <End Role="ArticleAction" EntitySet="ArticleActions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reply_Article" Association="DB_GamingFormModel.FK_Reply_Article">
+            <End Role="Article" EntitySet="Articles" />
+            <End Role="Reply" EntitySet="Replies" />
           </AssociationSet>
           <AssociationSet Name="FK_ArticleAction_Member" Association="DB_GamingFormModel.FK_ArticleAction_Member">
             <End Role="Member" EntitySet="Members" />
@@ -1624,6 +1640,10 @@
             <End Role="Firm" EntitySet="Firms" />
             <End Role="Job_Opportunity" EntitySet="Job_Opportunities" />
           </AssociationSet>
+          <AssociationSet Name="FK_Order_Firm" Association="DB_GamingFormModel.FK_Order_Firm">
+            <End Role="Firm" EntitySet="Firms" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
           <AssociationSet Name="FK_Member_Image" Association="DB_GamingFormModel.FK_Member_Image">
             <End Role="Image" EntitySet="Images" />
             <End Role="Member" EntitySet="Members" />
@@ -1659,6 +1679,10 @@
           <AssociationSet Name="FK_JobSkill_Job_Opportunities" Association="DB_GamingFormModel.FK_JobSkill_Job_Opportunities">
             <End Role="Job_Opportunity" EntitySet="Job_Opportunities" />
             <End Role="JobSkill" EntitySet="JobSkills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JobResume_Resume" Association="DB_GamingFormModel.FK_JobResume_Resume">
+            <End Role="Resume" EntitySet="Resumes" />
+            <End Role="JobResume" EntitySet="JobResumes" />
           </AssociationSet>
           <AssociationSet Name="FK_JobResume_Status" Association="DB_GamingFormModel.FK_JobResume_Status">
             <End Role="Status" EntitySet="Status" />
@@ -1784,17 +1808,13 @@
             <End Role="SkillClass" EntitySet="SkillClasses" />
             <End Role="Skill" EntitySet="Skills" />
           </AssociationSet>
-          <AssociationSet Name="FK_SubBlog_SubBlog" Association="DB_GamingFormModel.FK_SubBlog_SubBlog">
-            <End Role="SubBlog" EntitySet="SubBlogs" />
-            <End Role="SubBlog1" EntitySet="SubBlogs" />
-          </AssociationSet>
           <AssociationSet Name="FK_SubTag_Tag" Association="DB_GamingFormModel.FK_SubTag_Tag">
             <End Role="Tag" EntitySet="Tags" />
             <End Role="SubTag" EntitySet="SubTags" />
           </AssociationSet>
-          <AssociationSet Name="FK_JobResume_Resume" Association="DB_GamingFormModel.FK_JobResume_Resume">
-            <End Role="Resume" EntitySet="Resumes" />
-            <End Role="JobResume" EntitySet="JobResumes" />
+          <AssociationSet Name="FK_Reply_Member" Association="DB_GamingFormModel.FK_Reply_Member">
+            <End Role="Member" EntitySet="Members" />
+            <End Role="Reply" EntitySet="Replies" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Action">
@@ -1851,12 +1871,10 @@
           <Property Name="ArticleContent" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="MemberID" Type="Int32" Nullable="false" />
-          <Property Name="ReplyID" Type="Int32" />
-          <NavigationProperty Name="Article1" Relationship="DB_GamingFormModel.FK_Article_Article" FromRole="Article" ToRole="Article1" />
-          <NavigationProperty Name="Article2" Relationship="DB_GamingFormModel.FK_Article_Article" FromRole="Article1" ToRole="Article" />
           <NavigationProperty Name="Member" Relationship="DB_GamingFormModel.FK_Article_Member" FromRole="Article" ToRole="Member" />
           <NavigationProperty Name="SubBlog" Relationship="DB_GamingFormModel.FK_Article_SubBlog" FromRole="Article" ToRole="SubBlog" />
           <NavigationProperty Name="ArticleActions" Relationship="DB_GamingFormModel.FK_ArticleAction_Article" FromRole="Article" ToRole="ArticleAction" />
+          <NavigationProperty Name="Replies" Relationship="DB_GamingFormModel.FK_Reply_Article" FromRole="Article" ToRole="Reply" />
         </EntityType>
         <EntityType Name="ArticleAction">
           <Key>
@@ -1918,6 +1936,7 @@
           <NavigationProperty Name="Image" Relationship="DB_GamingFormModel.FK_Firm_Image" FromRole="Firm" ToRole="Image" />
           <NavigationProperty Name="Status" Relationship="DB_GamingFormModel.FK_Firm_Status" FromRole="Firm" ToRole="Status" />
           <NavigationProperty Name="Job_Opportunities" Relationship="DB_GamingFormModel.FK_Job_Opportunities_Firm" FromRole="Firm" ToRole="Job_Opportunity" />
+          <NavigationProperty Name="Orders" Relationship="DB_GamingFormModel.FK_Order_Firm" FromRole="Firm" ToRole="Order" />
         </EntityType>
         <EntityType Name="Image">
           <Key>
@@ -1984,8 +2003,8 @@
           <Property Name="ResumeID" Type="Int32" Nullable="false" />
           <Property Name="ApplyStatusID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Job_Opportunities" Relationship="DB_GamingFormModel.FK_JobResume_Job_Opportunities" FromRole="JobResume" ToRole="Job_Opportunity" />
-          <NavigationProperty Name="Status" Relationship="DB_GamingFormModel.FK_JobResume_Status" FromRole="JobResume" ToRole="Status" />
           <NavigationProperty Name="Resume" Relationship="DB_GamingFormModel.FK_JobResume_Resume" FromRole="JobResume" ToRole="Resume" />
+          <NavigationProperty Name="Status" Relationship="DB_GamingFormModel.FK_JobResume_Status" FromRole="JobResume" ToRole="Status" />
         </EntityType>
         <EntityType Name="JobSkill">
           <Key>
@@ -2020,6 +2039,7 @@
           <NavigationProperty Name="ProductEvaluates" Relationship="DB_GamingFormModel.FK_ProductEvaluate_Member" FromRole="Member" ToRole="ProductEvaluate" />
           <NavigationProperty Name="Resumes" Relationship="DB_GamingFormModel.FK_Resume_Member" FromRole="Member" ToRole="Resume" />
           <NavigationProperty Name="WishLists" Relationship="DB_GamingFormModel.FK_WishList_Member" FromRole="Member" ToRole="WishList" />
+          <NavigationProperty Name="Replies" Relationship="DB_GamingFormModel.FK_Reply_Member" FromRole="Member" ToRole="Reply" />
         </EntityType>
         <EntityType Name="MemberStatu">
           <Key>
@@ -2048,7 +2068,8 @@
             <PropertyRef Name="OrderID" />
           </Key>
           <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MemberID" Type="Int32" Nullable="false" />
+          <Property Name="MemberID" Type="Int32" />
+          <Property Name="FirmID" Type="Int32" />
           <Property Name="ShipName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="PaymentDate" Type="DateTime" Precision="0" />
@@ -2060,6 +2081,7 @@
           <Property Name="ShipAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Note" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="StatusID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Firm" Relationship="DB_GamingFormModel.FK_Order_Firm" FromRole="Order" ToRole="Firm" />
           <NavigationProperty Name="Member" Relationship="DB_GamingFormModel.FK_Order_Member" FromRole="Order" ToRole="Member" />
           <NavigationProperty Name="Payment" Relationship="DB_GamingFormModel.FK_Order_Payment" FromRole="Order" ToRole="Payment" />
           <NavigationProperty Name="RegionDistrict" Relationship="DB_GamingFormModel.FK_Order_RegionDistrict" FromRole="Order" ToRole="RegionDistrict" />
@@ -2099,8 +2121,8 @@
           <Property Name="ProductContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="UnitStock" Type="Int32" Nullable="false" />
           <Property Name="StatusID" Type="Int32" Nullable="false" />
-          <Property Name="MemberID" Type="Int32" Nullable="false" />
-          <Property Name="FirmID" Type="Int32" Nullable="false" />
+          <Property Name="MemberID" Type="Int32" />
+          <Property Name="FirmID" Type="Int32" />
           <Property Name="ImageID" Type="Int32" />
           <NavigationProperty Name="Image" Relationship="DB_GamingFormModel.FK_Product_Image" FromRole="Product" ToRole="Image" />
           <NavigationProperty Name="Member" Relationship="DB_GamingFormModel.FK_Product_Member" FromRole="Product" ToRole="Member" />
@@ -2125,7 +2147,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ProductID" Type="Int32" Nullable="false" />
           <Property Name="MemberID" Type="Int32" Nullable="false" />
           <Property Name="EvaLevel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -2171,6 +2193,8 @@
           <Property Name="ReplyContents" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="MemberID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Article" Relationship="DB_GamingFormModel.FK_Reply_Article" FromRole="Reply" ToRole="Article" />
+          <NavigationProperty Name="Member" Relationship="DB_GamingFormModel.FK_Reply_Member" FromRole="Reply" ToRole="Member" />
         </EntityType>
         <EntityType Name="ReplyAction">
           <Key>
@@ -2206,12 +2230,12 @@
           <Property Name="EDID" Type="Int32" />
           <NavigationProperty Name="Education" Relationship="DB_GamingFormModel.FK_Resume_Education" FromRole="Resume" ToRole="Education" />
           <NavigationProperty Name="Image" Relationship="DB_GamingFormModel.FK_Resume_Image" FromRole="Resume" ToRole="Image" />
+          <NavigationProperty Name="JobResumes" Relationship="DB_GamingFormModel.FK_JobResume_Resume" FromRole="Resume" ToRole="JobResume" />
           <NavigationProperty Name="Member" Relationship="DB_GamingFormModel.FK_Resume_Member" FromRole="Resume" ToRole="Member" />
           <NavigationProperty Name="ResumeStyle" Relationship="DB_GamingFormModel.FK_Resume_ResumeStyle" FromRole="Resume" ToRole="ResumeStyle" />
           <NavigationProperty Name="Status" Relationship="DB_GamingFormModel.FK_Resume_Status" FromRole="Resume" ToRole="Status" />
           <NavigationProperty Name="ResumeCertificates" Relationship="DB_GamingFormModel.FK_ResumeCertificate_Resume" FromRole="Resume" ToRole="ResumeCertificate" />
           <NavigationProperty Name="ResumeSkills" Relationship="DB_GamingFormModel.FK_ResumeSkill_Resume" FromRole="Resume" ToRole="ResumeSkill" />
-          <NavigationProperty Name="JobResumes" Relationship="DB_GamingFormModel.FK_JobResume_Resume" FromRole="Resume" ToRole="JobResume" />
         </EntityType>
         <EntityType Name="ResumeCertificate">
           <Key>
@@ -2247,7 +2271,7 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="CreateDays" Type="DateTime" Precision="3" />
+          <Property Name="CreateDays" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="IsMember" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="ShipMethod">
@@ -2303,8 +2327,6 @@
           <Property Name="IsMemberBlog" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Articles" Relationship="DB_GamingFormModel.FK_Article_SubBlog" FromRole="SubBlog" ToRole="Article" />
           <NavigationProperty Name="Blog" Relationship="DB_GamingFormModel.FK_SubBlog_Blog" FromRole="SubBlog" ToRole="Blog" />
-          <NavigationProperty Name="SubBlog1" Relationship="DB_GamingFormModel.FK_SubBlog_SubBlog" FromRole="SubBlog" ToRole="SubBlog1" />
-          <NavigationProperty Name="SubBlog2" Relationship="DB_GamingFormModel.FK_SubBlog_SubBlog" FromRole="SubBlog1" ToRole="SubBlog" />
         </EntityType>
         <EntityType Name="SubBolgCategory">
           <Key>
@@ -2415,18 +2437,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Article_Article">
-          <End Type="DB_GamingFormModel.Article" Role="Article" Multiplicity="0..1" />
-          <End Type="DB_GamingFormModel.Article" Role="Article1" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Article">
-              <PropertyRef Name="ArticleID" />
-            </Principal>
-            <Dependent Role="Article1">
-              <PropertyRef Name="ReplyID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Article_Member">
           <End Type="DB_GamingFormModel.Member" Role="Member" Multiplicity="1" />
           <End Type="DB_GamingFormModel.Article" Role="Article" Multiplicity="*" />
@@ -2459,6 +2469,18 @@
               <PropertyRef Name="ArticleID" />
             </Principal>
             <Dependent Role="ArticleAction">
+              <PropertyRef Name="ArticleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reply_Article">
+          <End Type="DB_GamingFormModel.Article" Role="Article" Multiplicity="1" />
+          <End Type="DB_GamingFormModel.Reply" Role="Reply" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Article">
+              <PropertyRef Name="ArticleID" />
+            </Principal>
+            <Dependent Role="Reply">
               <PropertyRef Name="ArticleID" />
             </Dependent>
           </ReferentialConstraint>
@@ -2595,6 +2617,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Order_Firm">
+          <End Type="DB_GamingFormModel.Firm" Role="Firm" Multiplicity="0..1" />
+          <End Type="DB_GamingFormModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Firm">
+              <PropertyRef Name="FirmID" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="FirmID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Member_Image">
           <End Type="DB_GamingFormModel.Image" Role="Image" Multiplicity="1" />
           <End Type="DB_GamingFormModel.Member" Role="Member" Multiplicity="*" />
@@ -2703,6 +2737,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_JobResume_Resume">
+          <End Type="DB_GamingFormModel.Resume" Role="Resume" Multiplicity="1" />
+          <End Type="DB_GamingFormModel.JobResume" Role="JobResume" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Resume">
+              <PropertyRef Name="ResumeID" />
+            </Principal>
+            <Dependent Role="JobResume">
+              <PropertyRef Name="ResumeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_JobResume_Status">
           <End Type="DB_GamingFormModel.Status" Role="Status" Multiplicity="1" />
           <End Type="DB_GamingFormModel.JobResume" Role="JobResume" Multiplicity="*" />
@@ -2752,7 +2798,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Order_Member">
-          <End Type="DB_GamingFormModel.Member" Role="Member" Multiplicity="1" />
+          <End Type="DB_GamingFormModel.Member" Role="Member" Multiplicity="0..1" />
           <End Type="DB_GamingFormModel.Order" Role="Order" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Member">
@@ -2764,7 +2810,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Product_Member">
-          <End Type="DB_GamingFormModel.Member" Role="Member" Multiplicity="1" />
+          <End Type="DB_GamingFormModel.Member" Role="Member" Multiplicity="0..1" />
           <End Type="DB_GamingFormModel.Product" Role="Product" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Member">
@@ -3075,18 +3121,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_SubBlog_SubBlog">
-          <End Type="DB_GamingFormModel.SubBlog" Role="SubBlog" Multiplicity="0..1" />
-          <End Type="DB_GamingFormModel.SubBlog" Role="SubBlog1" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SubBlog">
-              <PropertyRef Name="SubBlogID" />
-            </Principal>
-            <Dependent Role="SubBlog1">
-              <PropertyRef Name="ParentBlogID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_SubTag_Tag">
           <End Type="DB_GamingFormModel.Tag" Role="Tag" Multiplicity="1" />
           <End Type="DB_GamingFormModel.SubTag" Role="SubTag" Multiplicity="*" />
@@ -3099,19 +3133,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_JobResume_Resume">
-          <End Type="DB_GamingFormModel.Resume" Role="Resume" Multiplicity="1" />
-          <End Type="DB_GamingFormModel.JobResume" Role="JobResume" Multiplicity="*" />
+        <Association Name="FK_Reply_Member">
+          <End Type="DB_GamingFormModel.Member" Role="Member" Multiplicity="1" />
+          <End Type="DB_GamingFormModel.Reply" Role="Reply" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Resume">
-              <PropertyRef Name="ResumeID" />
+            <Principal Role="Member">
+              <PropertyRef Name="MemberID" />
             </Principal>
-            <Dependent Role="JobResume">
-              <PropertyRef Name="ResumeID" />
+            <Dependent Role="Reply">
+              <PropertyRef Name="MemberID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -3162,7 +3196,6 @@
           <EntitySetMapping Name="Articles">
             <EntityTypeMapping TypeName="DB_GamingFormModel.Article">
               <MappingFragment StoreEntitySet="Article">
-                <ScalarProperty Name="ReplyID" ColumnName="ReplyID" />
                 <ScalarProperty Name="MemberID" ColumnName="MemberID" />
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
                 <ScalarProperty Name="ArticleContent" ColumnName="ArticleContent" />
@@ -3335,6 +3368,7 @@
                 <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
                 <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
                 <ScalarProperty Name="ShipName" ColumnName="ShipName" />
+                <ScalarProperty Name="FirmID" ColumnName="FirmID" />
                 <ScalarProperty Name="MemberID" ColumnName="MemberID" />
                 <ScalarProperty Name="OrderID" ColumnName="OrderID" />
               </MappingFragment>

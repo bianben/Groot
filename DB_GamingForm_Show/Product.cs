@@ -31,8 +31,8 @@ namespace DB_GamingForm_Show
         public string ProductContent { get; set; }
         public int UnitStock { get; set; }
         public int StatusID { get; set; }
-        public int MemberID { get; set; }
-        public int FirmID { get; set; }
+        public Nullable<int> MemberID { get; set; }
+        public Nullable<int> FirmID { get; set; }
         public Nullable<int> ImageID { get; set; }
     
         public virtual Image Image { get; set; }

@@ -18,6 +18,7 @@ namespace DB_GamingForm_Show
         public Firm()
         {
             this.Job_Opportunities = new HashSet<Job_Opportunity>();
+            this.Orders = new HashSet<Order>();
         }
     
         public int FirmID { get; set; }
@@ -36,5 +37,7 @@ namespace DB_GamingForm_Show
         public virtual Status Status { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Job_Opportunity> Job_Opportunities { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }

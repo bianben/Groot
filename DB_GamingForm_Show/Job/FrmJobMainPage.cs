@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Gaming_Forum;
+using Groot;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -35,14 +37,14 @@ namespace DB_GamingForm_Show
 
         private void HotSearch()
         {
-            var value = from n in this.entities.SerachRecords.AsEnumerable()
-                         where n.IsMember == true 
-                         group n by n.Name into q
-                         orderby q.Key.Count() descending
-                         select q.Key;
-            this.linkLabel1.Text = value.ToList()[0].ToString();
-            this.linkLabel2.Text = value.ToList()[1].ToString();
-            this.linkLabel3.Text = value.ToList()[2].ToString();
+            var value = (from n in this.entities.SerachRecords.AsEnumerable()
+                        where n.IsMember == true
+                        group n by n.Name into q
+                        orderby q.Count() descending
+                        select q.Key).ToList();
+            this.linkLabel1.Text = value[0].ToString();
+            this.linkLabel2.Text = value[1].ToString();
+            this.linkLabel3.Text = value[2].ToString();
 
 
         }
@@ -155,7 +157,7 @@ namespace DB_GamingForm_Show
             if (flag)
             {
                 this.dataGridView1.DataSource = data.ToList();
-                this.label1.Text = $"10/{this.dataGridView1.RowCount}筆";
+                this.label12.Text = $"10/{this.dataGridView1.RowCount}筆";
                 flag = !flag;
             }
             else 
@@ -198,11 +200,10 @@ namespace DB_GamingForm_Show
             }
             else { 
                 this.entities.SerachRecords.Add
-                                (new SerachRecord { Name = source,IsMember = true });
+                                (new SerachRecord { Name = source,CreateDays = (DateTime.Now.Date),IsMember = true });
                 this.entities.SaveChanges();
-            
             var data = from  n in this.entities.Job_Opportunities.AsEnumerable()
-                       where n.JobContent.Contains(source)
+                       where n.JobContent.ToLower().Contains(source.ToLower())
                        select new
                        {
                            n.Firm.FirmName,
@@ -279,7 +280,7 @@ namespace DB_GamingForm_Show
             else
             { 
             var value = from n in list.AsEnumerable()
-                        where n.JobContent.Contains(this.comboBox2.Text)
+                        where n.JobContent.ToLower().Contains(this.comboBox2.Text.ToLower())
                         select n;
             this.dataGridView1.DataSource = value.ToList();
             ListLoad();
@@ -308,7 +309,7 @@ namespace DB_GamingForm_Show
         private void comboBox4_SelectedIndexChanged(object sender, EventArgs e)
         {
             var value = from n in list.AsEnumerable()
-                        where n.JobContent.Contains(this.comboBox4.Text)
+                        where n.JobContent.ToLower().Contains(this.comboBox4.Text.ToLower())
                         select n;
             this.dataGridView1.DataSource = value.ToList();
             ListLoad();
@@ -460,15 +461,42 @@ namespace DB_GamingForm_Show
 
 
         #endregion
-
+        public int Id { get; set; }
         #region Pratice
         private void Blog()
         {
             var q = this.entities.Blogs.Where(n => n.SubTag.TagID == 4).Select(n => n);
             this.dataGridView1.DataSource = q.ToList();
 
+            if (ClassUtility.FirmID == 0)
+            {
+                Id = ClassUtility.FirmID;
+               
+            }
+            else
+            {
+                Id = ClassUtility.MemberID;
+
+            }
+
 
         }
         #endregion
+
+        private void linkLabel4_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (Gaming_Forum.ClassUtility.MemberID != 0)
+            {
+                FrmMakeResume re = new FrmMakeResume();
+                re.Show();
+            }
+            else
+            {
+                MessageBox.Show("請登入後再嘗試");
+                
+            }
+
+            
+        }
     }
 }

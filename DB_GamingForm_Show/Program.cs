@@ -1,8 +1,11 @@
-﻿using System;
+﻿using Gaming_Forum;
+using Shopping;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+//using 其中專題;
 
 namespace DB_GamingForm_Show
 {
@@ -16,8 +19,11 @@ namespace DB_GamingForm_Show
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //Application.Run(new FrmResumeMainPage());
-            Application.Run(new FrmJobMainPage());
+            //Application.Run(new FrmJobMainPage());
+            //Application.Run(new AddProduct());
+            Application.Run(new HomePage());
+            //Application.Run(new FrmPurchase());
+            //Application.Run(new FrmMemberShop());
         }
     }
 }

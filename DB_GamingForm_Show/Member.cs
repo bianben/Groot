@@ -26,6 +26,7 @@ namespace DB_GamingForm_Show
             this.ProductEvaluates = new HashSet<ProductEvaluate>();
             this.Resumes = new HashSet<Resume>();
             this.WishLists = new HashSet<WishList>();
+            this.Replies = new HashSet<Reply>();
         }
     
         public int MemberID { get; set; }
@@ -57,5 +58,7 @@ namespace DB_GamingForm_Show
         public virtual ICollection<Resume> Resumes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<WishList> WishLists { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Reply> Replies { get; set; }
     }
 }

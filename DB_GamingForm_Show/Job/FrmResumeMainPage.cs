@@ -1,9 +1,12 @@
-﻿using System;
+﻿using DB_GamingForm_Show.Job;
+using Groot;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,12 +16,13 @@ namespace DB_GamingForm_Show
 {
     public partial class FrmResumeMainPage : Form
     {
+        DB_GamingFormEntities entities = new DB_GamingFormEntities();
+        
         public FrmResumeMainPage()
-        {   
+        {
             
             InitializeComponent();
             ComboLoad();
-            //Clear();
             LoadData();
             HotSearch();
             
@@ -27,19 +31,19 @@ namespace DB_GamingForm_Show
 
 
 
+
         }
         #region OfficalCode
-        DB_GamingFormEntities entities = new DB_GamingFormEntities();
         public int count =1;
         List<ResumeResult> list = new List<ResumeResult>();
 
         private void HotSearch()
         {
-            var value = from n in this.entities.SerachRecords.AsEnumerable()
-                        where n.IsMember == false
+            var value = (from n in this.entities.SerachRecords.AsEnumerable()
+                         where n.IsMember == false
                          group n by n.Name into q
-                         orderby q.Key.Count() descending
-                         select q.Key;
+                         orderby q.Count() descending
+                         select q.Key).ToList();
             this.linkLabel1.Text = value.ToList()[0].ToString();
             this.linkLabel2.Text = value.ToList()[1].ToString();
             this.linkLabel3.Text = value.ToList()[2].ToString();
@@ -186,7 +190,7 @@ namespace DB_GamingForm_Show
                 this.entities.SaveChanges();
             
             var data = from  n in this.entities.Resumes.AsEnumerable()
-                       where n.ResumeContent.Contains(source)
+                       where n.ResumeContent.ToLower().Contains(source.ToLower())
                        select new
                        {
                            n.ResumeID,
@@ -386,6 +390,7 @@ namespace DB_GamingForm_Show
                     });
                 }
                 this.dataGridView1.DataSource = list.ToList();
+                this.dataGridView1.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.ColumnHeader);
                 this.label12.Text = $"10/{this.dataGridView1.RowCount}筆";
             }
             
@@ -419,11 +424,33 @@ namespace DB_GamingForm_Show
         #region Pratice
         private void Blog()
         {
-            var q = this.entities.Blogs.Where(n => n.SubTag.TagID == 4).Select(n => n);
-            this.dataGridView1.DataSource = q.ToList();
+
+            //var q = from n in this.entities.Blogs
+            //        where n.BlogID ==25
+            //        select n.BlogID;
+            var q = (from p in this.entities.Blogs
+                    where p.BlogID == 25
+                    select p).FirstOrDefault();
+
+            this.entities.Blogs.Remove(q);
+            //this.entities.Blogs.Remove
+            //                    (new Blog { BlogID = 25 });
+            this.entities.SaveChanges();
 
 
         }
         #endregion
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Blog();
+        }
+
+        private void linkLabel4_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+                FrmMakeJobRequire jb = new FrmMakeJobRequire();
+                jb.Show();
+
+        }
     }
 }

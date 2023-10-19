@@ -45,6 +45,8 @@
     <Reference Include="System.Messaging" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -77,6 +79,24 @@
     <Compile Include="Blog.cs">
       <DependentUpon>GMModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Blog\ArtAndReply.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Blog\ArtAndReply.designer.cs">
+      <DependentUpon>ArtAndReply.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\FormHome.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Blog\FormHome.designer.cs">
+      <DependentUpon>FormHome.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\NewART.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Blog\NewART.designer.cs">
+      <DependentUpon>NewART.cs</DependentUpon>
+    </Compile>
     <Compile Include="Certificate.cs">
       <DependentUpon>GMModel.tt</DependentUpon>
     </Compile>
@@ -87,16 +107,29 @@
     <Compile Include="Firm.cs">
       <DependentUpon>GMModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="FrmJobMainPage.cs">
+    <Compile Include="Job\3-2. FrmMakeResume.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmJobMainPage.Designer.cs">
+    <Compile Include="Job\3-2. FrmMakeResume.designer.cs">
+      <DependentUpon>3-2. FrmMakeResume.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Job\4-2. FrmMakeJobRequire.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Job\4-2. FrmMakeJobRequire.designer.cs">
+      <DependentUpon>4-2. FrmMakeJobRequire.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Job\ClsJob.cs" />
+    <Compile Include="Job\FrmJobMainPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Job\FrmJobMainPage.Designer.cs">
       <DependentUpon>FrmJobMainPage.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmResumeMainPage.cs">
+    <Compile Include="Job\FrmResumeMainPage.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmResumeMainPage.Designer.cs">
+    <Compile Include="Job\FrmResumeMainPage.Designer.cs">
       <DependentUpon>FrmResumeMainPage.cs</DependentUpon>
     </Compile>
     <Compile Include="GMModel.Context.cs">
@@ -141,6 +174,56 @@
     <Compile Include="MemberTag.cs">
       <DependentUpon>GMModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Member\ClassUtility.cs" />
+    <Compile Include="Member\FirmFrmRegistration.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Member\FirmFrmRegistration.designer.cs">
+      <DependentUpon>FirmFrmRegistration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Member\FrmFirmProfiles.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Member\FrmFirmProfiles.designer.cs">
+      <DependentUpon>FrmFirmProfiles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Member\FrmResetPassword.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Member\FrmResetPassword.designer.cs">
+      <DependentUpon>FrmResetPassword.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Member\HomePage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Member\HomePage.designer.cs">
+      <DependentUpon>HomePage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Member\Member_Detail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Member\Member_Detail.designer.cs">
+      <DependentUpon>Member_Detail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Member\Member_Firm.cs" />
+    <Compile Include="Member\Member_Home.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Member\Member_Home.designer.cs">
+      <DependentUpon>Member_Home.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Member\NFrmRegistration.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Member\NFrmRegistration.designer.cs">
+      <DependentUpon>NFrmRegistration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Member\ResetPassword.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Member\ResetPassword.designer.cs">
+      <DependentUpon>ResetPassword.cs</DependentUpon>
+    </Compile>
     <Compile Include="Order.cs">
       <DependentUpon>GMModel.tt</DependentUpon>
     </Compile>
@@ -161,6 +244,46 @@
     </Compile>
     <Compile Include="ProductTag.cs">
       <DependentUpon>GMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Product\AddProduct.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Product\AddProduct.designer.cs">
+      <DependentUpon>AddProduct.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Product\COrder.cs" />
+    <Compile Include="Product\COrderProduct.cs" />
+    <Compile Include="Product\CProduct.cs" />
+    <Compile Include="Product\CShoppingCar.cs" />
+    <Compile Include="Product\FrmCar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Product\FrmCar.designer.cs">
+      <DependentUpon>FrmCar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Product\FrmMemberShop.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Product\FrmMemberShop.designer.cs">
+      <DependentUpon>FrmMemberShop.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Product\FrmProductEvaluate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Product\FrmProductEvaluate.designer.cs">
+      <DependentUpon>FrmProductEvaluate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Product\FrmPurchase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Product\FrmPurchase.designer.cs">
+      <DependentUpon>FrmPurchase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Product\FrmUpdateProduct.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Product\FrmUpdateProduct.designer.cs">
+      <DependentUpon>FrmUpdateProduct.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -224,11 +347,68 @@
     <Compile Include="WishList.cs">
       <DependentUpon>GMModel.tt</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="FrmJobMainPage.resx">
+    <EmbeddedResource Include="Blog\ArtAndReply.resx">
+      <DependentUpon>ArtAndReply.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Blog\FormHome.resx">
+      <DependentUpon>FormHome.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Blog\NewART.resx">
+      <DependentUpon>NewART.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Job\3-2. FrmMakeResume.resx">
+      <DependentUpon>3-2. FrmMakeResume.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Job\4-2. FrmMakeJobRequire.resx">
+      <DependentUpon>4-2. FrmMakeJobRequire.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Job\FrmJobMainPage.resx">
       <DependentUpon>FrmJobMainPage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmResumeMainPage.resx">
+    <EmbeddedResource Include="Job\FrmResumeMainPage.resx">
       <DependentUpon>FrmResumeMainPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Member\FirmFrmRegistration.resx">
+      <DependentUpon>FirmFrmRegistration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Member\FrmFirmProfiles.resx">
+      <DependentUpon>FrmFirmProfiles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Member\FrmResetPassword.resx">
+      <DependentUpon>FrmResetPassword.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Member\HomePage.resx">
+      <DependentUpon>HomePage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Member\Member_Detail.resx">
+      <DependentUpon>Member_Detail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Member\Member_Home.resx">
+      <DependentUpon>Member_Home.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Member\NFrmRegistration.resx">
+      <DependentUpon>NFrmRegistration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Member\ResetPassword.resx">
+      <DependentUpon>ResetPassword.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Product\AddProduct.resx">
+      <DependentUpon>AddProduct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Product\FrmCar.resx">
+      <DependentUpon>FrmCar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Product\FrmMemberShop.resx">
+      <DependentUpon>FrmMemberShop.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Product\FrmProductEvaluate.resx">
+      <DependentUpon>FrmProductEvaluate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Product\FrmPurchase.resx">
+      <DependentUpon>FrmPurchase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Product\FrmUpdateProduct.resx">
+      <DependentUpon>FrmUpdateProduct.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -238,6 +418,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EntityDeploy Include="GMModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
@@ -274,6 +455,10 @@
       <DependentUpon>GMModel.edmx</DependentUpon>
       <LastGenOutput>GMModel.cs</LastGenOutput>
     </Content>
+    <None Include="Resources\images.jfif" />
+    <None Include="Resources\d1ce2a7a5e56eb423e02efb9466cea4f_preview_mid.jpg" />
+    <None Include="Resources\p1982532a717553240-ss.jpg" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

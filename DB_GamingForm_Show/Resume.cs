@@ -17,9 +17,9 @@ namespace DB_GamingForm_Show
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Resume()
         {
+            this.JobResumes = new HashSet<JobResume>();
             this.ResumeCertificates = new HashSet<ResumeCertificate>();
             this.ResumeSkills = new HashSet<ResumeSkill>();
-            this.JobResumes = new HashSet<JobResume>();
         }
     
         public int ResumeID { get; set; }
@@ -36,6 +36,8 @@ namespace DB_GamingForm_Show
     
         public virtual Education Education { get; set; }
         public virtual Image Image { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<JobResume> JobResumes { get; set; }
         public virtual Member Member { get; set; }
         public virtual ResumeStyle ResumeStyle { get; set; }
         public virtual Status Status { get; set; }
@@ -43,7 +45,5 @@ namespace DB_GamingForm_Show
         public virtual ICollection<ResumeCertificate> ResumeCertificates { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ResumeSkill> ResumeSkills { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<JobResume> JobResumes { get; set; }
     }
 }

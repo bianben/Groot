@@ -21,7 +21,8 @@ namespace DB_GamingForm_Show
         }
     
         public int OrderID { get; set; }
-        public int MemberID { get; set; }
+        public Nullable<int> MemberID { get; set; }
+        public Nullable<int> FirmID { get; set; }
         public string ShipName { get; set; }
         public System.DateTime OrderDate { get; set; }
         public Nullable<System.DateTime> PaymentDate { get; set; }
@@ -34,6 +35,7 @@ namespace DB_GamingForm_Show
         public string Note { get; set; }
         public int StatusID { get; set; }
     
+        public virtual Firm Firm { get; set; }
         public virtual Member Member { get; set; }
         public virtual Payment Payment { get; set; }
         public virtual RegionDistrict RegionDistrict { get; set; }

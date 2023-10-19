@@ -18,7 +18,6 @@ namespace DB_GamingForm_Show
         public SubBlog()
         {
             this.Articles = new HashSet<Article>();
-            this.SubBlog1 = new HashSet<SubBlog>();
         }
     
         public int SubBlogID { get; set; }
@@ -30,8 +29,5 @@ namespace DB_GamingForm_Show
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Article> Articles { get; set; }
         public virtual Blog Blog { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SubBlog> SubBlog1 { get; set; }
-        public virtual SubBlog SubBlog2 { get; set; }
     }
 }

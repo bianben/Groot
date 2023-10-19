@@ -20,7 +20,7 @@ namespace DB_GamingForm_Show
         public int ApplyStatusID { get; set; }
     
         public virtual Job_Opportunity Job_Opportunities { get; set; }
-        public virtual Status Status { get; set; }
         public virtual Resume Resume { get; set; }
+        public virtual Status Status { get; set; }
     }
 }
