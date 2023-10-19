@@ -34,6 +34,7 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tpHomePage = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.linkLabel4 = new System.Windows.Forms.LinkLabel();
             this.button2 = new System.Windows.Forms.Button();
             this.linkLabel3 = new System.Windows.Forms.LinkLabel();
             this.linkLabel2 = new System.Windows.Forms.LinkLabel();
@@ -65,7 +66,9 @@
             this.label15 = new System.Windows.Forms.Label();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.bindingSource2 = new System.Windows.Forms.BindingSource(this.components);
-            this.linkLabel4 = new System.Windows.Forms.LinkLabel();
+            this.button6 = new System.Windows.Forms.Button();
+            this.button7 = new System.Windows.Forms.Button();
+            this.button8 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tpHomePage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -143,6 +146,17 @@
             this.splitContainer1.Size = new System.Drawing.Size(1558, 929);
             this.splitContainer1.SplitterDistance = 172;
             this.splitContainer1.TabIndex = 2;
+            // 
+            // linkLabel4
+            // 
+            this.linkLabel4.AutoSize = true;
+            this.linkLabel4.Location = new System.Drawing.Point(1458, 11);
+            this.linkLabel4.Name = "linkLabel4";
+            this.linkLabel4.Size = new System.Drawing.Size(85, 19);
+            this.linkLabel4.TabIndex = 4;
+            this.linkLabel4.TabStop = true;
+            this.linkLabel4.Text = "個人頁面";
+            this.linkLabel4.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel4_LinkClicked);
             // 
             // button2
             // 
@@ -232,6 +246,9 @@
             // 
             // splitContainer2.Panel2
             // 
+            this.splitContainer2.Panel2.Controls.Add(this.button6);
+            this.splitContainer2.Panel2.Controls.Add(this.button7);
+            this.splitContainer2.Panel2.Controls.Add(this.button8);
             this.splitContainer2.Panel2.Controls.Add(this.button1);
             this.splitContainer2.Panel2.Controls.Add(this.pictureBox1);
             this.splitContainer2.Panel2.Controls.Add(this.lblSearch);
@@ -404,12 +421,13 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(333, 33);
+            this.button1.Location = new System.Drawing.Point(271, 26);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 32);
             this.button1.TabIndex = 3;
             this.button1.Text = "上一頁";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // pictureBox1
             // 
@@ -431,9 +449,9 @@
             // label12
             // 
             this.label12.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(423, 43);
+            this.label12.Location = new System.Drawing.Point(425, 33);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(214, 19);
+            this.label12.Size = new System.Drawing.Size(161, 19);
             this.label12.TabIndex = 1;
             this.label12.Text = "搜尋結果: 20/365 筆";
             // 
@@ -455,16 +473,35 @@
             this.label15.TabIndex = 1;
             this.label15.Text = "及時回復(跳出視窗)";
             // 
-            // linkLabel4
+            // button6
             // 
-            this.linkLabel4.AutoSize = true;
-            this.linkLabel4.Location = new System.Drawing.Point(1458, 11);
-            this.linkLabel4.Name = "linkLabel4";
-            this.linkLabel4.Size = new System.Drawing.Size(85, 19);
-            this.linkLabel4.TabIndex = 4;
-            this.linkLabel4.TabStop = true;
-            this.linkLabel4.Text = "個人頁面";
-            this.linkLabel4.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel4_LinkClicked);
+            this.button6.Location = new System.Drawing.Point(342, 26);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(75, 32);
+            this.button6.TabIndex = 5;
+            this.button6.Text = "上一筆";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(592, 23);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(75, 32);
+            this.button7.TabIndex = 7;
+            this.button7.Text = "下一筆";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
+            // 
+            // button8
+            // 
+            this.button8.Location = new System.Drawing.Point(673, 23);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(75, 32);
+            this.button8.TabIndex = 8;
+            this.button8.Text = "下一頁";
+            this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
             // FrmResumeMainPage
             // 
@@ -535,6 +572,9 @@
         private System.Windows.Forms.BindingSource bindingSource2;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.LinkLabel linkLabel4;
+        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button button8;
     }
 }
 

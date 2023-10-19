@@ -16,10 +16,11 @@ namespace DB_GamingForm_Show
     public partial class FrmJobMainPage : Form
     {
         public FrmJobMainPage()
-        {   
+        {
+
             
             InitializeComponent();
-            //Clear();
+            this.button3.Enabled = false;
             ComboLoad();
             LoadData();
             HotSearch();
@@ -31,25 +32,58 @@ namespace DB_GamingForm_Show
 
         }
         #region OfficalCode
-        DB_GamingFormEntities entities = new DB_GamingFormEntities();
-        public int count =1;
+        public int count = 1;
         public int sourcecount = 0;
-        public int page = 1;
+        public int page = 0;
         public int pagecount = 25;
         public bool flag = true;
+        DB_GamingFormEntities entities = new DB_GamingFormEntities();
         List<Result> list = new List<Result>();
-        List<Result> list2 = new List<Result>();
+        public class Result
+        {
+            public string Firm { get; set; }
+            public string Region { get; set; }
+            public int RequireNum { get; set; }
 
+            public string ModerfiedDate { get; set; }
+
+            public string Salary { get; set; }
+            public string JobExp { get; set; }
+
+            public string JobContent { get; set; }
+
+            public string Status { get; set; }
+
+            public string EducationRequirements { get; set; }
+
+        }
         private void HotSearch()
         {
-            var value = (from n in this.entities.SerachRecords.AsEnumerable()
-                        where n.IsMember == true
-                        group n by n.Name into q
-                        orderby q.Count() descending
-                        select q.Key).ToList();
-            this.linkLabel1.Text = value[0].ToString();
-            this.linkLabel2.Text = value[1].ToString();
-            this.linkLabel3.Text = value[2].ToString();
+            try {
+
+
+
+                var value = (from n in this.entities.SerachRecords.AsEnumerable()
+                             where n.IsMember == true
+                             group n by n.Name into q
+                             orderby q.Count() descending
+                             select q.Key).ToList();
+                this.linkLabel1.Text = value[0].ToString();
+                this.linkLabel2.Text = value[1].ToString();
+                this.linkLabel3.Text = value[2].ToString();
+            } 
+            
+            
+            catch(Exception) 
+            {
+
+                this.linkLabel1.Visible = false;
+                this.linkLabel2.Visible = false;
+                this.linkLabel3.Visible = false;
+
+
+            }
+           
 
 
         }
@@ -69,32 +103,32 @@ namespace DB_GamingForm_Show
             this.comboBox7.SelectedIndex = 0;
             var q = from n in this.entities.Educations
                     select n.Name;
-            foreach( var educations in q) 
+            foreach (var educations in q)
             {
                 this.comboBox1.Items.Add(educations);
             }
             var q2 = from n in this.entities.Certificates
-                    select n.Name;
-            foreach( var cert in q2)
+                     select n.Name;
+            foreach (var cert in q2)
             {
                 this.comboBox2.Items.Add(cert);
             }
             var q3 = from n in this.entities.SkillClasses
                      select n.Name;
-            foreach( var skillClass in q3)
+            foreach (var skillClass in q3)
             {
                 this.comboBox3.Items.Add(skillClass);
             }
             var q5 = from n in this.entities.Regions
-                     select n.City; 
-            foreach( var region in q5)
+                     select n.City;
+            foreach (var region in q5)
             {
-                this.comboBox5.Items.Add(region);   
+                this.comboBox5.Items.Add(region);
             }
             var q7 = from n in this.entities.Status
                      where n.StatusID == 3 || n.StatusID == 4
                      select n.Name;
-            foreach( var status in q7)
+            foreach (var status in q7)
             {
                 this.comboBox7.Items.Add(status);
             }
@@ -104,6 +138,8 @@ namespace DB_GamingForm_Show
 
         private void LoadData()
         {
+            page = 0;
+            this.button1.Enabled = true;
             this.bindingSource1.Clear();
             var data = from n in this.entities.Job_Opportunities.AsEnumerable()
                        orderby n.ModifiedDate descending
@@ -126,7 +162,7 @@ namespace DB_GamingForm_Show
 
         }
 
-        
+
 
         private void Clear()
         {
@@ -145,9 +181,9 @@ namespace DB_GamingForm_Show
 
 
 
-        
+
         private void checkedListBox1_ItemCheck(object sender, ItemCheckEventArgs e)
-        {   
+        {
             list.Clear();
             var data = from n in this.entities.Job_Opportunities.AsEnumerable()
                        where n.JobContent.Contains(this.checkedListBox1.Text)
@@ -165,25 +201,25 @@ namespace DB_GamingForm_Show
                            EducationRequirements = n.Education.Name
                        };
             if (flag)
-            {     
+            {
                 this.bindingSource1.Clear();
                 this.bindingSource1.DataSource = data.ToList();
                 this.dataGridView1.DataSource = this.bindingSource1;
-                this.label12.Text = $"10/{this.dataGridView1.RowCount}筆";
+                this.label12.Text = $"{page * pagecount}/{list.Count()}筆";
                 flag = !flag;
             }
-            else 
+            else
             {
                 LoadData();
                 flag = !flag;
             }
-            
+
 
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if(this.textBox1.Text == "")
+            if (this.textBox1.Text == "")
             {
                 LoadData();
             }
@@ -204,13 +240,14 @@ namespace DB_GamingForm_Show
 
         }
         private void Search(string source)
-        {   
-            if(source == "")
-            {   
+        {
+            if (source == "")
+            {
                 Clear();
                 LoadData();
             }
-            else {
+            else
+            {
                 this.entities.SerachRecords.Add
                                 (new SerachRecord { Name = source, CreateDays = (DateTime.Now.Date), IsMember = true });
                 this.entities.SaveChanges();
@@ -232,10 +269,10 @@ namespace DB_GamingForm_Show
                 this.bindingSource1.Clear();
                 this.bindingSource1.DataSource = data.ToList();
                 this.dataGridView1.DataSource = this.bindingSource1;
-                this.label12.Text = $"10/{this.dataGridView1.RowCount}筆";
+                this.label12.Text = $"{page* pagecount}/{this.dataGridView1.RowCount}筆";
                 sourcecount = data.Count();
                 ListLoad(sourcecount);
-                
+
             }
         }
 
@@ -257,11 +294,11 @@ namespace DB_GamingForm_Show
         private void button4_Click(object sender, EventArgs e)
         {
             Filter();
-                       
-    }
+
+        }
 
 
-        
+
 
         private void button4_Click_1(object sender, EventArgs e)
         {
@@ -269,11 +306,11 @@ namespace DB_GamingForm_Show
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (this.comboBox1.SelectedIndex ==0)
+            if (this.comboBox1.SelectedIndex == 0)
             {
                 Clear();
                 LoadData();
-                
+
             }
             else
             {
@@ -288,7 +325,7 @@ namespace DB_GamingForm_Show
                 ListLoad(sourcecount);
             }
         }
-        
+
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (this.comboBox2.SelectedIndex == 0)
@@ -297,20 +334,19 @@ namespace DB_GamingForm_Show
                 LoadData();
             }
             else
-            { 
-            var value = from n in list.AsEnumerable()
-                        where n.JobContent.ToLower().Contains(this.comboBox2.Text.ToLower())
-                        orderby n.ModerfiedDate
-                        select n;
+            {
+                var value = from n in list.AsEnumerable()
+                            where n.JobContent.ToLower().Contains(this.comboBox2.Text.ToLower())
+                            orderby n.ModerfiedDate
+                            select n;
                 this.bindingSource1.Clear();
                 this.bindingSource1.DataSource = value.ToList();
                 this.dataGridView1.DataSource = this.bindingSource1;
                 sourcecount = value.ToList().Count();
                 ListLoad(sourcecount);
             }
-            //this.label12.Text = $"10/{this.dataGridView1.RowCount}筆";
 
-        } 
+        }
         private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
         {
             var q4 = from n in this.entities.Skills.AsEnumerable()
@@ -323,11 +359,11 @@ namespace DB_GamingForm_Show
                 Clear();
                 LoadData();
             }
-            
+
             //this.label12.Text = $"10/{this.dataGridView1.RowCount}筆";
         }
 
-        
+
 
         private void comboBox4_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -344,7 +380,7 @@ namespace DB_GamingForm_Show
 
         private void comboBox5_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+
             if (this.comboBox5.SelectedIndex == 0)
             {
                 Clear();
@@ -377,7 +413,7 @@ namespace DB_GamingForm_Show
             {
                 var value = this.list.AsEnumerable()
                             .Where(n => int.Parse(n.Salary) >= int.Parse(this.comboBox6.Text))
-                            .Select(n =>n).OrderByDescending(n=>n.ModerfiedDate);
+                            .Select(n => n).OrderByDescending(n => n.ModerfiedDate);
 
                 this.bindingSource1.Clear();
                 this.bindingSource1.DataSource = value.ToList();
@@ -388,18 +424,18 @@ namespace DB_GamingForm_Show
         }
 
         private void comboBox7_SelectedIndexChanged(object sender, EventArgs e)
-        {   
-            if(this.comboBox7.SelectedIndex == 0)
-            {   
+        {
+            if (this.comboBox7.SelectedIndex == 0)
+            {
                 Clear();
                 LoadData();
             }
             else
-            { 
-            var value = from n in list.AsEnumerable()
-                        where n.Status == this.comboBox7.Text
-                        orderby n.ModerfiedDate descending
-                        select n;
+            {
+                var value = from n in list.AsEnumerable()
+                            where n.Status == this.comboBox7.Text
+                            orderby n.ModerfiedDate descending
+                            select n;
                 this.bindingSource1.Clear();
                 this.bindingSource1.DataSource = value.ToList();
                 this.dataGridView1.DataSource = this.bindingSource1;
@@ -418,29 +454,11 @@ namespace DB_GamingForm_Show
         {
             Remove();
         }
-        #endregion
-        #region 在研究
-        public class Result
-        {
-            public string Firm { get; set; }
-            public string Region { get; set; }
-            public int RequireNum { get; set; }
 
-            public string ModerfiedDate { get; set; }
 
-            public string Salary { get; set; }
-            public string JobExp  { get; set; }
 
-            public string JobContent { get; set; }
-
-            public string Status { get; set; }
-
-            public string EducationRequirements { get;set; }
-
-        }
         private void ListLoad(int sourcecount)
         {
-
             count += 1;
             list.Clear();
             for (int i = 0; i < sourcecount; i++)
@@ -459,6 +477,9 @@ namespace DB_GamingForm_Show
 
                 });
             }
+            this.bindingSource1.Clear();
+            this.bindingSource1.DataSource = list.ToList();
+            this.dataGridView1.DataSource = this.bindingSource1;
             if (list.Count == 0 && count != 1)
             {
                 MessageBox.Show("No Match");
@@ -466,12 +487,18 @@ namespace DB_GamingForm_Show
                 LoadData();
 
             }
-            this.bindingSource1.Clear();
-            this.bindingSource1.DataSource = list.ToList();
-            this.dataGridView1.DataSource = this.bindingSource1;
-            this.label12.Text = $"10/{this.dataGridView1.RowCount}筆";
-
-
+            else if (list.Count <= pagecount)
+            {
+                this.label12.Text = $"{list.Count} /{list.Count}筆";
+                this.button1.Enabled = false;
+                this.button3.Enabled = false;
+            }
+            else
+            {
+                this.label12.Text = $"{list.Count} /{list.Count}筆";
+                this.button3.Enabled = false;
+            }
+            
 
         }
 
@@ -511,8 +538,89 @@ namespace DB_GamingForm_Show
 
         }
 
-        
 
+
+        public int Id { get; set; }
+
+
+        private void linkLabel4_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (Gaming_Forum.ClassUtility.MemberID != 0)
+            {
+                FrmMakeResume re = new FrmMakeResume();
+                re.Show();
+            }
+            else
+            {
+                MessageBox.Show("請登入後再嘗試");
+
+            }
+
+
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            this.bindingSource1.Position -= 1;
+
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            this.bindingSource1.Position += 1;
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            page -= 1;
+            if (page < 0)
+            {
+                page = 0;
+                this.bindingSource1.Clear();
+                this.bindingSource1.DataSource = list.ToList().Skip((page - 1) * pagecount).Take(pagecount);
+                this.dataGridView1.DataSource = this.bindingSource1;
+                this.button3.Enabled = false;
+                this.label12.Text = $"已是第一頁";
+
+            }
+            else
+            {
+                this.bindingSource1.Clear();
+                this.bindingSource1.DataSource = list.ToList().Skip(page * pagecount).Take(pagecount);
+                this.dataGridView1.DataSource = this.bindingSource1;
+                this.button1.Enabled = true;
+                this.label12.Text = $"{page * pagecount} /{list.Count}筆";
+
+            }
+            
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            page += 1;
+            if (page * pagecount > list.Count)
+            {
+                
+                //this.bindingSource1.Clear();
+                //this.bindingSource1.DataSource = list.ToList().Skip((page - 1) * pagecount).Take(pagecount);
+                //this.dataGridView1.DataSource = this.bindingSource1;
+                this.label12.Text = $"已是最後一頁";
+                this.button1.Enabled = false;
+                
+            }
+            else
+            {
+                this.button3.Enabled = true;
+                this.bindingSource1.Clear();
+                this.bindingSource1.DataSource = list.ToList().Skip(page * pagecount).Take(pagecount);
+                this.dataGridView1.DataSource = this.bindingSource1;
+                this.label12.Text = $"{page * pagecount} /{list.Count}筆";
+
+            }
+            
+        }
+        #endregion
+        #region 再研究
         private void Filter()
         {
             string f1 = this.comboBox1.Text;
@@ -538,7 +646,6 @@ namespace DB_GamingForm_Show
 
 
         #endregion
-        public int Id { get; set; }
         #region Pratice
         private void Blog()
         {
@@ -548,7 +655,7 @@ namespace DB_GamingForm_Show
             if (ClassUtility.FirmID == 0)
             {
                 Id = ClassUtility.FirmID;
-               
+
             }
             else
             {
@@ -559,76 +666,5 @@ namespace DB_GamingForm_Show
 
         }
         #endregion
-
-        private void linkLabel4_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            if (Gaming_Forum.ClassUtility.MemberID != 0)
-            {
-                FrmMakeResume re = new FrmMakeResume();
-                re.Show();
-            }
-            else
-            {
-                MessageBox.Show("請登入後再嘗試");
-                
-            }
-
-            
-        }
-        
-        private void button6_Click(object sender, EventArgs e)
-        {   
-            this.bindingSource1.Position -= 1;
-            
-        }
-
-        private void button7_Click(object sender, EventArgs e)
-        {
-            this.bindingSource1.Position += 1;
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            page -= 1;
-            if (page <=1) 
-            {
-                page = 1;
-                this.bindingSource1.Clear();
-                this.bindingSource1.DataSource = list.ToList().Skip((page - 1) * pagecount).Take(pagecount);
-                this.dataGridView1.DataSource = this.bindingSource1;
-
-
-            }
-            else 
-            {
-                this.bindingSource1.Clear();
-                this.bindingSource1.DataSource = list.ToList().Skip(page * pagecount).Take(pagecount);
-                this.dataGridView1.DataSource = this.bindingSource1;
-
-
-            }
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            page += 1;
-            if (page * pagecount >= list.Count)
-            {   
-                
-                this.bindingSource1.Clear();
-                this.bindingSource1.DataSource = list.ToList().Skip((page - 1) * pagecount).Take((list.Count-(page - 1) * pagecount));
-                this.dataGridView1.DataSource = this.bindingSource1;
-
-            }
-            else
-            {
-                this.bindingSource1.Clear();
-                this.bindingSource1.DataSource = list.ToList().Skip(page * pagecount).Take(pagecount);
-                this.dataGridView1.DataSource = this.bindingSource1;
-
-
-            }
-        }
     }
 }
