@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using WindowsFormsApp1;
 using DB_GamingForm_Show;
 using Gaming_Forum;
+using System.Security.AccessControl;
 
 namespace DBGaming
 {
@@ -18,12 +19,13 @@ namespace DBGaming
         public FormHome(int memberid)
         {
             InitializeComponent();
-            LoadBlog();            
+            LoadBlog();
         }
         //DB_GamingFormEntities1 db = new DB_GamingFormEntities1();
         DB_GamingFormEntities db = new DB_GamingFormEntities();
         private void LoadBlog()
         {
+            db = new DB_GamingFormEntities();
             this.menuBlog.Items.Clear();
             var q = db.SubTags.AsEnumerable()
                 .Where(s => s.TagID == 4 && s.SubTagID != 14)
@@ -40,23 +42,36 @@ namespace DBGaming
             {
                 this.cbmBlogselect.Items.Add(s);
             }
+            
         }
         private void ALLClear()
         {
             this.menuSubblog.Items.Clear();
             this.txbNew.Text = null;
+            this.dataGridView1.DataSource = null;
             this.dataGridView2.DataSource = null;
             this.subBlogImg.Image = null;
             this.txbBlog.Text = null;
+            this.cbmBlog.Items.Clear();
             this.cbmBlogselect.Text = null;
             this.txbSubBlog.Text = null;
             this.txbSubBlogNew.Text = null;
             this.txbBlognew.Text = null;
+            this.cbmBlogselect.Items.Clear();
         }
-
+        private void SubAllClear()
+        {
+            this.menuSubblog.Items.Clear();
+            this.dataGridView2.DataSource = null;
+        }
+        string selectblogLast="";
         private void menuBlog_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
             ALLClear();
+            SubAllClear();
+            LoadBlog();
+
+            selectblogLast =e.ClickedItem.Text;
             this.cbmBlog.Text = e.ClickedItem.Text;
             var q = db.Blogs.AsEnumerable()
                 .Where(b => b.SubTag.Name == e.ClickedItem.Text)
@@ -65,31 +80,52 @@ namespace DBGaming
                     進版圖 = s.Image.Image1,
                     版名 = s.Title
                 });
-
-            this.dataGridView1.DataSource = q.ToList();
-            this.txbTag.Text = e.ClickedItem.Text;
-        }
-        private void btnTagInsert_Click(object sender, EventArgs e)
-        {
-            var q = db.SubTags
-                .Where(s => s.TagID == 4)
-                   .Select(s => s.Name);
-            if (q.Contains(this.txbTag.Text))
+            txbTag.Text = e.ClickedItem.Text;
+            if (q.Count() == 0)
             {
-                MessageBox.Show("已有此分類");
+                MessageBox.Show("此分類還未有子版");
+
             }
             else
             {
-                SubTag sub = new SubTag()
-                {
-                    TagID = 4,
-                    Name = this.txbTag.Text
-                };
-                db.SubTags.Add(sub);
-                db.SaveChanges();
-                ALLClear();
-                LoadBlog();
+            this.dataGridView1.DataSource = q.ToList();
+            }
                 
+            
+            
+        }
+        private void btnTagInsert_Click(object sender, EventArgs e)
+        {
+            ALLClear();
+
+
+            var q = db.SubTags
+                .Where(s => s.TagID == 4)
+                   .Select(s => s.Name);
+            if (txbTag.Text != "")
+            {
+                if (q.Contains(this.txbTag.Text))
+                {
+                    MessageBox.Show("已有此分類");
+                }
+                else
+                {
+                    SubTag sub = new SubTag()
+                    {
+                        TagID = 4,
+                        Name = this.txbTag.Text
+                    };
+                    db.SubTags.Add(sub);
+                    db.SaveChanges();
+                    this.txbBlog.Text = null;
+                    this.txbTag.Text = null;
+                    LoadBlog();
+
+                }
+            }
+            else
+            {
+                MessageBox.Show("必須輸入名稱");
             }
 
         }
@@ -103,22 +139,43 @@ namespace DBGaming
             var q = db.SubTags
                 .Where(s => s.TagID == 4)
                 .Select(s => s.Name);
-
-            if (q.Contains(this.txbTag.Text))
+            if (txbNew.Text != "")
             {
-                sub.Name = this.txbNew.Text;
-                db.SaveChanges();
+                if (q.Contains(this.txbTag.Text))
+                {
+                    if (q.Contains(this.txbNew.Text))
+                    {
+                        MessageBox.Show("重複名稱");
+                    }
+                    else
+                    {
+
+                        sub.Name = this.txbNew.Text;
+                        db.SaveChanges();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("沒有此分類");
+                }
             }
             else
             {
-                MessageBox.Show("沒有此分類");
+                MessageBox.Show("必須輸入名稱");
             }
+
+
+            this.txbBlog.Text = null;
+            this.txbNew.Text = null;
+            this.cbmBlog.Text = null;
+            this.txbTag.Text = null;
             ALLClear();
             LoadBlog();
         }
 
         private void btnTagDelete_Click(object sender, EventArgs e)
         {
+            ALLClear();
             var delRe = db.Replies.AsEnumerable()
                 .Where(r => r.Article.SubBlog.Blog.SubTag.Name == this.txbTag.Text && r.Article.SubBlog.Blog.SubTag.TagID == 4)
                 .Select(r => r);
@@ -127,10 +184,10 @@ namespace DBGaming
             {
                 db.Replies.Remove(item);
             };
-            var delArt=db.Articles.AsEnumerable()
-                .Where(a=>a.SubBlog.Blog.SubTag.Name==this.txbTag.Text&&a.SubBlog.Blog.SubTag.TagID==4)
-                .Select(a=>a);
-            if(delArt == null) return;
+            var delArt = db.Articles.AsEnumerable()
+                .Where(a => a.SubBlog.Blog.SubTag.Name == this.txbTag.Text && a.SubBlog.Blog.SubTag.TagID == 4)
+                .Select(a => a);
+            if (delArt == null) return;
             foreach (var item in delArt)
             {
                 db.Articles.Remove(item);
@@ -143,35 +200,45 @@ namespace DBGaming
             {
                 db.SubBlogs.Remove(item);
             }
-            var delBlog=db.Blogs.AsEnumerable()
-                .Where(b=>b.SubTag.Name==this.txbTag.Text&&b.SubTag.TagID==4)
-                .Select(b=>b);
+            var delBlog = db.Blogs.AsEnumerable()
+                .Where(b => b.SubTag.Name == this.txbTag.Text && b.SubTag.TagID == 4)
+                .Select(b => b);
             if (delBlog == null) return;
             foreach (var item in delBlog)
             {
                 db.Blogs.Remove(item);
             }
             var sub = db.SubTags
-                .Where(s => s.Name == this.txbTag.Text&&s.TagID==4)
+                .Where(s => s.Name == this.txbTag.Text && s.TagID == 4)
                 .Select(s => s).FirstOrDefault();
-            if (sub == null) return; 
+            if (sub == null) return;
             db.SubTags.Remove(sub);
             db.SaveChanges();
             ALLClear();
             LoadBlog();
+            this.cbmBlog.Text = null;
+            this.txbTag.Text = null;
         }
-
+        string selectblog;
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             this.menuSubblog.Items.Clear();
             var q = db.SubBlogs.AsEnumerable()
                    .Where(s => s.Blog.Title == this.dataGridView1.CurrentRow.Cells["版名"].Value.ToString())
                    .Select(s => s.Title);
+            if (q.Count() == 0)
+            
+                MessageBox.Show("沒有分類");
+            
+            
+            
 
             foreach (var s in q)
             {
                 this.menuSubblog.Items.Add(s);
             }
+
+            
             this.dataGridView2.DataSource = null;
             this.txbBlog.Text = this.dataGridView1.CurrentRow.Cells["版名"].Value.ToString();
             this.cbmBlogselect.Text = this.dataGridView1.CurrentRow.Cells["版名"].Value.ToString();
@@ -181,6 +248,8 @@ namespace DBGaming
             byte[] bytes = q2.FirstOrDefault();
             System.IO.MemoryStream ms = new System.IO.MemoryStream(bytes);
             this.subBlogImg.Image = System.Drawing.Image.FromStream(ms);
+            selectblog = this.dataGridView1.CurrentRow.Cells["版名"].Value.ToString();
+
         }
         private void InsertImg()
         {
@@ -211,50 +280,58 @@ namespace DBGaming
                     .Select(b => b.Title);
 
             System.IO.MemoryStream ms = new System.IO.MemoryStream();
-            if (q3.Contains(this.txbBlog.Text))
+            if (txbBlog.Text != "")
             {
-                MessageBox.Show("已有此討論版");
-            }
-            else
-            {
-
-                if (this.subBlogImg.Image == null)
+                if (q3.Contains(this.txbBlog.Text))
                 {
-                    Blog blog = new Blog()
-                    {
-                        ImageID = 2,
-                        BlogID = q,
-                        Title = this.txbBlog.Text,
-                        SubTagID = q2
-                    };
-                    db.Blogs.Add(blog);
-                    //db.SaveChanges();
+                    MessageBox.Show("已有此討論版");
                 }
                 else
                 {
-                    this.subBlogImg.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
-                    byte[] bytes = ms.GetBuffer();
-                    DB_GamingForm_Show.Image img = new DB_GamingForm_Show.Image()
+                    if (this.subBlogImg.Image == null)
                     {
-                        Name = "img",
-                        Image1 = bytes
-                    };
-                    db.Images.Add(img);
-                    db.SaveChanges();
-                    Blog blog = new Blog()
+                        Blog blog = new Blog()
+                        {
+                            ImageID = 2,
+                            BlogID = q,
+                            Title = this.txbBlog.Text,
+                            SubTagID = q2
+                        };
+                        db.Blogs.Add(blog);
+                        //db.SaveChanges();
+                    }
+                    else
                     {
-                        ImageID = img.ImageID,
-                        BlogID = q,
-                        Title = this.txbBlog.Text,
-                        SubTagID = q2
-                    };
-                    db.Blogs.Add(blog);
+                        this.subBlogImg.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                        byte[] bytes = ms.GetBuffer();
+                        DB_GamingForm_Show.Image img = new DB_GamingForm_Show.Image()
+                        {
+                            Name = "img",
+                            Image1 = bytes
+                        };
+                        db.Images.Add(img);
+                        db.SaveChanges();
+                        Blog blog = new Blog()
+                        {
+                            ImageID = img.ImageID,
+                            BlogID = q,
+                            Title = this.txbBlog.Text,
+                            SubTagID = q2
+                        };
+                        db.Blogs.Add(blog);
 
+                    }
+                    db.SaveChanges();
+                    dataGridView1.DataSource = null;
                 }
-                db.SaveChanges();
-                dataGridView1.DataSource = null;
+            }
+            else
+            {
+                MessageBox.Show("必須輸入名稱");
             }
 
+            ALLClear();
+            LoadBlog();
         }
 
         private void BtnBlogUpdate_Click(object sender, EventArgs e)
@@ -267,33 +344,47 @@ namespace DBGaming
             var compareBlog = db.Blogs.AsEnumerable()
                 .Where(b => b.SubTag.Name == this.cbmBlog.Text)
                 .Select(b => b.Title);
-
-            if (compareBlog.Contains(this.txbBlog.Text))
+            if (txbBlognew.Text != "")
             {
 
-                if (this.subBlogImg.Image == null)
+                if (compareBlog.Contains(this.txbBlog.Text))
                 {
-                    updateBlog.Title = this.txbBlognew.Text;
-                    updateBlog.ImageID=2;
-                    MessageBox.Show("沒上傳圖片，設為預設圖");
+                    if (!compareBlog.Contains(this.txbBlognew.Text))
+                    {
+
+                        if (this.subBlogImg.Image == null)
+                        {
+                            updateBlog.Title = this.txbBlognew.Text;
+                            updateBlog.ImageID = 2;
+                            MessageBox.Show("沒上傳圖片，設為預設圖");
+                        }
+                        else
+                        {
+                            this.subBlogImg.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                            byte[] bytes = ms.GetBuffer();
+
+                            updateBlog.Title = this.txbBlognew.Text;
+                            updateBlog.Image.Image1 = bytes;
+                        }
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        MessageBox.Show("重複名稱");
+                    }
                 }
                 else
                 {
-                this.subBlogImg.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
-                byte[] bytes = ms.GetBuffer();
-
-                updateBlog.Title = this.txbBlognew.Text;
-                updateBlog.Image.Image1 = bytes;                
+                    MessageBox.Show("沒有此討論版");
                 }
-                db.SaveChanges();
             }
             else
             {
-                MessageBox.Show("沒有此討論版");
+                MessageBox.Show("必須輸入名稱");
             }
             dataGridView1.DataSource = null;
-
-
+            ALLClear();
+            LoadBlog();
         }
 
         private void btnBlogDelete_Click(object sender, EventArgs e)
@@ -304,52 +395,58 @@ namespace DBGaming
             if (delRe == null) return;
             foreach (var item in delRe)
             {
-              db.Replies.Remove(item);  
-            };            
+                db.Replies.Remove(item);
+            };
             var delArt = db.Articles
                 .Where(a => a.SubBlog.Blog.Title == this.txbBlog.Text && a.SubBlog.Blog.SubTag.Name == this.cbmBlog.Text)
                 .Select(a => a);
             if (delArt == null) return;
-            foreach (var item in delArt) 
+            foreach (var item in delArt)
             {
                 db.Articles.Remove(item);
             }
-            var delSubBlog=db.SubBlogs
-                .Where(s=>s.Blog.Title == this.txbBlog.Text&&s.Blog.SubTag.Name == this.cbmBlog.Text)
+            var delSubBlog = db.SubBlogs
+                .Where(s => s.Blog.Title == this.txbBlog.Text && s.Blog.SubTag.Name == this.cbmBlog.Text)
                 .Select(s => s);
             if (delSubBlog == null) return;
             foreach (var item in delSubBlog)
             {
                 db.SubBlogs.Remove(item);
-            }            
+            }
             var delBlog = db.Blogs.AsEnumerable()
                 .Where(b => b.Title == this.txbBlog.Text)
                 .Select(b => b).FirstOrDefault();
-            if (delBlog == null) return;           
+            if (delBlog == null) return;
             db.Blogs.Remove(delBlog);
             db.SaveChanges();
             dataGridView1.DataSource = null;
+            ALLClear();
+            LoadBlog();
         }
 
-        private void LoadArticle(string Name)
+      
+        private void menuSubblog_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
             var q = db.Articles.AsEnumerable()
-                .Where(a => a.SubBlog.Title == Name)
+                .Where(a => a.SubBlog.Title ==e.ClickedItem.Text&&a.SubBlog.Blog.Title==selectblog && a.SubBlog.Blog.SubTag.Name == selectblogLast)
                 .Select(s => new
                 {
                     文章編號 = s.ArticleID,
                     標題 = s.Title,
                     內文預覽 = s.ArticleContent
                 });
+            if (q.Count() == 0)
+            {
+                MessageBox.Show("還未有文章");
+            }
+            else
+            {                
             this.dataGridView2.DataSource = q.ToList();
-            this.txbSubBlog.Text = Name;
-        }
-        private void menuSubblog_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-            LoadArticle(e.ClickedItem.Text);
+            }
+            this.txbSubBlog.Text = e.ClickedItem.Text;
         }
 
-
+        
         private void btnSubBlogInsert_Click(object sender, EventArgs e)
         {
             var q = db.Blogs.AsEnumerable()
@@ -359,53 +456,79 @@ namespace DBGaming
             var q2 = db.SubBlogs.AsEnumerable()
                 .Where(s => s.Blog.Title == this.cbmBlogselect.Text)
                 .Select(s => s.Title);
-            if (q2.Contains(this.txbSubBlog.Text))
+            if (txbSubBlog.Text != "")
             {
-                MessageBox.Show("已有此版子分類");
+                if (q2.Contains(this.txbSubBlog.Text))
+                {
+                    MessageBox.Show("已有此版子分類");
+                }
+                else
+                {
+
+                    SubBlog subBlog = new SubBlog()
+                    {
+                        BlogID = q,
+                        Title = this.txbSubBlog.Text,
+                    };
+                    db.SubBlogs.Add(subBlog);
+                    db.SaveChanges();
+                }
             }
             else
             {
-
-                SubBlog subBlog = new SubBlog()
-                {
-                    BlogID = q,
-                    Title = this.txbSubBlog.Text,
-                };
-                db.SubBlogs.Add(subBlog);
-                db.SaveChanges();
-
+                MessageBox.Show("必須輸入名稱");
             }
+
+            LoadBlog();
+            SubAllClear();
+
+
         }
 
         private void btnSubUpdate_Click(object sender, EventArgs e)
         {
+            this.menuSubblog.Items.Clear();
             var updateSubBlog = db.SubBlogs.AsEnumerable()
                 .Where(s => s.Title == this.txbSubBlog.Text)
                 .Select(s => s).FirstOrDefault();
 
-            var compare=db.SubBlogs.AsEnumerable()
-                .Where(s => s.Blog.Title==this.cbmBlogselect.Text)
+            var compare = db.SubBlogs.AsEnumerable()
+                .Where(s => s.Blog.Title == this.cbmBlogselect.Text)
                 .Select(s => s.Title);
-            if (compare.Contains(this.txbSubBlog.Text))
+            if (txbSubBlogNew.Text != "")
             {
-            updateSubBlog.Title = this.txbSubBlogNew.Text;
-            this.db.SaveChanges();
+                if (compare.Contains(this.txbSubBlog.Text))
+                {
+                    if (compare.Contains(this.txbSubBlogNew.Text))
+                    {
+                        MessageBox.Show("重複名稱");
+                    }
+                    else
+                    {
+
+                        updateSubBlog.Title = this.txbSubBlogNew.Text;
+                    }
+                    this.db.SaveChanges();
+                }
+                else
+                {
+                    MessageBox.Show("沒有此版的子分類");
+                }
             }
             else
             {
-                MessageBox.Show("沒有此版的子分類");
+                MessageBox.Show("必須輸入名稱");
             }
 
-
-
-
+            SubAllClear();
+            LoadBlog();
         }
 
         private void btnSubDelete_Click(object sender, EventArgs e)
         {
 
             var delRe = db.Replies.AsEnumerable()
-                .Where(x => x.Article.SubBlog.Title == this.txbSubBlog.Text&&x.Article.SubBlog.Blog.Title==this.cbmBlogselect.Text)
+                .Where(x => x.Article.SubBlog.Title == this.txbSubBlog.Text && x.Article.SubBlog.Blog.Title == this.cbmBlogselect.Text)
                 .Select(x => x);
             if (delRe == null) return;
             foreach (var x in delRe)
@@ -432,13 +555,16 @@ namespace DBGaming
             db.SaveChanges();
             this.dataGridView2.DataSource = null;
             MessageBox.Show("Successful");
+            SubAllClear();
+            LoadBlog();
         }
 
         private void btnArticleInsert_Click(object sender, EventArgs e)
         {
             NewART aRT = new NewART();
             aRT.ShowDialog();
-
+            SubAllClear();
+            LoadBlog();
         }
 
         private void dataGridView2_CellClick(object sender, DataGridViewCellEventArgs e)

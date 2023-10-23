@@ -25,7 +25,7 @@ namespace Shopping
         public string PaymentName { get; set; }
         public int ShipID { get; set; }
         public string ShipMethod { get; set; }
-        public int Zipcode { get; set; }
+        public int? Zipcode { get; set; }
 
         public string ShipAddress { get; set; }
         public string Note { get; set; }

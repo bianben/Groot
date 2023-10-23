@@ -156,9 +156,9 @@ namespace Gaming_Forum
 
         private void button3_Click(object sender, EventArgs e)
         {
-            this.textBox1.Text = "趴趴趴趴";
+            this.textBox1.Text = "虎斑貓小趴";
             this.textBox2.Text = "123123@gmail.com";
-            this.textBox5.Text = "as12345678";
+            this.textBox5.Text = "asas12345678";
             this.textBox4.Text = "0912345667";
             DateTime dateTime = new DateTime(2023, 10, 18);
             this.dateTimePicker1.Value = dateTime;

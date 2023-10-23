@@ -138,7 +138,6 @@ namespace DB_GamingForm_Show
 
         private void LoadData()
         {
-            page = 0;
             this.button1.Enabled = true;
             this.bindingSource1.Clear();
             var data = from n in this.entities.Job_Opportunities.AsEnumerable()
@@ -460,6 +459,7 @@ namespace DB_GamingForm_Show
         private void ListLoad(int sourcecount)
         {
             count += 1;
+            page = 0;
             list.Clear();
             for (int i = 0; i < sourcecount; i++)
             {
@@ -577,7 +577,7 @@ namespace DB_GamingForm_Show
             {
                 page = 0;
                 this.bindingSource1.Clear();
-                this.bindingSource1.DataSource = list.ToList().Skip((page - 1) * pagecount).Take(pagecount);
+                this.bindingSource1.DataSource = list.ToList().Skip(page  * pagecount).Take(pagecount);
                 this.dataGridView1.DataSource = this.bindingSource1;
                 this.button3.Enabled = false;
                 this.label12.Text = $"已是第一頁";
@@ -600,10 +600,11 @@ namespace DB_GamingForm_Show
             page += 1;
             if (page * pagecount > list.Count)
             {
-                
-                //this.bindingSource1.Clear();
-                //this.bindingSource1.DataSource = list.ToList().Skip((page - 1) * pagecount).Take(pagecount);
-                //this.dataGridView1.DataSource = this.bindingSource1;
+
+                page -= 1;
+                this.bindingSource1.Clear();
+                this.bindingSource1.DataSource = list.ToList().Skip(page * pagecount).Take(pagecount);
+                this.dataGridView1.DataSource = this.bindingSource1;
                 this.label12.Text = $"已是最後一頁";
                 this.button1.Enabled = false;
                 

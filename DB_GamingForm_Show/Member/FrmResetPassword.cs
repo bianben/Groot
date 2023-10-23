@@ -124,7 +124,7 @@ namespace Gaming_Forum
                         firm = (Firm)(from f in db.Firms
                                       where f.FirmID == ClassUtility.FirmID
                                       select f).FirstOrDefault();
-                        firm.Password = ClassUtility.HashPassword(this.textBox3.Text);
+                        firm.Password = ClassUtility.HashPassword(this.textBox5.Text);
                         db.Firms.AddOrUpdate(firm);
                         db.SaveChanges();
                         MessageBox.Show("密碼修改成功");

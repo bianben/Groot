@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DB_GamingForm_Show;
+//using DB_GamingForm_Show.Member;
 using Groot;
 using Shopping;
 
@@ -61,8 +62,9 @@ namespace Gaming_Forum
 
             var user = from u in this.db.Articles.AsEnumerable()
                        where u.MemberID == Member_Firm.ClassUtility.MemberID
-                       select new {發表板塊 = u.SubBlog.Title, 文章標題 = u.Title, 發表時間 = u.ModifiedDate.Date};
+                       select new { 發表板塊 = u.SubBlog.Title, 文章編號 = u.ArticleID, 文章標題 = u.Title, 發表時間 = u.ModifiedDate.Date };
             this.dataGridView1.DataSource = user.ToList();
+            this.dataGridView1.Columns["文章編號"].Visible = false;
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -74,8 +76,9 @@ namespace Gaming_Forum
 
             var user = from u in this.db.Replies.AsEnumerable()
                        where u.MemberID == Member_Firm.ClassUtility.MemberID
-                       select new { 回覆文章 = u.Article.Title, 回覆時間 = u.ModifiedDate };
+                       select new { 回覆文章 = u.Article.Title, 回覆內容 = u.ReplyContents, 回覆時間 = u.ModifiedDate, 回覆編號 = u.ReplyID };
             this.dataGridView1.DataSource = user.ToList();
+            this.dataGridView1.Columns["回覆編號"].Visible = false;
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -88,6 +91,17 @@ namespace Gaming_Forum
         {
             FrmMakeResume f = new FrmMakeResume();
             f.Show();
+        }
+
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var q = from a in this.db.Articles.AsEnumerable()
+                    where a.ArticleID == (int)this.dataGridView1.CurrentRow.Cells["文章編號"].Value
+                    select new {文章標題 = a.Title, 文章內容 = a.ArticleContent };
+            ShowArticle aa = new ShowArticle();
+            aa.textBox1.Text = q.FirstOrDefault().文章標題;
+            aa.textBox2.Text = q.FirstOrDefault().文章內容;
+            aa.Show();
         }
     }
 }

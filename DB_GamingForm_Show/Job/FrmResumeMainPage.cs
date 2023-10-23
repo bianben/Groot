@@ -32,7 +32,7 @@ namespace DB_GamingForm_Show
         public bool flag = true;
         public int count = 1;
         public int sourcecount = 0;
-        public int page = 1;
+        public int page = 0;
         public int pagecount = 25;
         List<ResumeResult> list = new List<ResumeResult>();
         public class ResumeResult
@@ -108,6 +108,7 @@ namespace DB_GamingForm_Show
 
         private void LoadData()
         {
+            this.button1.Enabled = true;
             this.bindingSource1.Clear();
             var data = from n in this.entities.Resumes.AsEnumerable()
                        select new
@@ -360,10 +361,8 @@ namespace DB_GamingForm_Show
         {
             count += 1;
             list.Clear();
-
-
-
-            for (int i = 0; i < this.dataGridView1.RowCount; i++)
+            page = 0;
+            for (int i = 0; i < sourcecount; i++)
             {
                 list.Add(new ResumeResult
                 {
@@ -377,19 +376,29 @@ namespace DB_GamingForm_Show
 
                 });
             }
-
+            this.bindingSource1.Clear();
+            this.bindingSource1.DataSource = list.ToList();
+            this.dataGridView1.DataSource = this.bindingSource1;
             if (list.Count == 0 && count != 1)
             {
                 MessageBox.Show("No Match");
                 Clear();
                 LoadData();
 
-
             }
-            this.bindingSource1.Clear();
-            this.bindingSource1.DataSource = list.ToList();
-            this.dataGridView1.DataSource = this.bindingSource1;
-            this.label12.Text = $"{page * pagecount} /{list.Count}筆";
+            else if (list.Count <= pagecount)
+            {
+                this.label12.Text = $"{list.Count} /{list.Count}筆";
+                this.button1.Enabled = false;
+                this.button8.Enabled = false;
+            }
+            else
+            {
+                this.label12.Text = $"{list.Count} /{list.Count}筆";
+                this.button1.Enabled = false;
+                this.button8.Enabled = true;
+            }
+            
 
         }
 
@@ -409,13 +418,15 @@ namespace DB_GamingForm_Show
         private void button1_Click(object sender, EventArgs e)
         {
             page -= 1;
-            if (page <= 1)
+            if (page < 0)
             {
-                page = 1;
+                page = 0;
                 this.bindingSource1.Clear();
-                this.bindingSource1.DataSource = list.ToList().Skip((page - 1) * pagecount).Take(pagecount);
+                this.bindingSource1.DataSource = list.ToList().Skip(page  * pagecount).Take(pagecount);
                 this.dataGridView1.DataSource = this.bindingSource1;
-                this.button8.Enabled = false;
+                this.label12.Text = $"已是第一頁";
+                this.button1.Enabled = false;
+                
 
 
             }
@@ -424,11 +435,11 @@ namespace DB_GamingForm_Show
                 this.bindingSource1.Clear();
                 this.bindingSource1.DataSource = list.ToList().Skip(page * pagecount).Take(pagecount);
                 this.dataGridView1.DataSource = this.bindingSource1;
-                this.button1.Enabled = true;
-
+                this.button8.Enabled = true;
+                this.label12.Text = $"{page * pagecount} /{list.Count}筆";
 
             }
-            this.label12.Text = $"{page * pagecount} /{list.Count}筆";
+            
         }
 
         private void button6_Click(object sender, EventArgs e)
@@ -447,22 +458,22 @@ namespace DB_GamingForm_Show
             if (page * pagecount >= list.Count)
             {
                 page -= 1;
-                //this.bindingSource1.Clear();
-                //this.bindingSource1.DataSource = list.ToList().Skip((page - 1) * pagecount).Take(pagecount);
-                //this.dataGridView1.DataSource = this.bindingSource1;
-                this.button1.Enabled = false;
+                this.bindingSource1.Clear();
+                this.bindingSource1.DataSource = list.ToList().Skip(page * pagecount).Take(pagecount);
+                this.dataGridView1.DataSource = this.bindingSource1;
+                this.label12.Text = $"已是最後一頁";
+                this.button8.Enabled = false;
 
             }
             else
             {
                 this.button1.Enabled = true;
                 this.bindingSource1.Clear();
-                this.bindingSource1.DataSource = list.ToList().Skip(page * pagecount).Take(pagecount);
+                this.bindingSource1.DataSource = list.ToList().Skip((page-1) * pagecount).Take(pagecount);
                 this.dataGridView1.DataSource = this.bindingSource1;
-
+                this.label12.Text = $"{page * pagecount} /{list.Count}筆";
 
             }
-            this.label12.Text = $"{page * pagecount} /{list.Count}筆";
         }
 
         #region 再研究

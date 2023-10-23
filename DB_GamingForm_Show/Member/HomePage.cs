@@ -156,17 +156,17 @@ namespace Gaming_Forum
         {
             //===================================商城入口
             FrmPurchase p = new FrmPurchase();
-            p.Show();
+            
             if (ClassUtility.FirmID == 0 && ClassUtility.MemberID == 0)
             {
                 MessageBox.Show("請先登入會員");
             }
             else
             {
-                MessageBox.Show("正在帶您前往頁面");
-                
+                //MessageBox.Show("正在帶您前往頁面");
+                p.Show();
             }
-
+            
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -235,13 +235,13 @@ namespace Gaming_Forum
         private void button11_Click(object sender, EventArgs e)
         {
             this.textBox1.Text = "123123@gmail.com";
-            this.textBox2.Text = "as12345678";
+            this.textBox2.Text = "asas12345678";
         }
 
         private void button12_Click(object sender, EventArgs e)
         {
-            this.textBox1.Text = "test@gmail.com";
-            this.textBox2.Text = "As1234";
+            this.textBox1.Text = "ben@gmail.com";
+            this.textBox2.Text = "As123456";
         }
     }
 }
