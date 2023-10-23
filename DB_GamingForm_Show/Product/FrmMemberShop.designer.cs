@@ -35,6 +35,7 @@
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.button6 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
@@ -45,7 +46,9 @@
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.button2 = new System.Windows.Forms.Button();
             this.dataGridView5 = new System.Windows.Forms.DataGridView();
-            this.button6 = new System.Windows.Forms.Button();
+            this.button7 = new System.Windows.Forms.Button();
+            this.button8 = new System.Windows.Forms.Button();
+            this.button9 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -74,6 +77,8 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.button8);
+            this.tabPage1.Controls.Add(this.button7);
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Controls.Add(this.pictureBox1);
             this.tabPage1.Controls.Add(this.dataGridView2);
@@ -138,6 +143,17 @@
             this.tabPage2.Text = "商品管理";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // button6
+            // 
+            this.button6.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.button6.Location = new System.Drawing.Point(168, 356);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(133, 38);
+            this.button6.TabIndex = 4;
+            this.button6.Text = "上架商品";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
             // button5
             // 
             this.button5.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
@@ -145,7 +161,7 @@
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(133, 38);
             this.button5.TabIndex = 3;
-            this.button5.Text = "刪除商品";
+            this.button5.Text = "商品狀態";
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
@@ -182,6 +198,7 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.button9);
             this.tabPage3.Controls.Add(this.button1);
             this.tabPage3.Controls.Add(this.dataGridView4);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
@@ -225,7 +242,7 @@
             // 
             this.button2.Location = new System.Drawing.Point(362, 39);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.Size = new System.Drawing.Size(93, 24);
             this.button2.TabIndex = 1;
             this.button2.Text = "移除願望清單";
             this.button2.UseVisualStyleBackColor = true;
@@ -240,16 +257,36 @@
             this.dataGridView5.Size = new System.Drawing.Size(308, 314);
             this.dataGridView5.TabIndex = 0;
             // 
-            // button6
+            // button7
             // 
-            this.button6.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.button6.Location = new System.Drawing.Point(188, 356);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(133, 38);
-            this.button6.TabIndex = 4;
-            this.button6.Text = "上架商品";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
+            this.button7.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.button7.Location = new System.Drawing.Point(604, 326);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(99, 38);
+            this.button7.TabIndex = 4;
+            this.button7.Text = "重新整理";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // button8
+            // 
+            this.button8.Location = new System.Drawing.Point(604, 292);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(99, 28);
+            this.button8.TabIndex = 5;
+            this.button8.Text = "訂單進度調整";
+            this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
+            // 
+            // button9
+            // 
+            this.button9.Location = new System.Drawing.Point(138, 344);
+            this.button9.Name = "button9";
+            this.button9.Size = new System.Drawing.Size(99, 28);
+            this.button9.TabIndex = 2;
+            this.button9.Text = "取消訂單";
+            this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.button9_Click);
             // 
             // FrmMemberShop
             // 
@@ -295,5 +332,8 @@
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.Button button9;
     }
 }

@@ -47,10 +47,10 @@
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(40, 326);
+            this.dataGridView1.Location = new System.Drawing.Point(40, 298);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(726, 145);
+            this.dataGridView1.Size = new System.Drawing.Size(726, 187);
             this.dataGridView1.TabIndex = 2;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
@@ -67,10 +67,10 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(40, 505);
+            this.textBox1.Location = new System.Drawing.Point(40, 529);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(609, 149);
+            this.textBox1.Size = new System.Drawing.Size(609, 125);
             this.textBox1.TabIndex = 4;
             // 
             // label1
@@ -102,6 +102,7 @@
             // 
             // textBox2
             // 
+            this.textBox2.BackColor = System.Drawing.Color.White;
             this.textBox2.Location = new System.Drawing.Point(102, 32);
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
@@ -110,10 +111,11 @@
             // 
             // textBox3
             // 
+            this.textBox3.BackColor = System.Drawing.Color.White;
             this.textBox3.Location = new System.Drawing.Point(40, 101);
             this.textBox3.Multiline = true;
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(731, 182);
+            this.textBox3.Size = new System.Drawing.Size(731, 156);
             this.textBox3.TabIndex = 9;
             // 
             // button2
@@ -138,7 +140,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(669, 505);
+            this.button4.Location = new System.Drawing.Point(669, 529);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(97, 34);
             this.button4.TabIndex = 12;
@@ -148,7 +150,7 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(669, 562);
+            this.button5.Location = new System.Drawing.Point(669, 574);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(97, 34);
             this.button5.TabIndex = 13;
@@ -159,7 +161,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(38, 299);
+            this.label4.Location = new System.Drawing.Point(38, 271);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(41, 12);
             this.label4.TabIndex = 14;

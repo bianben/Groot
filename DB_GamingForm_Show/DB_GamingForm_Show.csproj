@@ -224,6 +224,12 @@
     <Compile Include="Member\ResetPassword.designer.cs">
       <DependentUpon>ResetPassword.cs</DependentUpon>
     </Compile>
+    <Compile Include="Member\ShowArticle.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Member\ShowArticle.designer.cs">
+      <DependentUpon>ShowArticle.cs</DependentUpon>
+    </Compile>
     <Compile Include="Order.cs">
       <DependentUpon>GMModel.tt</DependentUpon>
     </Compile>
@@ -391,6 +397,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Member\ResetPassword.resx">
       <DependentUpon>ResetPassword.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Member\ShowArticle.resx">
+      <DependentUpon>ShowArticle.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Product\AddProduct.resx">
       <DependentUpon>AddProduct.cs</DependentUpon>

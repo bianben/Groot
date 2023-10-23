@@ -44,6 +44,7 @@ namespace WindowsFormsApp1
             InSelectID = SelectProID;
             InMemberID=MemberID;
             MemberFirm();
+            button2.Enabled = false;
         }
         //存傳進來的值
         int InSelectID;
@@ -113,6 +114,36 @@ namespace WindowsFormsApp1
             this.db.SaveChanges();
 
             this.RefreshData();
+        }
+
+        private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
+        {
+
+        }
+
+        private void 修改ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            dataGridView1.Enabled = false;
+            button2.Enabled = true;
+            textBox1.Text = "請輸入欲修改內容";
+            var DelContent = (from p in this.db.ProductEvaluates.AsEnumerable()
+                              where p.ID == (int)dataGridView1.CurrentRow.Cells["發文編號"].Value
+                              select p).FirstOrDefault();
+
+            if (DelContent == null) return;
+
+            this.button2.Click += (object sender1, EventArgs e1) =>
+            {
+
+                DelContent.EvaContent = textBox1.Text;
+                this.db.SaveChanges();
+                this.RefreshData();
+                button2.Enabled = false;
+                textBox1.Text = "";
+                dataGridView1.Enabled = true;
+            };
+
+
         }
     }
 }

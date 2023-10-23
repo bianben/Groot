@@ -298,6 +298,7 @@ namespace Shopping
         {
             this.textBox2.Text = "106";
             this.textBox5.Text = "臺北市大安區";
+            this.textBox3.Text = "和平東路二段106號";
         }
     }
 }

@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using DB_GamingForm_Show;
 using Gaming_Forum;
+using System.Diagnostics.Eventing.Reader;
 
 namespace WindowsFormsApp1
 {
@@ -24,6 +25,7 @@ namespace WindowsFormsApp1
         {
 
             InitializeComponent();
+
 
             textBox2.Text = title;
             textBox3.Text = articleContent;
@@ -70,13 +72,6 @@ namespace WindowsFormsApp1
                 textBox2.Enabled = true;
                 textBox3.Enabled = true;
 
-                //sub.Title = "該文章已刪除";
-                //sub.ArticleContent = "該文章已刪除";
-                ////db.Articles.Remove(sub);
-                //db.SaveChanges();
-
-                //MessageBox.Show("刪文成功");
-                //this.Close();
             }
 
 
@@ -90,6 +85,25 @@ namespace WindowsFormsApp1
                 this.textBox1.Enabled = false;
             }
 
+            //--------------------------------
+            if (dataGridView1.RowCount == 0)
+            {
+                this.button4.Enabled = false;
+                this.button5.Enabled = false;
+            }
+            //--------------------------------
+
+            var su = db.Articles
+            .Where(s => s.ArticleID == ClassUtility.aid)
+            .Select(s => s).FirstOrDefault();
+
+
+            if (sub.MemberID != ClassUtility.MemberID)
+            {
+                button2.Enabled = false;
+                button3.Enabled = false;
+
+            }
 
 
 
@@ -157,6 +171,7 @@ namespace WindowsFormsApp1
 
         private void button3_Click(object sender, EventArgs e)
         {
+            db =new DB_GamingFormEntities();
             var sub = db.Articles
              .Where(s => s.ArticleID == ClassUtility.aid)
              .Select(s => s).FirstOrDefault();
@@ -167,12 +182,14 @@ namespace WindowsFormsApp1
                 sub.Title = textBox2.Text;
                 sub.ArticleContent = textBox3.Text;
                 //db.Articles.Remove(sub);
-                db.SaveChanges();
+                
 
                 MessageBox.Show("修改成功");
                 Art_Reply art = new Art_Reply(textBox2.Text, textBox3.Text, ClassUtility.aid);
+                db.SaveChanges();
                 art.Show();
                 Close();
+
                 //string title, string articleContent, int aid
             }
             else
@@ -180,11 +197,11 @@ namespace WindowsFormsApp1
                 MessageBox.Show("修改失敗，不是你的文章");
                 return;
             }
+            
         }
         int reID;
         private void button4_Click(object sender, EventArgs e)
         {
-            
 
             var r = (from a in db.Replies
                     where a.ReplyID == reID
@@ -205,19 +222,31 @@ namespace WindowsFormsApp1
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
 
-
+            db = new DB_GamingFormEntities();
             //// 獲取選取數據
-            string Content = dataGridView1.Rows[e.RowIndex].Cells["內容"].Value.ToString();
-            //string selectedContent = dataGridView2.Rows[e.RowIndex].Cells["內文預覽"].Value.ToString();
-            //int articleID = (int)dataGridView2.Rows[e.RowIndex].Cells["文章編號"].Value;
-            reID= (int)dataGridView1.Rows[e.RowIndex].Cells["回文"].Value;
+            ///
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+            {
 
-            ////int memberID = Class1.memberid2;
+                string Content = dataGridView1.Rows[e.RowIndex].Cells["內容"].Value.ToString();
+                int m = (int)dataGridView1.Rows[e.RowIndex].Cells["會員編號"].Value;
+                reID = (int)dataGridView1.Rows[e.RowIndex].Cells["回文"].Value;
 
-            //ClassUtility.aid = articleID;
+                if (ClassUtility.MemberID != m)
+                {
+                    this.button4.Enabled = false;
+                    this.button5.Enabled = false;
+                }
+                else
+                {
+                    this.button4.Enabled = true;
+                    this.button5.Enabled = true;
 
-            this.textBox1.Text = Content;
+                    this.textBox1.Text = Content;
+                }
 
+
+            }
 
         }
 

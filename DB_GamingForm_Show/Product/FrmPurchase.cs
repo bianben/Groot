@@ -166,7 +166,7 @@ namespace Shopping
             string searchProduct=comboBox1.Text;
             //選標籤後更新商城內容
             var StringTName = from p in this.db.ProductTags.AsEnumerable()
-                              where  p.SubTag.Name.Contains($"{searchProduct}")
+                              where  p.SubTag.Name.Contains($"{searchProduct}")&&p.Product.StatusID ==1
                               orderby p.ProductID
                               select new { 商品ID = p.ProductID, 商品名 = p.Product.ProductName, Picture = p.Product.Image.Image1, 售價 = p.Product.Price, /*標籤 = p.SubTag.Name*/ };
 

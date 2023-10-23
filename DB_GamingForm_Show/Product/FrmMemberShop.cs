@@ -16,6 +16,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using DB_GamingForm_Show;
 using Gaming_Forum;
 using 其中專題;
+using System.Reflection.Emit;
 
 namespace Shopping
 {
@@ -43,7 +44,6 @@ namespace Shopping
         {
             InitializeComponent();
             this.tabControl1.SelectedIndex = 0;
-            this.button5.Visible = false;
             MemberFirm();
             LoadData();
 
@@ -160,14 +160,14 @@ namespace Shopping
                 //商品管理
                 var q2 = from x in db.Products.AsEnumerable()
                          where x.MemberID == ID
-                         select new { x.Status.Name, x.ProductID, x.ProductName, x.Price, x.UnitStock };
+                         select new { StatusName=x.Status.Name, x.ProductID, x.ProductName, x.Price, x.UnitStock };
                 int quan = 0;
                 List<COrderProduct> products = new List<COrderProduct>();
                 db = new DB_GamingFormEntities();
                 foreach (var w in q2)
                 {
                     var qq = from x in db.OrderProducts.AsEnumerable()
-                             where x.ProductID == w.ProductID
+                             where x.ProductID == w.ProductID && x.Order.StatusID != 17
                              select new { x.Quantinty };
                     foreach (var w2 in qq)
                     {
@@ -175,6 +175,7 @@ namespace Shopping
                     }
                     products.Add(new COrderProduct
                     {
+                        StatusName = w.StatusName,
                         ProductID = w.ProductID,
                         ProductName = w.ProductName,
                         UnitPrice = w.Price,
@@ -205,6 +206,7 @@ namespace Shopping
                                  x.Order.ShippingDate,
                                  Payment = x.Order.Payment.Name,
                                  ShipMethod = x.Order.ShipMethod.Name,
+                                 Zipcode = x.Order.Zipcode,
                                  x.Order.ShipAddress,
                                  x.Order.Note,
                                  Status = x.Order.Status.Name,
@@ -225,6 +227,7 @@ namespace Shopping
                             ShippingDate = w2.ShippingDate,
                             PaymentName = w2.Payment,
                             ShipMethod = w2.ShipMethod,
+                            Zipcode = w2.Zipcode,
                             ShipAddress = w2.ShipAddress,
                             Note = w2.Note
                         });
@@ -328,104 +331,31 @@ namespace Shopping
 
         private void button4_Click(object sender, EventArgs e)
         {
-            if (IsFirm)
-            {
-                var q2 = from x in db.Products.AsEnumerable()
-                         where x.FirmID == ID
-                         select new { x.Status.Name, x.ProductID, x.ProductName, x.Price, x.UnitStock };
-                int quan = 0;
-                List<COrderProduct> products = new List<COrderProduct>();
-                foreach (var w in q2)
-                {
-                    var qq = from x in db.OrderProducts.AsEnumerable()
-                             where x.ProductID == w.ProductID
-                             select new { x.Quantinty };
-                    foreach (var w2 in qq)
-                    {
-                        quan += w2.Quantinty;
-                    }
-                    products.Add(new COrderProduct
-                    {
-                        ProductID = w.ProductID,
-                        ProductName = w.ProductName,
-                        UnitPrice = w.Price,
-                        Quantinty = quan,
-                        UnitStock = w.UnitStock,
-                        Discount = 1
-                    });
-                }
-                this.dataGridView3.DataSource = products;
-            }
-            else
-            { var q2 = from x in db.Products.AsEnumerable()
-                     where x.MemberID == ID
-                     select new { x.Status.Name, x.ProductID, x.ProductName, x.Price, x.UnitStock };
-            int quan = 0;
-            List<COrderProduct> products = new List<COrderProduct>();
-            foreach (var w in q2)
-            {
-                var qq = from x in db.OrderProducts.AsEnumerable()
-                         where x.ProductID == w.ProductID
-                         select new { x.Quantinty };
-                foreach (var w2 in qq)
-                {
-                    quan += w2.Quantinty;
-                }
-                products.Add(new COrderProduct
-                {
-                    ProductID = w.ProductID,
-                    ProductName = w.ProductName,
-                    UnitPrice = w.Price,
-                    Quantinty = quan,
-                    UnitStock = w.UnitStock,
-                    Discount = 1
-                });
-            }
-            this.dataGridView3.DataSource = products; 
-            }
+            LoadData();
            
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
-            //int productid = (int)this.dataGridView3.CurrentRow.Cells[0].Value;
-            //if (IsFirm)
-            //{
-            //    try
-            //    {
-            //        var product = (from w in db.Products
-            //                        where w.ProductID == productid && w.FirmID == ID
-            //                        select w).First();
-            //        //var producttag = db.ProductTags.Include(x=>x.ProductID == productid)
-            //        if (product == null) return;
-            //        db.Products.Remove(product);
-            //        db.SaveChanges();
-            //        MessageBox.Show("已移除商品");
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        MessageBox.Show(ex.ToString());
-            //    }
-            //    LoadData();
-            //}
-            //else
-            //{
-            //    try
-            //    {
-            //        var product = (from w in db.Products
-            //                       where w.ProductID == productid && w.MemberID == ID
-            //                       select w).First();
-            //        if (product == null) return;
-            //        db.Products.Remove(product);
-            //        db.SaveChanges();
-            //        MessageBox.Show("已移除商品");
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        MessageBox.Show(ex.ToString());
-            //    }
-            //    LoadData();
-            //}
+            int productid = (int)this.dataGridView3.CurrentRow.Cells["ProductID"].Value;
+            Product status = db.Products.First(x => x.ProductID == productid);
+            try 
+            {  if (status.StatusID == 1)
+            {
+                status.StatusID = 2;
+                db.SaveChanges();
+                MessageBox.Show("此商品停售");
+            }
+            else if (status.StatusID == 2)
+            {
+                status.StatusID = 1;
+                db.SaveChanges();
+                MessageBox.Show("此商品開始販售");
+            }}
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
            
         }
 
@@ -433,6 +363,66 @@ namespace Shopping
         {
             AddProduct a = new AddProduct();
             a.Show();
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            int OrderID = (int)this.dataGridView1.CurrentRow.Cells["OrderID"].Value;
+            Order status = db.Orders.First(x => x.OrderID == OrderID);
+            if (status.StatusID < 13)
+            {
+                status.StatusID = 13;
+            }
+            else if (status.StatusID == 13)
+            {
+                status.StatusID++;
+                status.PaymentDate = DateTime.Now;
+                db.SaveChanges();
+            }
+            else if (status.StatusID == 14)
+            {
+                MessageBox.Show("請靜待賣家出貨");
+            }
+            else if (status.StatusID == 15)
+            {
+                status.StatusID++;
+                status.CompletedDate = DateTime.Now;
+                db.SaveChanges();
+                MessageBox.Show("訂單完成");
+            }
+            else if (status.StatusID == 16)
+            {
+                MessageBox.Show("訂單已完成");
+            }
+            LoadData();
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            int OrderID = (int)this.dataGridView4.CurrentRow.Cells["OrderID"].Value;
+            Order status = db.Orders.First(x => x.OrderID == OrderID);
+            try
+            {
+                if (status.StatusID != 17)
+                {
+                    var product = status.OrderProducts.Where(x=>x.OrderID== OrderID).Select(x => new { x.ProductID,x.Quantinty});
+                    foreach (var n in product)
+                    {
+                        Product product1 = db.Products.First(x => x.ProductID == n.ProductID);
+
+                        product1.UnitStock += n.Quantinty;
+                    }
+                    status.StatusID = 17;
+                    db.SaveChanges();
+                    MessageBox.Show("訂單已取消");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+            
+            LoadData();
         }
     }
 }

@@ -57,15 +57,31 @@ namespace WindowsFormsApp1
         DB_GamingFormEntities db = new DB_GamingFormEntities();
         private void button2_Click(object sender, EventArgs e)
         {
-            var q = this.db.SubBlogs.AsEnumerable().Where(p => p.Title == this.comboBox2.Text)
+            var q = this.db.SubBlogs.AsEnumerable().Where(p => p.Title == this.comboBox2.Text&&p.Blog.Title==this.comboBox1.Text)
                 .Select(p => p.SubBlogID);
-            
+            if (comboBox2.SelectedItem == null)
+            {
+                MessageBox.Show("沒選分類");
+                return;
+            }
+
+            if (textBox1.Text == "")
+            {
+                MessageBox.Show("您尚未輸入標題");
+                return;
+            }
+
+            if (textBox2.Text == "")
+            {
+                MessageBox.Show("您尚未輸入內容");
+                return;
+            }
     
+
             Article article = new Article
             {
                 
-                SubBlogID =q.First(),
-                
+                SubBlogID =q.First(),              
                 Title = textBox1.Text,
                 ArticleContent = textBox2.Text,
                 ModifiedDate = DateTime.Now,
@@ -84,6 +100,7 @@ namespace WindowsFormsApp1
 
             Art_Reply artReplyForm = new Art_Reply(textBox1.Text, textBox2.Text,ClassUtility.aid);
             artReplyForm.Show();
+            this.Close();
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -95,5 +112,7 @@ namespace WindowsFormsApp1
         {
             //LoadCombobox2();
         }
+
+
     }
 }
